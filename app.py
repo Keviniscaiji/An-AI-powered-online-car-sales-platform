@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-app = Flask(__name__, template_folder="templates",static_folder='static')
+app = Flask(__name__, template_folder="templates", static_folder='static')
 app.debug = True
 
 
@@ -10,4 +10,4 @@ def index():  # put application's code here
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug=True)
