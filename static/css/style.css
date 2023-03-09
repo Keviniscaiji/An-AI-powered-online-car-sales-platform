@@ -9570,7 +9570,7 @@ textarea.form-control {
     margin-bottom: 4px;
     font-weight: 400; }
     .block-27 ul li a, .block-27 ul li span {
-      color: #1089ff;
+      color: rgba(97, 219, 251, 1);
       text-align: center;
       display: inline-block;
       width: 40px;
@@ -9579,7 +9579,8 @@ textarea.form-control {
       border-radius: 50%;
       border: 1px solid #e6e6e6; }
     .block-27 ul li.active a, .block-27 ul li.active span {
-      background: #1089ff;
+      background: rgba(97, 219, 251, 1);
+      /*background: #1089ff;*/
       color: #fff;
       border: 1px solid transparent; }
 
