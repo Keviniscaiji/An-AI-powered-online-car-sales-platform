@@ -30,32 +30,32 @@
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Car<span>Book</span></a>
+	      <a class="navbar-brand" href="{{ url_for('index') }}">Car<span>Book</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-	          <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
-	          <li class="nav-item active"><a href="car.html" class="nav-link">Cars</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+	          <li class="nav-item"><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="{{ url_for('about') }}"class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="{{ url_for('services') }}"class="nav-link">Services</a></li>
+	          <li class="nav-item"><a href="{{ url_for('pricing') }}"class="nav-link">Pricing</a></li>
+	          <li class="nav-item active"><a href="{{ url_for('cars') }}"  class="nav-link">Cars</a></li>
+	          <li class="nav-item"><a href="{{ url_for('blog') }}" class="nav-link">Blog</a></li>
+	          <li class="nav-item"><a href="{{ url_for('contact') }}"class="nav-link">Contact</a></li>
 	        </ul>
 	      </div>
 	    </div>
 	  </nav>
     <!-- END nav -->
     
-    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../static/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
           <div class="col-md-9 ftco-animate pb-5">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Car details <i class="ion-ios-arrow-forward"></i></span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="{{ url_for('index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Car details <i class="ion-ios-arrow-forward"></i></span></p>
             <h1 class="mb-3 bread">Car Details</h1>
           </div>
         </div>
@@ -68,7 +68,7 @@
       	<div class="row justify-content-center">
       		<div class="col-md-12">
       			<div class="car-details">
-      				<div class="img rounded" style="background-image: url(images/bg_1.jpg);"></div>
+      				<div class="img rounded" style="background-image: url(../static/images/bg_1.jpg);"></div>
       				<div class="text text-center">
       					<span class="subheading">Cheverolet</span>
       					<h2>Mercedes Grand Sedan</h2>
@@ -214,7 +214,7 @@
 							   		<div class="col-md-7">
 							   			<h3 class="head">23 Reviews</h3>
 							   			<div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+									   		<div class="user-img" style="background-image: url(../static/images/person_1.jpg)"></div>
 									   		<div class="desc">
 									   			<h4>
 									   				<span class="text-left">Jacob Webb</span>
@@ -234,7 +234,7 @@
 									   		</div>
 									   	</div>
 									   	<div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+									   		<div class="user-img" style="background-image: url(../static/images/person_2.jpg)"></div>
 									   		<div class="desc">
 									   			<h4>
 									   				<span class="text-left">Jacob Webb</span>
@@ -254,7 +254,7 @@
 									   		</div>
 									   	</div>
 									   	<div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
+									   		<div class="user-img" style="background-image: url(../static/images/person_3.jpg)"></div>
 									   		<div class="desc">
 									   			<h4>
 									   				<span class="text-left">Jacob Webb</span>
@@ -356,7 +356,7 @@
         <div class="row">
         	<div class="col-md-4">
     				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">
+    					<div class="img rounded d-flex align-items-end" style="background-image: url(../static/images/car-1.jpg);">
     					</div>
     					<div class="text">
     						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
@@ -370,7 +370,7 @@
     			</div>
     			<div class="col-md-4">
     				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-2.jpg);">
+    					<div class="img rounded d-flex align-items-end" style="background-image: url(../static/images/car-2.jpg);">
     					</div>
     					<div class="text">
     						<h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
@@ -384,7 +384,7 @@
     			</div>
     			<div class="col-md-4">
     				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url(images/car-3.jpg);">
+    					<div class="img rounded d-flex align-items-end" style="background-image: url(../static/images/car-3.jpg);">
     					</div>
     					<div class="text">
     						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
