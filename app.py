@@ -8,9 +8,11 @@ app.debug = True
 def index():  # put application's code here
     return render_template('index.html')
 
+
 @app.route('/about')
 def about():  # put application's code here
     return render_template('about.html')
+
 
 @app.route('/cars')
 def cars():
@@ -31,12 +33,6 @@ def blog():
 def blog_single():
     return render_template('blog-single.html')
 
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
-
-
 @app.route('/pricing')
 def pricing():
     return render_template('pricing.html')
@@ -44,6 +40,13 @@ def pricing():
 @app.route('/services')
 def services():
     return render_template('services.html')
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
 
 
 if __name__ == '__main__':
