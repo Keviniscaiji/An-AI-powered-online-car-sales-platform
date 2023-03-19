@@ -19,7 +19,11 @@ class Config:
     FLASKY_MAIL_SENDER = '2052456472@qq.com'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     FLASKY_POST_PER_PAGE = 9
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = False
+
     # Language
     LANGUAGES = ['en', 'zh']
 
@@ -30,6 +34,11 @@ class Config:
     product_direct = os.path.join(basedir, 'app/static/storage', 'products')
     blog_direct = os.path.join(basedir, 'app/static/img', 'blog')
 
+    user = 'root'
+    password = '001029'
+    database = 'flask_db'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@127.0.0.1:3306/%s' % (user, password, database)
+
     @staticmethod
     def init_app(app):
         pass
@@ -38,8 +47,10 @@ class Config:
 # Development Database URL is configured here.
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+    user = 'root'
+    password = '001029'
+    database = 'flask_db'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@127.0.0.1:3306/%s' % (user, password, database)
     # WTF_CSRF_ENABLED = False
     # Handle with browser not updating automatically
     SEND_FILE_MAX_AGE_DEFAULT = timedelta(seconds=2)

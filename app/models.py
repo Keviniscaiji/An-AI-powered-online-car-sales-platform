@@ -100,7 +100,7 @@ class Order(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
-    status = db.Column(db.String, default='Created', index=True)
+    status = db.Column(db.String(16), default='Created', index=True)
     # ship_way. Respectively, 0/1 represents delivery/ pick-up
     ship_way = db.Column(db.String(16), index=True)
     price = db.Column(db.Float, index=True)
@@ -110,7 +110,7 @@ class Order(db.Model):
     # Address comprises country + city + street + detail
     country = db.Column(db.String(32))
     city = db.Column(db.String(32))
-    street = db.Column(db.String)
+    street = db.Column(db.String(64))
     detail = db.Column(db.String(32))
     priority = db.Column(db.Integer, default=0, index=True)
     # foreign keys:
@@ -156,7 +156,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(32))
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
     confirmed = db.Column(db.Boolean, default=False)
-    avatar_path = db.Column(db.String, default='../static/storage/avatars/default_avatar.jpg')
+    avatar_path = db.Column(db.String(256), default='../static/storage/avatars/default_avatar.jpg')
     # foreign keys:
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     # relationship:
