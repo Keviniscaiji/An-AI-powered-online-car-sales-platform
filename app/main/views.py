@@ -1,53 +1,51 @@
-from flask import Flask, render_template
+from datetime import datetime
+from flask import render_template, session, redirect, url_for
+from . import main
+# from .forms import NameForm
+from .. import db
+from ..models import User
 
-app = Flask(__name__, template_folder="templates", static_folder='static')
-app.debug = True
 
-
-@app.route('/')
+@main.route('/')
 def index():  # put application's code here
     return render_template('index.html')
 
 
-@app.route('/about')
+@main.route('/about')
 def about():  # put application's code here
     return render_template('about.html')
 
 
-@app.route('/cars')
+@main.route('/cars')
 def cars():
     return render_template('car.html')
 
 
-@app.route('/car-single')
+@main.route('/car-single')
 def car_single():
     return render_template('car-single.html')
 
 
-@app.route('/blog')
+@main.route('/blog')
 def blog():
     return render_template('blog.html')
 
 
-@app.route('/blog-single')
+@main.route('/blog-single')
 def blog_single():
     return render_template('blog-single.html')
 
-@app.route('/pricing')
+
+@main.route('/pricing')
 def pricing():
     return render_template('pricing.html')
 
-@app.route('/services')
+
+@main.route('/services')
 def services():
     return render_template('services.html')
 
 
-@app.route('/contact')
+@main.route('/contact')
 def contact():
     return render_template('contact.html')
-
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
