@@ -1,8 +1,10 @@
 from flask import current_app, request
 from flask_login import UserMixin
 from datetime import datetime
+
+from sqlalchemy_serializer import Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
-from itsdangerous.jws import TimedJSONWebSignatureSerializer as Serializer
+# from itsdangerous.jws import TimedJSONWebSignatureSerializer as Serializer
 from . import db
 from config import Config
 import os
