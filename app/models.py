@@ -2,7 +2,7 @@ from flask import current_app, request
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous.jws import TimedJSONWebSignatureSerializer as Serializer
 from . import db
 from config import Config
 import os
