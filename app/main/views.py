@@ -49,3 +49,8 @@ def services():
 @main.route('/contact')
 def contact():
     return render_template('contact.html')
+
+
+@main.route('/imageSearch')
+def imageSearch():
+    return render_template('imageSearch.html')
