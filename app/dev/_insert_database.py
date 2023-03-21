@@ -59,7 +59,7 @@ def insert_orders():
                       priority=item["priority"], buyer_id=item["buyer_id"])
         db.session.add(order)
         db.session.commit()
-        order_aim = Order.query.filter_by(buyer_id=item["buyer_id"]).filter_by(timestamp=timestamp).first()
+        order_aim = Order.query.filter_by(buyer_id=item["buyer_id"]).first()
         productOrder_list = ProductOrder.query.filter_by(order_id=order_aim.id).all()
         for po in productOrder_list:
             order_aim.productOrders.append(po)
@@ -132,6 +132,7 @@ def reset():
 
 
 def insert_all():
+    db.session.execute("SET FOREIGN_KEY_CHECKS=0;")
     # Insert Role
     insert_roles()
     # Insert Category

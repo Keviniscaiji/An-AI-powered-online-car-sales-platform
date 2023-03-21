@@ -82,7 +82,7 @@ class Product(db.Model):
 class ProductImagePath(db.Model):
     __tablename__ = 'productImagePaths'
     id = db.Column(db.Integer, primary_key=True)
-    image_path = db.Column(db.String(64), index=True)
+    image_path = db.Column(db.String(512), index=True)
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
 
@@ -155,7 +155,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
-    password_hash = db.Column(db.String(32))
+    password_hash = db.Column(db.String(128))
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
     confirmed = db.Column(db.Boolean, default=False)
     avatar_path = db.Column(db.String(256), default='../static/storage/avatars/default_avatar.jpg')
@@ -262,7 +262,7 @@ class BlogComment(db.Model):
 class BlogImagePath(db.Model):
     __tablename__ = 'blogImagePaths'
     id = db.Column(db.Integer, primary_key=True)
-    image_path = db.Column(db.String(256), index=True)
+    image_path = db.Column(db.String(512), index=True)
     # foreign keys:
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
 

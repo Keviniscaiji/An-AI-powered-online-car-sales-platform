@@ -300,12 +300,12 @@ PRODUCTIMAGEPATHS = [
 DELIVERYINFOS = [
     {"id": 1, "name": "Ren", "gender": 1, "phone_number": 838383, "country": "China", "city": "HongKong",
      "street": "Handsome", "detail": "702", "user_id": 2},
-    {"id": 1, "name": "Geng", "gender": 2, "phone_number": 949494, "country": "Spain", "city": "Madrid",
+    {"id": 2, "name": "Geng", "gender": 2, "phone_number": 949494, "country": "Spain", "city": "Madrid",
      "street": "Han", "detail": "1602", "user_id": 2}
 ]
 
 BLOGS = [
-    {"id": 0, "title": "Guest Book", "content": "None", "author_id": 3},
+    {"id": 11, "title": "Guest Book", "content": "None", "author_id": 3},
     {"id": 1, "title": "Saxophone", "content": "This is a saxophone...", "author_id": 3},
     {"id": 2, "title": "I Hate Drums", "content": "I hate playing drums when I was...", "author_id": 3},
     {"id": 3, "title": "I Love Drums", "content": "I Love drums a lot. Back to...", "author_id": 3},
