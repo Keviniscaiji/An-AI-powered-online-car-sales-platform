@@ -51,15 +51,5 @@ def contact():
     return render_template('contact.html')
 
 
-@main.route('/imageSearch')
-def imageSearch():
-    return render_template('imageSearch.html')
-
-@main.route('/blank')
-def blank():
-    return render_template('blank.html')
 
 
-@main.route('/login')
-def login():
-    return render_template('login.html')
