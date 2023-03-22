@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import config
 
 bootstrap = Bootstrap()
-# mail = Mail()
+mail = Mail()
 # moment = Moment()
 db = SQLAlchemy()
 
