@@ -18,11 +18,11 @@ app = create_app('development')
 
 
 # -------- Remote Server Deployment Configuration -------- #
-# HOST = '127.0.0.1'
-# PORT = 7080
+HOST = '127.0.0.1'
+PORT = 7080
 # -------------------------------------------------------- #
 
 if __name__ == '__main__':
     # app.run(host=HOST, port=PORT, debug=True, ssl_context='adhoc')
-    app.run(debug=True)
+    app.run(host=HOST, port=PORT,debug=True)
 

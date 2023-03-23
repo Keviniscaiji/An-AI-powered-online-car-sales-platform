@@ -4,7 +4,7 @@ from . import imgSearch
 
 @imgSearch.route('/imgSearch/login')
 def imgSearch():
-    return render_template('imgSearch/imgSearch.html')
+    return render_template('imgSearch/img_search.html')
 #
 #
 # @auth.route('/auth/register')
