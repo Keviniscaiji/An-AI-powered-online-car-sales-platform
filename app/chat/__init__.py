@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-imgSearch = Blueprint('imgSearch', __name__)
+chat = Blueprint('chat', __name__)
 
 from . import views

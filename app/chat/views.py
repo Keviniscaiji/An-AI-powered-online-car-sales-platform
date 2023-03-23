@@ -1,10 +1,10 @@
 from flask import render_template, session, redirect, url_for
-from . import imgSearch
+from . import chat
 
 
-@imgSearch.route('/imgSearch/login')
-def imgSearch():
-    return render_template('imgSearch/imgSearch.html')
+@chat.route('/chat/login')
+def chat():
+    return render_template('chat/imgSearch.html')
 #
 #
 # @auth.route('/auth/register')
