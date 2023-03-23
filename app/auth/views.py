@@ -8,21 +8,42 @@ from ..models import User, generate_password_hash
 from ..email_sender import send_email
 from .forms import LoginForm, RegisterForm, ResetPasswordForm, ResetPasswordApplicationForm
 
+# copy paste
+import datetime
+import json
+import random
+import os
+from flask import render_template, redirect, request, url_for, flash
+from flask_login import login_required
+from pyecharts.faker import Faker
+from sqlalchemy import desc
+# from . import admin
+from .. import db, babel
+from config import Config
+from werkzeug.utils import secure_filename
+from ..models import Product, Category, User, ProductImagePath, Order, productCategories, ProductOrder, Pandemic
+from flask_paginate import get_page_parameter, Pagination
+from pyecharts import options as opts
+from pyecharts.charts import Bar, Bar3D, Pie, Map, WordCloud, Line, Polar
+from flask_babel import lazy_gettext as _l
+from random import randrange
+
 
 #     PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
 
 
 # Detect whether user is authenticated and confirmed.
 # If not, direct the user to pertinent page to confirm.
-@auth.before_app_request
-def before_request():
-    if current_user.is_authenticated:
-        current_user.ping()
-        if not current_user.confirmed \
-                and request.endpoint \
-                and request.blueprint != 'auth' \
-                and request.endpoint != 'static':
-            return redirect(url_for('auth.unconfirmed'))
+
+# @auth.before_app_request
+# def before_request():
+#     if current_user.is_authenticated:
+#         current_user.ping()
+#         if not current_user.confirmed \
+#                 and request.endpoint \
+#                 and request.blueprint != 'auth' \
+#                 and request.endpoint != 'static':
+#             return redirect(url_for('auth.unconfirmed'))
 
 
 @auth.route('/unconfirmed')
