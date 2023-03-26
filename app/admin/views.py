@@ -33,20 +33,20 @@ def category():
     return render_template('admin/category.html', categories=categories)
 
 
-@admin.route('/pandemic', methods=['POST', 'GET'])
-@login_required
-def pandemic():
-    pandemics = Pandemic.query.first()
-    is_pandemic = pandemics.is_pandemic
-    if request.method == "POST":
-        pandemics.is_pandemic = not is_pandemic
-        db.session.commit()
-        return redirect(url_for('admin.pandemic'))
-    if is_pandemic:
-        status = _l("Close")
-    else:
-        status = _l("Open")
-    return render_template('admin/pandemic.html', status=status, pandemic=pandemics)
+# @admin.route('/pandemic', methods=['POST', 'GET'])
+# @login_required
+# def pandemic():
+#     pandemics = Pandemic.query.first()
+#     is_pandemic = pandemics.is_pandemic
+#     if request.method == "POST":
+#         pandemics.is_pandemic = not is_pandemic
+#         db.session.commit()
+#         return redirect(url_for('admin.pandemic'))
+#     if is_pandemic:
+#         status = _l("Close")
+#     else:
+#         status = _l("Open")
+#     return render_template('admin/pandemic.html', status=status, pandemic=pandemics)
 
 
 @admin.route('/product')
@@ -320,13 +320,14 @@ def bar_base_polar() -> Polar:
     c = (
         Polar()
             .add_schema(
-            radiusaxis_opts=opts.RadiusAxisOpts(data=name_list, splitline_opts=opts.SplitLineOpts(is_show=True), type_="category"),
+            radiusaxis_opts=opts.RadiusAxisOpts(data=name_list, splitline_opts=opts.SplitLineOpts(is_show=True),
+                                                type_="category"),
             angleaxis_opts=opts.AngleAxisOpts(is_clockwise=True, max_=10),
         )
             .add("A", order_list, type_="bar")
             .set_global_opts(title_opts=opts.TitleOpts(title=""))
             .set_series_opts(label_opts=opts.LabelOpts(is_show=True))
-            # .render("polar_radius.html")
+        # .render("polar_radius.html")
     )
     return c
 
@@ -344,16 +345,15 @@ def bar_base_bar_line() -> Line:
     coordinate.reverse()
     time_line.reverse()
 
-
     c = (
         Line()
-        .add_xaxis(time_line)
-        .add_yaxis("Order", coordinate, is_smooth=True)
-        .set_series_opts(
+            .add_xaxis(time_line)
+            .add_yaxis("Order", coordinate, is_smooth=True)
+            .set_series_opts(
             areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
             label_opts=opts.LabelOpts(is_show=False),
         )
-        .set_global_opts(
+            .set_global_opts(
             title_opts=opts.TitleOpts(title=""),
             xaxis_opts=opts.AxisOpts(
                 axistick_opts=opts.AxisTickOpts(is_align_with_label=True),
@@ -406,8 +406,8 @@ def bar_base_bar_map() -> WordCloud:
 
     c = (
         WordCloud()
-        .add(series_name="Popular Product", data_pair=data, word_size_range=[6, 66])
-        .set_global_opts(
+            .add(series_name="Popular Product", data_pair=data, word_size_range=[6, 66])
+            .set_global_opts(
             title_opts=opts.TitleOpts(
                 title="", title_textstyle_opts=opts.TextStyleOpts(font_size=23)
             ),

@@ -103,7 +103,7 @@ def admin_join_wait(message):
 
 @socketio.on('admin_accept', namespace='/chatroom')
 def admin_accept(message):
-    join_room("chat_channel_"+message['user'])
+    join_room("chat_channel_" + message['user'])
     emit('admin_accept_response', {'room_name': 'waiting', 'user': message['user']}, room='waiting')
 
 
@@ -112,14 +112,14 @@ def admin_request_recover(message):
     username = message['user']
     msg_history = Message.query.filter(
         or_(
-            and_(Message.user_from==username, Message.user_to=="admin"),
-            and_(Message.user_from=="admin", Message.user_to==username)
+            and_(Message.user_from == username, Message.user_to == "admin"),
+            and_(Message.user_from == "admin", Message.user_to == username)
         )).order_by(Message.time).all()
     msg_recovers = {"length": len(msg_history)}
     for i, msg_recover in enumerate(msg_history):
         _msg = msg_recover.msg
         _time = str(msg_recover.time)
-        _time = _time[11:16]+", "+_time[0:10]
+        _time = _time[11:16] + ", " + _time[0:10]
         msg_recovers[str(i)] = {
             "msg": _msg,
             "time": _time,
@@ -133,9 +133,3 @@ def admin_request_recover(message):
 def user_join_wait(message):
     join_room('waiting')
     emit('user_wait_response', {'room_name': "waiting", "user": message["user"]}, room='waiting')
-
-
-
-
-
-

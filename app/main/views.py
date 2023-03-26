@@ -366,7 +366,7 @@ def portfolio():
     img_num = len(img_all)
     # print(img_num)
     for i in range(img_num):
-        index = random.randint(0,img_num-i-1)
+        index = random.randint(0, img_num-i-1)
         random_img.append(img_all[index])
         del img_all[index]
     return render_template('portfolio.html', images=random_img)
@@ -401,7 +401,7 @@ def blog_detail(p):
 def blog_comment():
     text = request.form.get("text")
     # print(text)
-    if text== '' or len(text) > 120:
+    if text == '' or len(text) > 120:
         return "no"
     blog_id = request.form.get("blog_id")
     if current_user.is_authenticated:
@@ -417,7 +417,7 @@ def blog_comment():
 @main.route('/blog/gustbook', methods=['POST', 'GET'])
 def gustbook():
     blog = Blog.query.filter_by(id='0').first()
-    return render_template('gustbook.html',blog=blog)
+    return render_template('gustbook.html', blog=blog)
 
 
 @main.route('/blog/add_blog', methods=['POST'])
@@ -427,7 +427,7 @@ def add_blog():
     description = request.form.get('description')
     blog = Blog(title=title, content=description)
 
-    images =[]
+    images = []
     img1 = request.files.get('image1')
     images.append(img1)
     img2 = request.files.get('image2')
@@ -441,7 +441,7 @@ def add_blog():
     for img in images:
         if img.filename != '' and allow_file(img.filename):
             current_time = datetime.datetime.now().strftime('%H%M%S%Y%m%d')
-            filename = current_time + random_string(8)+ secure_filename(img.filename)
+            filename = current_time + random_string(8) + secure_filename(img.filename)
             file_path = os.path.join(Config.blog_direct, filename)
             img.save(file_path)
             blog.imagePaths.append(BlogImagePath(image_path='../../static/img/blog/'+filename))
@@ -794,7 +794,7 @@ def single_product(p):
         comments = Comment.query.filter_by(product_id=p).all()
         comments_show = comments[::-1]
         comments_num = len(comments)
-        i=0
+        i = 0
         for category in product.categories:
             for c in category.products:
                 if c not in product_all:

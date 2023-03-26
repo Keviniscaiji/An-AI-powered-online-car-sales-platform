@@ -45,8 +45,6 @@ def create_app(cfg_type: str):
     socketio.init_app(app)
     babel.init_app(app)
 
-
-
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
@@ -63,4 +61,3 @@ def create_app(cfg_type: str):
     app.register_blueprint(live_blueprint)
 
     return app
-
