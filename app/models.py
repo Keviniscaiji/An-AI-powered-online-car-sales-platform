@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy_serializer import Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 # from itsdangerous.jws import TimedJSONWebSignatureSerializer as Serializer
-from . import db
+from . import db, login_manager
 from config import Config
 import os
 
@@ -267,12 +267,12 @@ class BlogImagePath(db.Model):
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
 
 
-class Pandemic(db.Model):
-    __tablename__ = 'pandemics'
-    id = db.Column(db.Integer, primary_key=True)
-    is_pandemic = db.Column(db.Boolean, default=False, index=True)
+# class Pandemic(db.Model):
+#     __tablename__ = 'pandemics'
+#     id = db.Column(db.Integer, primary_key=True)
+#     is_pandemic = db.Column(db.Boolean, default=False, index=True)
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id))
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))

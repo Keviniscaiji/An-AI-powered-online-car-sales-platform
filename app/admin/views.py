@@ -11,7 +11,7 @@ from . import admin
 from .. import db, babel
 from config import Config
 from werkzeug.utils import secure_filename
-from ..models import Product, Category, User, ProductImagePath, Order, productCategories, ProductOrder, Pandemic
+from ..models import Product, Category, User, ProductImagePath, Order, productCategories, ProductOrder
 from flask_paginate import get_page_parameter, Pagination
 from pyecharts import options as opts
 from pyecharts.charts import Bar, Bar3D, Pie, Map, WordCloud, Line, Polar
