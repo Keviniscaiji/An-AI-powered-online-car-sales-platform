@@ -82,14 +82,14 @@ def insert_product_image_paths():
     db.session.commit()
 
 
-def insert_delivery_infos():
-    for item in DELIVERYINFOS:
-        deliveryInfos = DeliveryInfo(
-            name=item['name'], gender=item['gender'], phone_number=item['phone_number'], country=item['country'],
-            city=item['city'], street=item['street'], detail=item['detail'], user_id=item['user_id']
-        )
-        db.session.add(deliveryInfos)
-    db.session.commit()
+# def insert_delivery_infos():
+#     for item in DELIVERYINFOS:
+#         deliveryInfos = DeliveryInfo(
+#             name=item['name'], gender=item['gender'], phone_number=item['phone_number'], country=item['country'],
+#             city=item['city'], street=item['street'], detail=item['detail'], user_id=item['user_id']
+#         )
+#         db.session.add(deliveryInfos)
+#     db.session.commit()
 
 
 def insert_blogs():
@@ -119,10 +119,10 @@ def insert_blog_comments():
     db.session.commit()
 
 
-def insert_pandemic():
-    pandemic = Pandemic(is_pandemic=False)
-    db.session.add(pandemic)
-    db.session.commit()
+# def insert_pandemic():
+#     pandemic = Pandemic(is_pandemic=False)
+#     db.session.add(pandemic)
+#     db.session.commit()
 
 
 def reset():
@@ -146,7 +146,7 @@ def insert_all():
     # Insert ProductImagePaths()
     insert_product_image_paths()
     # Insert Addresses
-    insert_delivery_infos()
+    # insert_delivery_infos()
     # Insert Blogs
     insert_blogs()
     # Insert BlogImagePaths
@@ -158,5 +158,5 @@ def insert_all():
 
     insert_orders()
 
-    insert_pandemic()
+    # insert_pandemic()
 

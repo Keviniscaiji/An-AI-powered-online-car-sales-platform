@@ -9,8 +9,8 @@ from sqlalchemy import desc
 
 import app
 from app import db, babel
-from app.models import Cart, Product, ProductImagePath, User, Category, Comment, DeliveryInfo, Order, ProductOrder, Blog, BlogComment, \
-    BlogImagePath, Pandemic
+from app.models import Cart, Product, ProductImagePath, User, Category, Comment, Order, ProductOrder, Blog, BlogComment, \
+    BlogImagePath
 from config import Config
 from werkzeug.utils import secure_filename
 from . import main

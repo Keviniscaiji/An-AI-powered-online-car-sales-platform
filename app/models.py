@@ -61,9 +61,11 @@ class Cart(db.Model):
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False, index=True)
+    model = db.Column(db.String(64), nullable=False, index=True)
+    bland = db.Column(db.String(64))
+    year = db.Column(db.String(16))
     description = db.Column(db.String(256))
-    weight = db.Column(db.Float, default=50.0)
+    # weight = db.Column(db.Float, default=50.0)
     price = db.Column(db.Float, default=1000)
     discount = db.Column(db.Float, default=1.0)
     inventory = db.Column(db.Integer, default=1000)
@@ -104,15 +106,15 @@ class Order(db.Model):
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
     status = db.Column(db.String(16), default='Created', index=True)
     # ship_way. Respectively, 0/1 represents delivery/ pick-up
-    ship_way = db.Column(db.String(16), index=True)
+    # ship_way = db.Column(db.String(16), index=True)
     price = db.Column(db.Float, index=True)
-    name = db.Column(db.String(32), index=True)
-    gender = db.Column(db.Integer)
-    phone_number = db.Column(db.Integer)
+    # name = db.Column(db.String(32), index=True)
+    # gender = db.Column(db.Integer)
+    # phone_number = db.Column(db.Integer)
     # Address comprises country + city + street + detail
-    country = db.Column(db.String(32))
-    city = db.Column(db.String(32))
-    street = db.Column(db.String(64))
+    # country = db.Column(db.String(32))
+    # city = db.Column(db.String(32))
+    # street = db.Column(db.String(64))
     detail = db.Column(db.String(32))
     priority = db.Column(db.Integer, default=0, index=True)
     # foreign keys:
@@ -135,19 +137,19 @@ class Comment(db.Model):
     product = db.relationship('Product', back_populates='comments', lazy='joined')
 
 
-class DeliveryInfo(db.Model):
-    __tablename__ = 'deliveryInfos'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32), nullable=False, index=True)
-    gender = db.Column(db.Integer, nullable=False)
-    phone_number = db.Column(db.Integer, nullable=False)
-    # Address comprises country + city + street + detail
-    country = db.Column(db.String(32), nullable=False)
-    city = db.Column(db.String(32), nullable=False)
-    street = db.Column(db.String(32), nullable=False)
-    detail = db.Column(db.String(32), nullable=False)
-    # foreign keys:
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+# class DeliveryInfo(db.Model):
+#     __tablename__ = 'deliveryInfos'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(32), nullable=False, index=True)
+#     gender = db.Column(db.Integer, nullable=False)
+#     phone_number = db.Column(db.Integer, nullable=False)
+#     # Address comprises country + city + street + detail
+#     country = db.Column(db.String(32), nullable=False)
+#     city = db.Column(db.String(32), nullable=False)
+#     street = db.Column(db.String(32), nullable=False)
+#     detail = db.Column(db.String(32), nullable=False)
+#     # foreign keys:
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
 class User(UserMixin, db.Model):
@@ -163,7 +165,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     # relationship:
     carts = db.relationship('Cart', backref='owner', lazy='dynamic')
-    deliveryInfos = db.relationship('DeliveryInfo', backref='owner', lazy='dynamic')
+    # deliveryInfos = db.relationship('DeliveryInfo', backref='owner', lazy='dynamic')
     orders = db.relationship('Order', back_populates='buyer', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='author', lazy='dynamic')
     blogs = db.relationship('Blog', backref='author', lazy='dynamic')
