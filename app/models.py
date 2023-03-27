@@ -62,11 +62,11 @@ class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     model = db.Column(db.String(64), nullable=False, index=True)
-    bland = db.Column(db.String(64))
+    brand = db.Column(db.String(64))
     year = db.Column(db.String(16))
     description = db.Column(db.String(256))
     # weight = db.Column(db.Float, default=50.0)
-    price = db.Column(db.Float, default=1000)
+    price = db.Column(db.Float, default=1000.0)
     discount = db.Column(db.Float, default=1.0)
     inventory = db.Column(db.Integer, default=1000)
     is_hidden = db.Column(db.Boolean, default=False)

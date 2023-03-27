@@ -34,7 +34,7 @@ def insert_users():
 def insert_products(cat_objs):
     for item, category in zip(PRODUCTS, PRODUCTS2CATEGORIES):
         product = Product(
-            name=item["name"], description=item['description'], weight=item['weight'],
+            model=item['model'], brand=item['brand'], year=item['year'], description=item['description'],
             price=item['price'], discount=item['discount'], inventory=item['inventory']
         )
         for j in category["category_ids"]:
@@ -53,10 +53,8 @@ def insert_product_orders():
 def insert_orders():
     for item in ORDERS:
         timestamp = datetime.datetime.utcnow()
-        order = Order(timestamp=timestamp, note=item["note"], status=item["status"], ship_way=item["ship_way"],
-                      price=item["price"], name=item["name"], gender=item["gender"], phone_number=item["phone_number"],
-                      country=item["country"], city=item["city"], street=item["status"], detail=item["detail"],
-                      priority=item["priority"], buyer_id=item["buyer_id"])
+        order = Order(timestamp=timestamp, note=item["note"], status=item["status"], price=item["price"],
+                      detail=item["detail"], priority=item["priority"], buyer_id=item["buyer_id"])
         db.session.add(order)
         db.session.commit()
         order_aim = Order.query.filter_by(buyer_id=item["buyer_id"]).first()
