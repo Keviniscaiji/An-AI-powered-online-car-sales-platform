@@ -126,7 +126,9 @@ def modify_product(product_id):
         else:
             sort_dict[s.name] = 0
     if request.method == 'POST':
-        product_aim.name = request.form.get('name')
+        product_aim.model = request.form.get('model')
+        product_aim.brand = request.form.get('brand')
+        product_aim.year = request.form.get('year')
         product_aim.description = request.form.get('description')
         product_aim.price = request.form.get('price')
         product_aim.discount = request.form.get('discount')
@@ -177,7 +179,9 @@ def add_category():
 @login_required
 def add_product():
     if request.method == 'POST':
-        name = request.form.get('name')
+        model = request.form.get('model')
+        brand = request.form.get('brand')
+        year = request.form.get('year')
         description = request.form.get('description')
         price = request.form.get('price')
         discount = request.form.get('discount')
@@ -190,7 +194,9 @@ def add_product():
         file_test_save(file, filename_list)
         file_test_save(file2, filename_list)
         file_test_save(file3, filename_list)
-        p = Product(name=name,
+        p = Product(model=model,
+                    brand=brand,
+                    year=year,
                     description=description,
                     price=price,
                     discount=discount,

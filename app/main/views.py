@@ -581,7 +581,7 @@ def checkout(user_id):
     """
     View function for checkout page
     """
-    delivery_info_list = DeliveryInfo.query.filter_by(user_id=user_id).all()
+    # delivery_info_list = DeliveryInfo.query.filter_by(user_id=user_id).all()
     user_cart = Cart.query.filter_by(owner_id=user_id).filter_by(is_selected=True).all()
     product_pay = 0.0
     total_weight = 0.0
@@ -593,9 +593,9 @@ def checkout(user_id):
         product_pay += c.product.price * c.product.discount * c.count
         total_weight += c.product.weight * c.count
     weight_pay = total_weight * 0.1
-    is_pandemic = Pandemic.query.first().is_pandemic
-    return render_template('checkout.html', delivery_info_list=delivery_info_list, cart=user_cart,
-                           product_pay=product_pay, weight_pay=weight_pay, is_pandemic=is_pandemic)
+    # is_pandemic = Pandemic.query.first().is_pandemic
+    return render_template('checkout.html', cart=user_cart,
+                           product_pay=product_pay, weight_pay=weight_pay)
 
 
 @main.route('/place_order/<int:buyer_id>/<int:wp>/<int:pp>', methods=['POST', 'GET'])
