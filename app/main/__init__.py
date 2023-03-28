@@ -5,6 +5,7 @@ main = Blueprint('main', __name__)
 from . import views
 
 
+
 # @main.context_processor
 # def inject_mini_cart_data():
 #     data, price, n = views.get_mini_cart_data()
