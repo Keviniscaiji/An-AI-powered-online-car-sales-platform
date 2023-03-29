@@ -59,6 +59,7 @@
         fetch("/chat", {
             method: "POST",
             body: new FormData(document.getElementById("chat_form")),
+            text: message
         })
             .then((response) => response.text())
             .then((data) => {

@@ -26,9 +26,10 @@ def chat():
     user_text = request.form['text']
 
     # 使用 Chat 对象处理用户输入，返回聊天结果
-    response_text = str(chatbot.respond(user_text))
-    # 返回处理结果
-    return response_text
+    response_text = chatbot.respond(user_text)
+
+    # 返回回复
+    return user_text
 
     # 使用聊天数据处理用户输入，返回
 
