@@ -1,15 +1,5 @@
-﻿<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Cart</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../static/img/favicon.ico">
-</head>
-<body>
-{% extends 'base.html' %}
-{% block content %}
-    <!--Breadcrumb Tow Start-->
-    <div class="breadcrumb-tow mb-120">
+﻿{% include 'navi_bar.html' %}
+<div class="breadcrumb-tow mb-120">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -163,6 +153,4 @@
             )
         }
     </script>
-{% endblock %}
-</body>
-</html>
+{% include 'foot_bar.html' %}

@@ -1,55 +1,19 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Unconfirmed</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.ico">
-</head>
+{% include "navi_bar.html" %}
 <body>
-{% extends 'base.html' %}
-{% block content %}
-<!--Breadcrumb Tow Start-->
-<div class="breadcrumb-tow mb-120">
+
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../static/images/bg_4.jpeg'); height: 300px"
+         data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb-title">
-                    <h1>Unconfirmed</h1>
-                </div>
-                <div class="breadcrumb-content breadcrumb-content-tow">
-                    <ul>
-                        <li><a href="{{ url_for('main.index') }}">Home</a></li>
-                        <li class="active">Unconfirmed</li>
-                    </ul>
-                </div>
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+            <div class="col-md-9 ftco-animate pb-5">
+                <h1 class="mb-3 bread">Valid Your Email Address</h1>
             </div>
         </div>
     </div>
-</div>
-<!--Breadcrumb Tow End-->
-<!--Area Start-->
-<div class="login-register-area mb-80">
-    <div class="container">
-        <div>
-            <h1>
-                Hello, {{ current_user.username }}!
-            </h1>
-            <h3>You have not confirmed your account yet.</h3>
-            <p>
-                Before you can access this site you need to confirm your account.
-                Check your inbox, you should have received an email with a confirmation link.
-            </p>
-            <p>
-                Need another confirmation email?
-                <a href="{{ url_for('auth.resend_confirmation') }}">Click here</a>
-            </p>
-        </div>
-    </div>
-</div>
-<!--Area End-->
-{% endblock %}
+</section>
+
+{% include 'auth/temp_auth/temp_unconfirmed.html' %}
+
 </body>
-</html>
-
-
-
+{% include "foot_bar.html" %}

@@ -9,6 +9,19 @@ from . import db, login_manager
 from config import Config
 import os
 
+class DeliveryInfo(db.Model):
+    __tablename__ = 'deliveryInfos'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), nullable=False, index=True)
+    gender = db.Column(db.Integer, nullable=False)
+    phone_number = db.Column(db.Integer, nullable=False)
+    # Address comprises country + city + street + detail
+    country = db.Column(db.String(32), nullable=False)
+    city = db.Column(db.String(32), nullable=False)
+    street = db.Column(db.String(32), nullable=False)
+    detail = db.Column(db.String(32), nullable=False)
+    # foreign keys:
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 class Initialization:
     @staticmethod
