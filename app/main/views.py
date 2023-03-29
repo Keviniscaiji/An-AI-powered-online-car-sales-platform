@@ -495,11 +495,11 @@ def contact():
 
 
 @main.route('/service', methods=['POST', 'GET'])
-def service():
+def services():
     """
     View function for service page
     """
-    return render_template('service-2.html')
+    return render_template('services.html')
 
 
 @main.route('/question', methods=['POST', 'GET'])
@@ -749,6 +749,7 @@ def modify_delivery_info(delivery_id):
         db.session.commit()
         return redirect(url_for('main.account', user_id=delivery_info_aim.user_id))
     return render_template('modify_delivery_info.html', delivery_info=delivery_info_aim)
+
 
 
 @login_required
