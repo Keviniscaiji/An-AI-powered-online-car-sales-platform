@@ -96,7 +96,7 @@ def index():
         pass
 
     return render_template(
-        'index-3.html',
+        'index.html',
         products_collection=products_collection,
         products_area=products_area,
         products_countdown=products_countdown,
