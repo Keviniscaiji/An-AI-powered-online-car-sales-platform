@@ -84,7 +84,9 @@ class Product(db.Model):
 class ProductImagePath(db.Model):
     __tablename__ = 'productImagePaths'
     id = db.Column(db.Integer, primary_key=True)
-    image_path = db.Column(db.String(512), index=True)
+    image_path1 = db.Column(db.String(512), index=True)
+    image_path2 = db.Column(db.String(512), index=True)
+    image_path3 = db.Column(db.String(512), index=True)
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
 
