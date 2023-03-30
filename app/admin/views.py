@@ -127,13 +127,14 @@ def modify_product(product_id):
             sort_dict[s.name] = 0
     if request.method == 'POST':
         product_aim.key = request.form.get('key')
-        product_aim.model = request.form.get('model')
         product_aim.brand = request.form.get('brand')
+        product_aim.model = request.form.get('model')
         product_aim.year = request.form.get('year')
-        product_aim.description = request.form.get('description')
         product_aim.price = request.form.get('price')
         product_aim.discount = request.form.get('discount')
         product_aim.inventory = request.form.get('inventory')
+        product_aim.description = request.form.get('description')
+        product_aim.name = product_aim.brand + " " + product_aim.model
         category_box = request.form.getlist('cb')
         for s in all_sorts:
             category_aim = Category.query.filter_by(name=s.name).first()
@@ -181,13 +182,14 @@ def add_category():
 def add_product():
     if request.method == 'POST':
         key = request.form.get('key')
-        model = request.form.get('model')
         brand = request.form.get('brand')
+        model = request.form.get('model')
         year = request.form.get('year')
-        description = request.form.get('description')
         price = request.form.get('price')
         discount = request.form.get('discount')
         inventory = request.form.get('inventory')
+        description = request.form.get('description')
+        name = brand + " " + model
         category_list = request.form.getlist('category_list')
         file = request.files.get('image')
         file2 = request.files.get('image2')
@@ -197,13 +199,15 @@ def add_product():
         file_test_save(file2, filename_list)
         file_test_save(file3, filename_list)
         p = Product(key=key,
-                    model=model,
+                    name=name,
                     brand=brand,
+                    model=model,
                     year=year,
-                    description=description,
                     price=price,
                     discount=discount,
-                    inventory=inventory)
+                    inventory=inventory,
+                    description=description
+                    )
         for f in filename_list:
             pip = ProductImagePath(image_path='../static/storage/products/' + f)
             p.imagePaths.append(pip)
