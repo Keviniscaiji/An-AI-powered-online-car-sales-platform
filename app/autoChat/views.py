@@ -18,6 +18,27 @@ lemmatizer = WordNetLemmatizer()
 
 data = [
     {
+        "questions": ["Tell me about Tesla", "What is Tesla?", "Tesla introduction"],
+        "intent": "tesla_introduction",
+        "answer": "Tesla is an American electric vehicle and clean energy company founded in 2003 by Elon Musk. They produce electric cars, battery energy storage, solar products, and more. Tesla's mission is to accelerate the world's transition to sustainable energy."
+    },
+    {
+        "questions": ["Tell me about BMW", "What is BMW?", "BMW introduction"],
+        "intent": "bmw_introduction",
+        "answer": "BMW (Bayerische Motoren Werke AG) is a German luxury automobile, motorcycle, and engine manufacturing company founded in 1916. BMW is known for producing high-quality, performance-oriented vehicles with innovative designs and advanced technology."
+    },
+    {
+        "questions": ["What car do you recommend for a family?", "Best family car?", "Family car recommendation"],
+        "intent": "family_car_recommendation",
+        "answer": "For a family, I recommend the Honda CR-V. It is a reliable, spacious, and fuel-efficient SUV, making it a great choice for families. It also offers advanced safety features and a comfortable ride."
+    },
+    {
+        "questions": ["What car do you recommend for long drives?", "Best car for road trips?",
+                      "Long drive car recommendation"],
+        "intent": "long_drive_car_recommendation",
+        "answer": "For long drives, I recommend the Toyota Camry. It offers a smooth and comfortable ride, excellent fuel efficiency, and a quiet cabin. The Camry also comes with many safety features, making it a great choice for long-distance travel."
+    },
+    {
         "questions": ["Hello!", "Hi!", "Hey!", "Greetings!"],
         "intent": "greeting",
         "answer": "Hello! How can I help you today?"
