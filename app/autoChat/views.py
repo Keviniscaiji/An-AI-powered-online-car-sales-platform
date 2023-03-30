@@ -7,10 +7,10 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import random
 
-# 下载必要的nltk数据包
-nltk.download("punkt")
-nltk.download("wordnet")
-nltk.download("stopwords")
+# # 下载必要的nltk数据包
+# nltk.download("punkt")
+# nltk.download("wordnet")
+# nltk.download("stopwords")
 
 lemmatizer = WordNetLemmatizer()
 
