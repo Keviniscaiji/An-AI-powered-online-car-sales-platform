@@ -126,6 +126,7 @@ def modify_product(product_id):
         else:
             sort_dict[s.name] = 0
     if request.method == 'POST':
+        product_aim.key = request.form.get('key')
         product_aim.model = request.form.get('model')
         product_aim.brand = request.form.get('brand')
         product_aim.year = request.form.get('year')
@@ -179,6 +180,7 @@ def add_category():
 @login_required
 def add_product():
     if request.method == 'POST':
+        key = request.form.get('key')
         model = request.form.get('model')
         brand = request.form.get('brand')
         year = request.form.get('year')
@@ -194,7 +196,8 @@ def add_product():
         file_test_save(file, filename_list)
         file_test_save(file2, filename_list)
         file_test_save(file3, filename_list)
-        p = Product(model=model,
+        p = Product(key=key,
+                    model=model,
                     brand=brand,
                     year=year,
                     description=description,
@@ -250,9 +253,9 @@ def update_status():
         if status_id == 1:
             order_aim.status = 'Created'
         elif status_id == 2:
-            order_aim.status = 'Packing'
+            order_aim.status = 'Sending from Factory'
         elif status_id == 3:
-            order_aim.status = 'In Delivery'
+            order_aim.status = 'Waiting for Pick Up'
         elif status_id == 4:
             order_aim.status = 'Accomplished'
         db.session.commit()

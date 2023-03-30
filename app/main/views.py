@@ -9,7 +9,7 @@ from sqlalchemy import desc
 
 import app
 from app import db, babel
-from app.models import Product, ProductImagePath, User, Category, Comment, Order, ProductOrder, Blog, BlogComment, \
+from app.models import Product, ProductImagePath, Cart, User, Category, Comment, Order, ProductOrder, Blog, BlogComment, \
     BlogImagePath
 from config import Config
 from werkzeug.utils import secure_filename
@@ -624,7 +624,7 @@ def place_order(buyer_id, wp, pp):
                     buyer_id=buyer_id
                 )
             else:
-                di = DeliveryInfo.query.filter_by(id=int(ship_way[-1])).first()
+                # di = DeliveryInfo.query.filter_by(id=int(ship_way[-1])).first()
                 ship_way = 'Delivery'
                 price = wp + pp
                 order = Order(
@@ -633,13 +633,6 @@ def place_order(buyer_id, wp, pp):
                     status='Created',
                     ship_way=ship_way,
                     price=price,
-                    name=di.name,
-                    gender=di.gender,
-                    phone_number=di.phone_number,
-                    country=di.country,
-                    city=di.city,
-                    street=di.street,
-                    detail=di.detail,
                     buyer_id=buyer_id
                 )
             db.session.add(order)

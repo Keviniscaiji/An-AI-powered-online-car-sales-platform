@@ -62,14 +62,14 @@ class ProductOrder(db.Model):
 
 
 # record the N to N relationship between customer and product
-# class Cart(db.Model):
-#     __tablename__ = 'carts'
-#     id = db.Column(db.Integer, primary_key=True)
-#     count = db.Column(db.Integer, default=1)  # the number of this product in the cart
-#     is_selected = db.Column(db.Boolean, index=True)
-#     # foreign keys:
-#     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-#     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+class Cart(db.Model):
+    __tablename__ = 'carts'
+    id = db.Column(db.Integer, primary_key=True)
+    count = db.Column(db.Integer, default=1)  # the number of this product in the cart
+    is_selected = db.Column(db.Boolean, index=True)
+    # foreign keys:
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
 
 
 class Product(db.Model):
@@ -92,7 +92,7 @@ class Product(db.Model):
                                  backref=db.backref('products', lazy='dynamic'),
                                  lazy='dynamic')
     productOrders = db.relationship('ProductOrder', backref='product', lazy='dynamic')
-    # carts = db.relationship('Cart', backref='product', lazy='dynamic')
+    carts = db.relationship('Cart', backref='product', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='product', lazy='dynamic')
 
 
@@ -134,7 +134,7 @@ class Order(db.Model):
     # country = db.Column(db.String(32))
     # city = db.Column(db.String(32))
     # street = db.Column(db.String(64))
-    detail = db.Column(db.String(32))
+    # detail = db.Column(db.String(32))
     priority = db.Column(db.Integer, default=0, index=True)
     # foreign keys:
     buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -183,7 +183,7 @@ class User(UserMixin, db.Model):
     # foreign keys:
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     # relationship:
-    # carts = db.relationship('Cart', backref='owner', lazy='dynamic')
+    carts = db.relationship('Cart', backref='owner', lazy='dynamic')
     # deliveryInfos = db.relationship('DeliveryInfo', backref='owner', lazy='dynamic')
     orders = db.relationship('Order', back_populates='buyer', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='author', lazy='dynamic')

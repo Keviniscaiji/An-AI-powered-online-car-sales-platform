@@ -89,7 +89,7 @@
                         <!--Single Collection Start-->
                         <div class="single-collection mb-35">
                             <div class="collection-img text-right mb-50">
-                                <img src="{{ products_collection[0].imagePaths[0].image_path }}" alt="">
+                                <img src="{{ products_collection[0].imagePaths[0].image_path1 }}" alt="">
                             </div>
                             <div class="collection-content">
                                 <h3>{{ products_collection[0].name }}</h3>
@@ -112,7 +112,7 @@
                                 <a class="collection-btn" href="{{ url_for('main.single_product', p=products_collection[1].id) }}">{{ _('Buy Now') }}</a>
                             </div>
                             <div class="collection-img text-left">
-                                <img src="{{ products_collection[1].imagePaths[0].image_path }}" alt="">
+                                <img src="{{ products_collection[1].imagePaths[0].image_path1 }}" alt="">
                             </div>
                         </div>
                         <!--Single Collection End-->
@@ -147,7 +147,7 @@
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                         <a href="{{ url_for('main.single_product', p=item.id) }}">
-                                            <img src="{{ item.imagePaths[0].image_path }}" alt="">
+                                            <img src="{{ item.imagePaths[0].image_path1 }}" alt="">
                                         </a>
                                         <span class="onsale">{{ _('Sale!') }}</span>
 {#                                            <div class="product-action">#}
@@ -165,7 +165,7 @@
                                                 <span class="regular-price">${{ item.price }}</span>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>
+                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path1 }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -245,7 +245,7 @@
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                         <a href="{{ url_for('main.single_product',p=item.id) }}">
-                                            <img src="{{ item.imagePaths[0].image_path }}" alt="">
+                                            <img src="{{ item.imagePaths[0].image_path1 }}" alt="">
                                         </a>
                                         <span class="onsale">{{ _('Sale!') }}</span>
 {#                                            <div class="product-action">#}
@@ -263,7 +263,7 @@
                                                 <span class="regular-price">${{ item.price }}</span>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>
+                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path1 }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -329,7 +329,7 @@
                                 <div class="single-product product-list mb-35">
                                     <div class="list-col-4">
                                         <div class="product-img img-full">
-                                            <a href="{{ url_for('main.single_product', p=item.id) }}"><img src="{{ item.imagePaths[0].image_path }}" alt=""></a>
+                                            <a href="{{ url_for('main.single_product', p=item.id) }}"><img src="{{ item.imagePaths[0].image_path1 }}" alt=""></a>
                                             <span class="onsale">{{ _('Sale!') }}</span>
 {#                                                <div class="product-action">#}
 {#                                                    <ul>#}
