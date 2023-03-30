@@ -9,7 +9,7 @@ from sqlalchemy import desc
 
 import app
 from app import db, babel
-from app.models import Cart, Product, ProductImagePath, User, Category, Comment, Order, ProductOrder, Blog, BlogComment, \
+from app.models import Product, ProductImagePath, User, Category, Comment, Order, ProductOrder, Blog, BlogComment, \
     BlogImagePath
 from config import Config
 from werkzeug.utils import secure_filename
@@ -96,7 +96,7 @@ def index():
         pass
 
     return render_template(
-        'index.html',
+        'index-3.html',
         products_collection=products_collection,
         products_area=products_area,
         products_countdown=products_countdown,

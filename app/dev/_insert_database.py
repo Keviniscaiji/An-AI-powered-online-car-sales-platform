@@ -64,11 +64,11 @@ def insert_orders():
         db.session.commit()
 
 
-def insert_carts():
-    for item in CARTS:
-        cart = Cart(count=item["count"], owner_id=item['owner_id'], product_id=item['product_id'], is_selected=item['is_selected'])
-        db.session.add(cart)
-    db.session.commit()
+# def insert_carts():
+#     for item in CARTS:
+#         cart = Cart(count=item["count"], owner_id=item['owner_id'], product_id=item['product_id'], is_selected=item['is_selected'])
+#         db.session.add(cart)
+#     db.session.commit()
 
 
 def insert_product_image_paths():
@@ -140,7 +140,7 @@ def insert_all():
     # Insert Products
     insert_products(cat_objs)
     # Insert Carts
-    insert_carts()
+    # insert_carts()
     # Insert ProductImagePaths()
     insert_product_image_paths()
     # Insert Addresses
