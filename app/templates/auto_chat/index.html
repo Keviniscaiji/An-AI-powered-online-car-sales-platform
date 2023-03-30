@@ -53,6 +53,15 @@
         }
     </style>
     <script>
+        const inputField = document.getElementById('user_input');
+        inputField.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // 防止默认行为，例如表单提交
+                send_message();
+            }
+        });
+
+
         // JavaScript 代码
         function send_message() {
             var input_elem = document.getElementById("user_input");
