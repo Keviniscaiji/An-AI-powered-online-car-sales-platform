@@ -499,7 +499,7 @@ def services():
     """
     View function for service page
     """
-    return render_template('services.html')
+    return render_template('service.html')
 
 
 @main.route('/question', methods=['POST', 'GET'])

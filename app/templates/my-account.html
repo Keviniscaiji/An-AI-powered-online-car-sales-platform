@@ -62,42 +62,42 @@
                 <div class="col-md-12 col-lg-10">
                     <!-- Tab panes -->
                     <div class="tab-content dashboard-content">
-                        <div id="address" class="tab-pane fade show active">
-                            <h3>{{ _('ADDRESS') }} <a class="btn_2_thin" href="{{ url_for('main.add_delivery_info', user_id=current_user.id) }}">{{ _('Add New') }}</a></h3>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>{{ _('Customer') }}</th>
-                                            <th>{{ _('Gender') }}</th>
-                                            <th>{{ _('Phone') }}</th>
-                                            <th>{{ _('Address') }}</th>
-                                            <th>{{ _('Operations') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for ad in user.deliveryInfos.all() %}
-                                        <tr>
-                                            <td>{{ ad.id }}</td>
-                                            <td>{{ ad.name }}</td>
-                                            {% if ad.gender == 1 %}
-                                                <td>{{ _('Male') }}</td>
-                                            {% elif ad.gender == 2 %}
-                                                <td>{{ _('Female') }}</td>
-                                            {% else %}
-                                                <td>{{ _('Unknown') }}</td>
-                                            {% endif %}
-                                            <td>{{ ad.phone_number }}</td>
-                                            <td>{{ _('Please View Detail') }}</td>
-                                            <td><a class="btn_2_thin" href="{{ url_for('main.modify_delivery_info',
-                                            delivery_id=ad.id) }}">{{ _('View Detail') }}</a></td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+{#                        <div id="address" class="tab-pane fade show active">#}
+{#                            <h3>{{ _('ADDRESS') }} <a class="btn_2_thin" href="{{ url_for('main.add_delivery_info', user_id=current_user.id) }}">{{ _('Add New') }}</a></h3>#}
+{#                            <div class="table-responsive">#}
+{#                                <table class="table">#}
+{#                                    <thead>#}
+{#                                        <tr>#}
+{#                                            <th>#</th>#}
+{#                                            <th>{{ _('Customer') }}</th>#}
+{#                                            <th>{{ _('Gender') }}</th>#}
+{#                                            <th>{{ _('Phone') }}</th>#}
+{#                                            <th>{{ _('Address') }}</th>#}
+{#                                            <th>{{ _('Operations') }}</th>#}
+{#                                        </tr>#}
+{#                                    </thead>#}
+{#                                    <tbody>#}
+{#                                    {% for ad in user.deliveryInfos.all() %}#}
+{#                                        <tr>#}
+{#                                            <td>{{ ad.id }}</td>#}
+{#                                            <td>{{ ad.name }}</td>#}
+{#                                            {% if ad.gender == 1 %}#}
+{#                                                <td>{{ _('Male') }}</td>#}
+{#                                            {% elif ad.gender == 2 %}#}
+{#                                                <td>{{ _('Female') }}</td>#}
+{#                                            {% else %}#}
+{#                                                <td>{{ _('Unknown') }}</td>#}
+{#                                            {% endif %}#}
+{#                                            <td>{{ ad.phone_number }}</td>#}
+{#                                            <td>{{ _('Please View Detail') }}</td>#}
+{#                                            <td><a class="btn_2_thin" href="{{ url_for('main.modify_delivery_info',#}
+{#                                            delivery_id=ad.id) }}">{{ _('View Detail') }}</a></td>#}
+{#                                        </tr>#}
+{#                                    {% endfor %}#}
+{#                                    </tbody>#}
+{#                                </table>#}
+{#                            </div>#}
+{#                        </div>#}
                         <div id="orders" class="tab-pane fade">
                             <h3>{{ _('Orders') }}</h3>
                             <div class="table-responsive">
