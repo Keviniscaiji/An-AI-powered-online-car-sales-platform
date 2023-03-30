@@ -26,8 +26,10 @@
                                                     <th>ID</th>
                                                     <th>{{ _('Purchaser') }}</th>
                                                     <th>{{ _('Place Time') }}</th>
-                                                    <th>{{ _('Ship Method') }}</th>
+                                                    <th>{{ _('Pick Up Period') }}</th>
+{#                                                    <th>{{ _('Ship Method') }}</th>#}
                                                     <th>{{ _('Status') }}</th>
+                                                    <th>{{ _('Price') }}</th>
                                                     <th>{{ _('Priority') }}</th>
                                                     <th class="text-center">{{ _('Operation') }}</th>
                                                 </tr>
@@ -45,10 +47,16 @@
                                                         <h6 class="m-0">{{ o.timestamp }}</h6>
                                                     </td>
                                                     <td>
-                                                        <h6 class="m-0">{{ o.ship_way }}</h6>
+                                                        <h6 class="m-0">{{ o.pick_up_time_start }} - {{ o.pick_up_time_end }}</h6>
                                                     </td>
+{#                                                    <td>#}
+{#                                                        <h6 class="m-0">{{ o.ship_way }}</h6>#}
+{#                                                    </td>#}
                                                     <td>
                                                         <h6 class="m-0">{{ o.status }}</h6>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="m-0">{{ o.price }}</h6>
                                                     </td>
                                                     <td>
                                                         <h6 class="m-0">{{ o.priority }}</h6>

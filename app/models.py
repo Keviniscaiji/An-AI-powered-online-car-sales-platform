@@ -77,14 +77,14 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     key = db.Column(db.String(32))
     name = db.Column(db.String(128), nullable=False, index=True)
-    model = db.Column(db.String(64))
     brand = db.Column(db.String(64))
+    model = db.Column(db.String(64))
     year = db.Column(db.String(16))
-    description = db.Column(db.String(256))
-    # weight = db.Column(db.Float, default=50.0)
     price = db.Column(db.Float, default=1000.0)
     discount = db.Column(db.Float, default=1.0)
     inventory = db.Column(db.Integer, default=1000)
+    description = db.Column(db.String(256))
+    # weight = db.Column(db.Float, default=50.0)
     is_hidden = db.Column(db.Boolean, default=False)
     # relationship:
     imagePaths = db.relationship('ProductImagePath', backref='product', lazy='dynamic')
@@ -122,7 +122,7 @@ class Order(db.Model):
     pick_up_time_end = db.Column(db.DateTime)
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
-    status = db.Column(db.String(16), default='Created', index=True)
+    status = db.Column(db.String(32), default='Created', index=True)
     # ship_way. Respectively, 0/1 represents delivery/ pick-up
     # ship_way = db.Column(db.String(16), index=True)
     price = db.Column(db.Float, index=True)

@@ -34,10 +34,10 @@ def insert_users():
 def insert_products(cat_objs):
     for item, category in zip(PRODUCTS, PRODUCTS2CATEGORIES):
         product = Product(
-            key=item['key'], name=item['name'], model=item['model'], brand=item['brand'], year=item['year'],
-            description=item['description'], price=item['price'], discount=item['discount'], inventory=item['inventory']
+            key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
+            price=item['price'], discount=item['discount'], inventory=item['inventory'], description=item['description']
         )
-        for j in category["category_ids"]:
+        for j in category['category_ids']:
             product.categories.append(cat_objs[j-1])
         db.session.add(product)
     db.session.commit()
@@ -45,7 +45,7 @@ def insert_products(cat_objs):
 
 def insert_product_orders():
     for item in PRODUCTORDERS:
-        productOrder = ProductOrder(count=item["count"], product_id=item['product_id'], order_id=item['order_id'])
+        productOrder = ProductOrder(count=item['count'], product_id=item['product_id'], order_id=item['order_id'])
         db.session.add(productOrder)
     db.session.commit()
 
@@ -53,11 +53,12 @@ def insert_product_orders():
 def insert_orders():
     for item in ORDERS:
         timestamp = datetime.datetime.utcnow()
-        order = Order(timestamp=timestamp, note=item["note"], status=item["status"], price=item["price"],
-                      priority=item["priority"], buyer_id=item["buyer_id"])
+        order = Order(timestamp=timestamp, pick_up_time_start=item['pick_up_time_start'],
+                      pick_up_time_end=item['pick_up_time_end'], note=item['note'], status=item['status'],
+                      price=item['price'], priority=item['priority'], buyer_id=item['buyer_id'])
         db.session.add(order)
         db.session.commit()
-        order_aim = Order.query.filter_by(buyer_id=item["buyer_id"]).first()
+        order_aim = Order.query.filter_by(buyer_id=item['buyer_id']).first()
         productOrder_list = ProductOrder.query.filter_by(order_id=order_aim.id).all()
         for po in productOrder_list:
             order_aim.productOrders.append(po)
