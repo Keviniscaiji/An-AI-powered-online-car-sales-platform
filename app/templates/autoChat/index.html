@@ -1,20 +1,22 @@
 {% include "navi_bar.html" %}
 
 <style>
-{#    /* CSS 样式 */#}
+    {#    /* CSS 样式 */#}
     body {
         margin: 0;
         padding: 0;
         background-color: #f0f0f0;
         font-family: sans-serif;
     }
-    {#.chatContainer {#}
-    {#    max-width: 600px;#}
-    {#    margin: 50px auto;#}
-    {#    padding: 20px;#}
-    {#    background-color: #fff;#}
-    {#    box-shadow: 0px 0px 10px #999;#}
-    {#}#}
+
+    .chatContainer {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px #999;
+
+    }
 
     input[type="text"] {
         width: 100%;
@@ -36,6 +38,7 @@
         border: 1px solid #ddd;
         border-radius: 5px;
     }
+
     .chat-item {
         margin-bottom: 10px;
         padding: 5px;
@@ -56,26 +59,39 @@
         chat_box.appendChild(chat_item);
         input_elem.value = "";
         chat_box.scrollTop = chat_box.scrollHeight;
-        fetch("/chat", {
-            method: "POST",
-            body: new FormData(document.getElementById("chat_form")),
-            text: message
+
+        $.post('/chat', {
+            'message': message
+        }).done(function (response) {
+            let data = response['text']
+            var chat_item = document.createElement("div");
+            chat_item.className = "chat-item";
+            chat_item.innerHTML = "<strong>Robot：</strong>" + data;
+            chat_box.appendChild(chat_item);
+            chat_box.scrollTop = chat_box.scrollHeight;
         })
-            .then((response) => response.text())
-            .then((data) => {
-                var chat_item = document.createElement("div");
-                chat_item.className = "chat-item";
-                chat_item.innerHTML = "<strong>Robot：</strong>" + data;
-                chat_box.appendChild(chat_item);
-                chat_box.scrollTop = chat_box.scrollHeight;
-            });
-    }
+
+
+    {#fetch("/chat", {#}
+    {#    method: "POST",#}
+    {#    body: JSON.stringify({message: message}),#}
+    {#    text: message#}
+   // })
+    {#    .then((response) => response.text())#}
+    {#    .then((data) => {#}
+    {#        var chat_item = document.createElement("div");#}
+    {#        chat_item.className = "chat-item";#}
+    {#        chat_item.innerHTML = "<strong>Robot：</strong>" + data;#}
+    {#        chat_box.appendChild(chat_item);#}
+    {#        chat_box.scrollTop = chat_box.scrollHeight;#}
+    {#    });#}
+    };
 </script>
 <body>
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../static/images/bg_5.webp');"
          data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
-    <div class="chatContainer">
+    <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
             <div class="col-md-9 ftco-animate pb-5">
                 {#          	<p class="breadcrumbs"><span class="mr-2"><a href="{{ url_for('main.index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Services <i class="ion-ios-arrow-forward"></i></span></p>#}
