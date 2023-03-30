@@ -76,7 +76,8 @@ class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     key = db.Column(db.String(32))
-    model = db.Column(db.String(64), nullable=False, index=True)
+    name = db.Column(db.String(128), nullable=False, index=True)
+    model = db.Column(db.String(64))
     brand = db.Column(db.String(64))
     year = db.Column(db.String(16))
     description = db.Column(db.String(256))

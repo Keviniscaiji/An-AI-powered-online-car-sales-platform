@@ -158,7 +158,7 @@ def modify_product_image():
         filename_list = []
         file_test_save(file, filename_list)
         for f in filename_list:
-            pip.image_path1 = '../../static/storage/products/' + f
+            pip.image_path1 = '../static/storage/products/' + f
             # print(pip.image_path)
         db.session.commit()
         return redirect(url_for('admin.modify_product', product_id=product_id))
@@ -205,7 +205,7 @@ def add_product():
                     discount=discount,
                     inventory=inventory)
         for f in filename_list:
-            pip = ProductImagePath(image_path='../../static/storage/products/' + f)
+            pip = ProductImagePath(image_path1='../static/storage/products/' + f)
             p.imagePaths.append(pip)
         for c in category_list:
             p.categories.append(Category.query.filter_by(name=c).first())

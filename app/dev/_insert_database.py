@@ -34,8 +34,8 @@ def insert_users():
 def insert_products(cat_objs):
     for item, category in zip(PRODUCTS, PRODUCTS2CATEGORIES):
         product = Product(
-            key=item['key'], model=item['model'], brand=item['brand'], year=item['year'], description=item['description'],
-            price=item['price'], discount=item['discount'], inventory=item['inventory']
+            key=item['key'], name=item['name'], model=item['model'], brand=item['brand'], year=item['year'],
+            description=item['description'], price=item['price'], discount=item['discount'], inventory=item['inventory']
         )
         for j in category["category_ids"]:
             product.categories.append(cat_objs[j-1])

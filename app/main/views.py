@@ -359,17 +359,17 @@ def shop(c):
                            products=products, pagination=pagination, recommend=recommend)
 
 
-@main.route('/portfolio', methods=['POST', 'GET'])
-def portfolio():
-    img_all = ProductImagePath.query.all()
-    random_img = []
-    img_num = len(img_all)
-    # print(img_num)
-    for i in range(img_num):
-        index = random.randint(0, img_num-i-1)
-        random_img.append(img_all[index])
-        del img_all[index]
-    return render_template('portfolio.html', images=random_img)
+# @main.route('/portfolio', methods=['POST', 'GET'])
+# def portfolio():
+#     img_all = ProductImagePath.query.all()
+#     random_img = []
+#     img_num = len(img_all)
+#     # print(img_num)
+#     for i in range(img_num):
+#         index = random.randint(0, img_num-i-1)
+#         random_img.append(img_all[index])
+#         del img_all[index]
+#     return render_template('portfolio.html', images=random_img)
 
 
 @main.route('/blog/', methods=['POST', 'GET'])
@@ -444,7 +444,7 @@ def add_blog():
             filename = current_time + random_string(8) + secure_filename(img.filename)
             file_path = os.path.join(Config.blog_direct, filename)
             img.save(file_path)
-            blog.imagePaths.append(BlogImagePath(image_path='../../static/img/blog/'+filename))
+            blog.imagePaths.append(BlogImagePath(image_path='../static/img/blog/'+filename))
 
     db.session.add(blog)
     db.session.commit()
@@ -724,46 +724,46 @@ def modify_avatar():
         return redirect(url_for('main.account', user_id=user_id))
 
 
-@login_required
-@main.route('/modify_delivery_info/<int:delivery_id>', methods=['POST', 'GET'])
-def modify_delivery_info(delivery_id):
-    """
-    modify details of deliver address
-    """
-    delivery_info_aim = DeliveryInfo.query.filter_by(id=delivery_id).first()
-    if request.method == 'POST':
-        delivery_info_aim.name = request.form.get('name')
-        delivery_info_aim.gender = request.form.get('gender')
-        delivery_info_aim.phone_number = request.form.get('phone')
-        delivery_info_aim.country = request.form.get('country')
-        delivery_info_aim.city = request.form.get('city')
-        delivery_info_aim.street = request.form.get('street')
-        delivery_info_aim.detail = request.form.get('detail')
-        db.session.commit()
-        return redirect(url_for('main.account', user_id=delivery_info_aim.user_id))
-    return render_template('modify_delivery_info.html', delivery_info=delivery_info_aim)
+# @login_required
+# @main.route('/modify_delivery_info/<int:delivery_id>', methods=['POST', 'GET'])
+# def modify_delivery_info(delivery_id):
+#     """
+#     modify details of deliver address
+#     """
+#     delivery_info_aim = DeliveryInfo.query.filter_by(id=delivery_id).first()
+#     if request.method == 'POST':
+#         delivery_info_aim.name = request.form.get('name')
+#         delivery_info_aim.gender = request.form.get('gender')
+#         delivery_info_aim.phone_number = request.form.get('phone')
+#         delivery_info_aim.country = request.form.get('country')
+#         delivery_info_aim.city = request.form.get('city')
+#         delivery_info_aim.street = request.form.get('street')
+#         delivery_info_aim.detail = request.form.get('detail')
+#         db.session.commit()
+#         return redirect(url_for('main.account', user_id=delivery_info_aim.user_id))
+#     return render_template('modify_delivery_info.html', delivery_info=delivery_info_aim)
 
 
 
-@login_required
-@main.route('/add_delivery_info/<int:user_id>', methods=['POST', 'GET'])
-def add_delivery_info(user_id):
-    """
-    add details of deliver address
-    """
-    if request.method == 'POST':
-        delivery_info_aim = DeliveryInfo(name=request.form.get('name'),
-                                         gender=request.form.get('gender'),
-                                         phone_number=request.form.get('phone'),
-                                         country=request.form.get('country'),
-                                         city=request.form.get('city'),
-                                         street=request.form.get('street'),
-                                         detail=request.form.get('detail'),
-                                         user_id=user_id)
-        db.session.add(delivery_info_aim)
-        db.session.commit()
-        return redirect(url_for('main.account', user_id=user_id))
-    return render_template('add_delivery_info.html')
+# @login_required
+# @main.route('/add_delivery_info/<int:user_id>', methods=['POST', 'GET'])
+# def add_delivery_info(user_id):
+#     """
+#     add details of deliver address
+#     """
+#     if request.method == 'POST':
+#         delivery_info_aim = DeliveryInfo(name=request.form.get('name'),
+#                                          gender=request.form.get('gender'),
+#                                          phone_number=request.form.get('phone'),
+#                                          country=request.form.get('country'),
+#                                          city=request.form.get('city'),
+#                                          street=request.form.get('street'),
+#                                          detail=request.form.get('detail'),
+#                                          user_id=user_id)
+#         db.session.add(delivery_info_aim)
+#         db.session.commit()
+#         return redirect(url_for('main.account', user_id=user_id))
+#     return render_template('add_delivery_info.html')
 
 
 @main.route('/wishlist', methods=['POST', 'GET'])
@@ -820,8 +820,7 @@ def price_calculator(cart_dicts: list) -> dict:
     for item in cart_dicts:
         if item["product_selected"]:
             output["product_price"] += item["product_price"] * item["product_discount"] * item["product_num"]
-            output["shipping_price"] += item["product_weight"] * item["product_num"] * 0.1
-    output["total_price"] = output["product_price"] + output["shipping_price"]
+    output["total_price"] = output["product_price"]
     return output
 
 
@@ -836,12 +835,11 @@ def get_cart_items() -> list:
                 "product_id": cart_item.product_id,
                 "product_num": cart_item.count,
                 "product_name": _product.name,
-                "product_img": _product.imagePaths[0].image_path,
+                "product_img": _product.imagePaths[0].image_path1,
                 "product_desc": _product.description,
                 "product_price": _product.price,
                 "product_discount": _product.discount,
                 "product_selected": cart_item.is_selected,
-                "product_weight": _product.weight
             })
         return data
     else:
