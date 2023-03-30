@@ -126,13 +126,15 @@ def modify_product(product_id):
         else:
             sort_dict[s.name] = 0
     if request.method == 'POST':
-        product_aim.model = request.form.get('model')
+        product_aim.key = request.form.get('key')
         product_aim.brand = request.form.get('brand')
+        product_aim.model = request.form.get('model')
         product_aim.year = request.form.get('year')
-        product_aim.description = request.form.get('description')
         product_aim.price = request.form.get('price')
         product_aim.discount = request.form.get('discount')
         product_aim.inventory = request.form.get('inventory')
+        product_aim.description = request.form.get('description')
+        product_aim.name = product_aim.brand + " " + product_aim.model
         category_box = request.form.getlist('cb')
         for s in all_sorts:
             category_aim = Category.query.filter_by(name=s.name).first()
@@ -157,7 +159,7 @@ def modify_product_image():
         filename_list = []
         file_test_save(file, filename_list)
         for f in filename_list:
-            pip.image_path = '../../static/storage/products/' + f
+            pip.image_path = '../static/storage/products/' + f
             # print(pip.image_path)
         db.session.commit()
         return redirect(url_for('admin.modify_product', product_id=product_id))
@@ -179,13 +181,15 @@ def add_category():
 @login_required
 def add_product():
     if request.method == 'POST':
-        model = request.form.get('model')
+        key = request.form.get('key')
         brand = request.form.get('brand')
+        model = request.form.get('model')
         year = request.form.get('year')
-        description = request.form.get('description')
         price = request.form.get('price')
         discount = request.form.get('discount')
         inventory = request.form.get('inventory')
+        description = request.form.get('description')
+        name = brand + " " + model
         category_list = request.form.getlist('category_list')
         file = request.files.get('image')
         file2 = request.files.get('image2')
@@ -194,15 +198,18 @@ def add_product():
         file_test_save(file, filename_list)
         file_test_save(file2, filename_list)
         file_test_save(file3, filename_list)
-        p = Product(model=model,
+        p = Product(key=key,
+                    name=name,
                     brand=brand,
+                    model=model,
                     year=year,
-                    description=description,
                     price=price,
                     discount=discount,
-                    inventory=inventory)
+                    inventory=inventory,
+                    description=description
+                    )
         for f in filename_list:
-            pip = ProductImagePath(image_path='../../static/storage/products/' + f)
+            pip = ProductImagePath(image_path='../static/storage/products/' + f)
             p.imagePaths.append(pip)
         for c in category_list:
             p.categories.append(Category.query.filter_by(name=c).first())
@@ -250,9 +257,9 @@ def update_status():
         if status_id == 1:
             order_aim.status = 'Created'
         elif status_id == 2:
-            order_aim.status = 'Packing'
+            order_aim.status = 'Sending from Factory'
         elif status_id == 3:
-            order_aim.status = 'In Delivery'
+            order_aim.status = 'Waiting for Pick Up'
         elif status_id == 4:
             order_aim.status = 'Accomplished'
         db.session.commit()

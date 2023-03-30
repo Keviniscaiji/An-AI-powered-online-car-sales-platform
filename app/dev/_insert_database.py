@@ -34,8 +34,8 @@ def insert_users():
 def insert_products(cat_objs):
     for item, category in zip(PRODUCTS, PRODUCTS2CATEGORIES):
         product = Product(
-            model=item['model'], brand=item['brand'], year=item['year'], description=item['description'],
-            price=item['price'], discount=item['discount'], inventory=item['inventory']
+            key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
+            price=item['price'], discount=item['discount'], inventory=item['inventory'], description=item['description']
         )
         for j in category["category_ids"]:
             product.categories.append(cat_objs[j-1])
@@ -54,7 +54,7 @@ def insert_orders():
     for item in ORDERS:
         timestamp = datetime.datetime.utcnow()
         order = Order(timestamp=timestamp, note=item["note"], status=item["status"], price=item["price"],
-                      detail=item["detail"], priority=item["priority"], buyer_id=item["buyer_id"])
+                      priority=item["priority"], buyer_id=item["buyer_id"])
         db.session.add(order)
         db.session.commit()
         order_aim = Order.query.filter_by(buyer_id=item["buyer_id"]).first()
@@ -74,7 +74,7 @@ def insert_carts():
 def insert_product_image_paths():
     for item in PRODUCTIMAGEPATHS:
         productImagePath = ProductImagePath(
-            image_path1=item['image_path1'], image_path2=item['image_path2'], image_path3=item['image_path3'], product_id=item['product_id']
+            image_path=item['image_path'], product_id=item['product_id']
         )
         db.session.add(productImagePath)
     db.session.commit()

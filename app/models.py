@@ -9,19 +9,20 @@ from . import db, login_manager
 from config import Config
 import os
 
-class DeliveryInfo(db.Model):
-    __tablename__ = 'deliveryInfos'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32), nullable=False, index=True)
-    gender = db.Column(db.Integer, nullable=False)
-    phone_number = db.Column(db.Integer, nullable=False)
-    # Address comprises country + city + street + detail
-    country = db.Column(db.String(32), nullable=False)
-    city = db.Column(db.String(32), nullable=False)
-    street = db.Column(db.String(32), nullable=False)
-    detail = db.Column(db.String(32), nullable=False)
-    # foreign keys:
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+# class DeliveryInfo(db.Model):
+#     __tablename__ = 'deliveryInfos'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(32), nullable=False, index=True)
+#     gender = db.Column(db.Integer, nullable=False)
+#     phone_number = db.Column(db.Integer, nullable=False)
+#     # Address comprises country + city + street + detail
+#     country = db.Column(db.String(32), nullable=False)
+#     city = db.Column(db.String(32), nullable=False)
+#     street = db.Column(db.String(32), nullable=False)
+#     detail = db.Column(db.String(32), nullable=False)
+#     # foreign keys:
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 class Initialization:
     @staticmethod
@@ -74,14 +75,16 @@ class Cart(db.Model):
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(64), nullable=False, index=True)
+    key = db.Column(db.String(32))
+    name = db.Column(db.String(128), nullable=False, index=True)
     brand = db.Column(db.String(64))
+    model = db.Column(db.String(64))
     year = db.Column(db.String(16))
-    description = db.Column(db.String(256))
-    # weight = db.Column(db.Float, default=50.0)
     price = db.Column(db.Float, default=1000.0)
     discount = db.Column(db.Float, default=1.0)
     inventory = db.Column(db.Integer, default=1000)
+    description = db.Column(db.String(256))
+    # weight = db.Column(db.Float, default=50.0)
     is_hidden = db.Column(db.Boolean, default=False)
     # relationship:
     imagePaths = db.relationship('ProductImagePath', backref='product', lazy='dynamic')
@@ -97,9 +100,7 @@ class Product(db.Model):
 class ProductImagePath(db.Model):
     __tablename__ = 'productImagePaths'
     id = db.Column(db.Integer, primary_key=True)
-    image_path1 = db.Column(db.String(512), index=True)
-    image_path2 = db.Column(db.String(512), index=True)
-    image_path3 = db.Column(db.String(512), index=True)
+    image_path = db.Column(db.String(512), index=True)
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
 
@@ -117,6 +118,8 @@ class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    pick_up_time_start = db.Column(db.DateTime)
+    pick_up_time_end = db.Column(db.DateTime)
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
     status = db.Column(db.String(16), default='Created', index=True)
@@ -130,7 +133,7 @@ class Order(db.Model):
     # country = db.Column(db.String(32))
     # city = db.Column(db.String(32))
     # street = db.Column(db.String(64))
-    detail = db.Column(db.String(32))
+    # detail = db.Column(db.String(32))
     priority = db.Column(db.Integer, default=0, index=True)
     # foreign keys:
     buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))

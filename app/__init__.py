@@ -54,10 +54,16 @@ def create_app(cfg_type: str):
     from .admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
+    from .autoChat import autoChat as autoChat_blueprint
+    app.register_blueprint(autoChat_blueprint)
+
     from .chat import chat as chat_blueprint
     app.register_blueprint(chat_blueprint)
 
     from .live import live as live_blueprint
     app.register_blueprint(live_blueprint)
+
+    from .carCostumize import carCostumize as carCostumize_blueprint
+    app.register_blueprint(carCostumize_blueprint)
 
     return app
