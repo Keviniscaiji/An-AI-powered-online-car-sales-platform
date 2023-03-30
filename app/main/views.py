@@ -223,7 +223,8 @@ def shop(c):
                 pagination = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.name)).paginate(
                     page, per_page=current_app.config[
                         'FLASKY_POST_PER_PAGE'], error_out=False)
-                recommend = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.name)).limit(3).all()
+                recommend = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.name)).limit(
+                    3).all()
             elif sort == "lh":
                 pagination = Product.query.filter(Product.name.contains(search)).order_by(Product.price).paginate(page,
                                                                                                                   per_page=
@@ -235,7 +236,8 @@ def shop(c):
                 pagination = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.price)).paginate(
                     page, per_page=current_app.config[
                         'FLASKY_POST_PER_PAGE'], error_out=False)
-                recommend = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.price)).limit(3).all()
+                recommend = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.price)).limit(
+                    3).all()
     elif cat == "all":
         if price != "":
             if sort == "all":
@@ -374,7 +376,7 @@ def shop(c):
 
 @main.route('/blog/', methods=['POST', 'GET'])
 def blog():
-    blogs = Blog.query.filter(Blog.id!=0).order_by(Blog.id.desc()).all()
+    blogs = Blog.query.filter(Blog.id != 0).order_by(Blog.id.desc()).all()
     return render_template('blog-index.html', blogs=blogs)
 
 
@@ -391,9 +393,9 @@ def blog_detail(p):
     pre = None
     next = None
     if int(p) > 1:
-        pre = Blog.query.filter_by(id=int(p)-1).first()
+        pre = Blog.query.filter_by(id=int(p) - 1).first()
     if int(p) != num:
-        next = Blog.query.filter_by(id=int(p)+1).first()
+        next = Blog.query.filter_by(id=int(p) + 1).first()
     return render_template('blog-detail.html', blog=blog, pre=pre, next=next)
 
 
@@ -444,7 +446,7 @@ def add_blog():
             filename = current_time + random_string(8) + secure_filename(img.filename)
             file_path = os.path.join(Config.blog_direct, filename)
             img.save(file_path)
-            blog.imagePaths.append(BlogImagePath(image_path='../static/img/blog/'+filename))
+            blog.imagePaths.append(BlogImagePath(image_path='../static/img/blog/' + filename))
 
     db.session.add(blog)
     db.session.commit()
@@ -744,7 +746,6 @@ def modify_avatar():
 #     return render_template('modify_delivery_info.html', delivery_info=delivery_info_aim)
 
 
-
 # @login_required
 # @main.route('/add_delivery_info/<int:user_id>', methods=['POST', 'GET'])
 # def add_delivery_info(user_id):
@@ -792,7 +793,7 @@ def single_product(p):
         for category in product.categories:
             for c in category.products:
                 if c not in product_all:
-                    i=i+1
+                    i = i + 1
                     if i < 9:
                         product_all.append(c)
         if request.method == 'POST':
@@ -835,7 +836,7 @@ def get_cart_items() -> list:
                 "product_id": cart_item.product_id,
                 "product_num": cart_item.count,
                 "product_name": _product.name,
-                "product_img": _product.imagePaths[0].image_path1,
+                "product_img": _product.imagePaths[0].image_path,
                 "product_desc": _product.description,
                 "product_price": _product.price,
                 "product_discount": _product.discount,

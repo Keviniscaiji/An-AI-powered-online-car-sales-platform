@@ -74,7 +74,7 @@ def insert_carts():
 def insert_product_image_paths():
     for item in PRODUCTIMAGEPATHS:
         productImagePath = ProductImagePath(
-            image_path1=item['image_path1'], image_path2=item['image_path2'], image_path3=item['image_path3'], product_id=item['product_id']
+            image_path=item['image_path'], product_id=item['product_id']
         )
         db.session.add(productImagePath)
     db.session.commit()

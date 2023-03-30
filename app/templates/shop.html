@@ -187,7 +187,7 @@
                                     {% for rec in recommend %}
 		                            <li>
 		                                <div class="rc-product-thumb img-full">
-		                                    <a href="{{ url_for('main.single_product', p=rec.id) }}"><img src={{ rec.imagePaths[0].image_path1 }} alt="" style="height: 72px; width: 72px"></a>
+		                                    <a href="{{ url_for('main.single_product', p=rec.id) }}"><img src={{ rec.imagePaths[0].image_path }} alt="" style="height: 72px; width: 72px"></a>
 		                                </div>
 		                                <div class="rc-product-content">
 		                                    <h6><a href="{{ url_for('main.single_product', p=rec.id) }}">{{ rec.name }}</a></h6>
@@ -307,7 +307,7 @@
                                                     <div class="single-product mb-25">
                                                         <div class="product-img img-full">
                                                             <a href="{{ url_for('main.single_product', p=product.id) }}">
-                                                                <img src={{ product.imagePaths[0].image_path1 }} alt="">
+                                                                <img src={{ product.imagePaths[0].image_path }} alt="">
                                                             </a>
                                                             <span class="onsale">{{ _('Sale') }}!</span>
 {#                                                            <div class="product-action">#}
@@ -325,7 +325,7 @@
                                                                     <span class="regular-price">${{ product.price }}</span>
                                                                 </div>
                                                                 <div class="add-to-cart">
-                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path1 }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
+                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -346,7 +346,7 @@
 		                                                <div class="single-product">
 		                                                    <div class="product-img img-full">
 		                                                        <a href="{{ url_for('main.single_product', p=product.id) }}">
-                                                                    <img src={{ product.imagePaths[0].image_path1 }} alt="">
+                                                                    <img src={{ product.imagePaths[0].image_path }} alt="">
                                                                 </a>
                                                                 <span class="onsale">{{ _('Sale') }}!</span>
 		                                                    </div>
@@ -375,7 +375,7 @@
                                                             </div>
                                                             <div class="product-list-action">
                                                                <div class="add-btn">
-                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path1 }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
+                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
                                                                 </div>
 {#                                                                <ul>#}
 {#                                                                    <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-search"></i></a></li>#}

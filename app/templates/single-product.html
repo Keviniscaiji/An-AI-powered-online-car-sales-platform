@@ -47,10 +47,10 @@
                               <div class="tab-pane fade show active" id="product1">
                                   <div class="product-large-thumb img-full" style="text-align: center">
                                      <div class="easyzoom easyzoom--overlay" style="text-align: center">
-                                        <a href="{{ p2.imagePaths[0].image_path1 }}">
-                                            <img src="{{ p2.imagePaths[0].image_path1 }}" alt="">
+                                        <a href="{{ p2.imagePaths[0].image_path }}">
+                                            <img src="{{ p2.imagePaths[0].image_path }}" alt="">
                                         </a>
-                                        <a href="{{ p2.imagePaths[0].image_path1 }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
+                                        <a href="{{ p2.imagePaths[0].image_path }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
                                      </div>
                                   </div>
                               </div>
@@ -58,10 +58,10 @@
                                   <div class="tab-pane fade" id="product2">
                                       <div class="product-large-thumb img-full" style="text-align: center">
                                          <div class="easyzoom easyzoom--overlay">
-                                            <a href="{{ p2.imagePaths[1].image_path2 }}">
-                                              <img src="{{ p2.imagePaths[1].image_path2 }}" alt="">
+                                            <a href="{{ p2.imagePaths[1].image_path }}">
+                                              <img src="{{ p2.imagePaths[1].image_path }}" alt="">
                                             </a>
-                                            <a href="{{ p2.imagePaths[1].image_path2 }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
+                                            <a href="{{ p2.imagePaths[1].image_path }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
                                          </div>
                                       </div>
                                   </div>
@@ -69,10 +69,10 @@
                                       <div class="tab-pane fade" id="product3">
                                           <div class="product-large-thumb img-full" style="text-align: center">
                                              <div class="easyzoom easyzoom--overlay">
-                                                <a href="{{ p2.imagePaths[2].image_path3 }}">
-                                                  <img src="{{ p2.imagePaths[2].image_path3 }}" alt="">
+                                                <a href="{{ p2.imagePaths[2].image_path }}">
+                                                  <img src="{{ p2.imagePaths[2].image_path }}" alt="">
                                                 </a>
-                                                <a href="{{ p2.imagePaths[2].image_path3 }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
+                                                <a href="{{ p2.imagePaths[2].image_path }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
                                              </div>
                                           </div>
                                       </div>
@@ -84,15 +84,15 @@
 		                    <div class="product-menu">
 		                        <div class="nav product-tab-menu">
                                   <div class="product-details-img">
-                                    <a class="active" data-toggle="tab" href="#product1"><img src="{{ p2.imagePaths[0].image_path1 }}" alt=""></a>
+                                    <a class="active" data-toggle="tab" href="#product1"><img src="{{ p2.imagePaths[0].image_path }}" alt=""></a>
                                   </div>
                                   {% if p2.imagePaths.all()|length > 1 %}
                                       <div class="product-details-img">
-                                        <a data-toggle="tab" href="#product2"><img src="{{ p2.imagePaths[1].image_path1 }}" alt=""></a>
+                                        <a data-toggle="tab" href="#product2"><img src="{{ p2.imagePaths[1].image_path }}" alt=""></a>
                                       </div>
                                       {% if p2.imagePaths.all()|length > 2 %}
                                           <div class="product-details-img">
-                                            <a data-toggle="tab" href="#product3"><img src="{{ p2.imagePaths[2].image_path1 }}" alt=""></a>
+                                            <a data-toggle="tab" href="#product3"><img src="{{ p2.imagePaths[2].image_path }}" alt=""></a>
                                           </div>
                                       {% endif %}
                                   {% endif %}
@@ -270,7 +270,7 @@
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                        <a href="{{ url_for('main.single_product', p=product.id) }}">
-                                           <img src={{ product.imagePaths[0].image_path1 }} alt="">
+                                           <img src={{ product.imagePaths[0].image_path }} alt="">
                                         </a>
                                         <div class="product-action">
                                             <ul>
@@ -290,7 +290,7 @@
                                                 <span class="regular-price">${{ product.price * product.discount }}</span>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path1 }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
+                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -544,7 +544,7 @@
                         var mci_html = "";  // mini cart item html
                         mci_html += '<li class="single-cart-item"><div class="cart-img">';
                         mci_html += '<a href="{{ url_for("main.single_product", p=p2.id) }}">';
-                        mci_html += '<img src="{{ p2.imagePaths[0].image_path1 }}" alt="" style="width: 80px; height: 80px"></a></div>';
+                        mci_html += '<img src="{{ p2.imagePaths[0].image_path }}" alt="" style="width: 80px; height: 80px"></a></div>';
                         mci_html += '<div class="cart-content"><h5 class="product-name">';
                         mci_html += '<a href="{{ url_for("main.single_product", p=p2.id) }}">{{ p2.name }}</a></h5>';
                         mci_html += '<span class="cart-price">' + count.toString() +' × ${{ p2.price }}</span></div></li>';
