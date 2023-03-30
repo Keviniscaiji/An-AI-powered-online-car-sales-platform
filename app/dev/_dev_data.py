@@ -6,9 +6,9 @@ ROLES = [
     {"id": 1, "name": "shop"}, {"id": 2, "name": "customer"}
 ]
 
-CATEGORIES = [{"id": 1, "name": "Autonomous Car"}, {"id": 2, "name": "Electric Car"},
-    {"id": 3, "name": "Sports Car"}, {"id": 4, "name": "Sedan"},
-    {"id": 5, "name": "Classic Car"}, {"id": 6, "name": "City Car"},
+CATEGORIES = [{"id": 1, "name": "Autonomous"}, {"id": 2, "name": "Electric"},
+    {"id": 3, "name": "Sports"}, {"id": 4, "name": "Sedan"},
+    {"id": 5, "name": "Classic"}, {"id": 6, "name": "City"},
     ]
 
 USERS = [
