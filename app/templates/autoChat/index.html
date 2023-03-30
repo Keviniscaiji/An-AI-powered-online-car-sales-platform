@@ -39,7 +39,7 @@
             overflow-y: scroll;
             padding: 10px;
             margin-bottom: 10px;
-            background-color: #f0f0f0;
+            background-color: black;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -59,6 +59,7 @@
             var message = input_elem.value;
             var chat_box = document.getElementById("chat_box");
             var chat_item = document.createElement("divBlack");
+            chat_item.style.color = "black"
             chat_item.className = "chat-item";
             chat_item.innerHTML = "<strong>I：</strong>" + message;
             chat_box.appendChild(chat_item);
@@ -71,6 +72,7 @@
                 let data = response['text']
                 var chat_item = document.createElement("div");
                 chat_item.className = "chat-item";
+                chat_item.style.color = "black"
                 chat_item.innerHTML = "<strong>Robot：</strong>" + data;
                 chat_box.appendChild(chat_item);
                 chat_box.scrollTop = chat_box.scrollHeight;
