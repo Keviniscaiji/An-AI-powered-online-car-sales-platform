@@ -16,24 +16,19 @@
                                     <div class="card-block">
 {#                                        <blockquote class="blockquote" style="background-color: #eadcdf">#}
                                         <blockquote class="blockquote">
-                                            <h5><span style="color: #b4888b">{{ _('Buyer') }}: </span>{{ order.gender }} {{ order.name }}</h5>
-                                        </blockquote>
-                                        <blockquote class="blockquote">
                                             <h5><span style="color: #b4888b">{{ _('Place Time') }}: </span>{{ order.timestamp }}</h5>
                                         </blockquote>
                                         <blockquote class="blockquote">
-                                            <h5><span style="color: #b4888b">{{ _('Ship Method') }}: </span>{{ order.ship_way }}</h5>
+                                            <h5><span style="color: #b4888b">{{ _('Pick Up Time Start') }}: </span>{{ order.pick_up_time_start }}</h5>
+                                        </blockquote>
+                                        <blockquote class="blockquote">
+                                            <h5><span style="color: #b4888b">{{ _('Pick Up Time End') }}: </span>{{ order.pick_up_time_end }}</h5>
+                                        </blockquote>
+                                        <blockquote class="blockquote">
+                                            <h5><span style="color: #b4888b">{{ _('Note') }}: </span>{{ order.note }}</h5>
                                         </blockquote>
                                         <blockquote class="blockquote">
                                             <h5><span style="color: #b4888b">{{ _('Price') }}($): </span>{{ order.price }}</h5>
-                                        </blockquote>
-                                        <blockquote class="blockquote">
-                                            <h5><span style="color: #b4888b">{{ _('Phone') }}: </span>{{ order.phone_number }}</h5>
-                                        </blockquote>
-                                        <blockquote class="blockquote">
-                                            <h5><span style="color: #b4888b">{{ _('Address') }}: </span>
-                                                {{ order.country }}-{{ order.city }}-{{ order.street }}-{{ order.detail }}
-                                            </h5>
                                         </blockquote>
                                     </div>
                                 </div>
@@ -84,10 +79,10 @@
                                                         <h6>{{ _('Created') }}</h6>
                                                     </div>
                                                     <div class="col-3 text-center">
-                                                        <h6>{{ _('Packing') }}</h6>
+                                                        <h6>{{ _('Sending from Factory') }}</h6>
                                                     </div>
                                                     <div class="col-3 text-center">
-                                                        <h6>{{ _('In Delivery') }}</h6>
+                                                        <h6>{{ _('Waiting for Pick Up') }}</h6>
                                                     </div>
                                                     <div class="col-3 text-center">
                                                         <h6>{{ _('Accomplished') }}</h6>

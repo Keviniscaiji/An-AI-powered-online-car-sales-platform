@@ -2029,12 +2029,11 @@ BLOGCOMMENTS = [
 ]
 
 ORDERS = [
-    {"id": 1, "note": "Please be careful", "status": "Packing",
-     "ship_way": "Delivery", "price": 3957, "name": "Ronnie", "gender": 1, "phone_number": 8848, "country": "China",
-     "city": "Beijing", "street": "Youan", "detail": "building33", "priority": 1, "buyer_id": 2},
-    {"id": 2, "note": "Please be vigilant", "status": "Created",
-     "ship_way": "Delivery", "price": 2101, "name": "Er", "gender": 2, "phone_number": 88488, "country": "Spain",
-     "city": "Madrid", "street": "Han", "detail": "1602", "priority": 0, "buyer_id": 2}
+    {"id": 1, "pick_up_time_start": '2023-05-01 13:00:00', "pick_up_time_end": '2023-05-01 14:00:00',
+     "note": "Please make the car clean", "status": "Created", "price": 81000, "priority": 1, "buyer_id": 2},
+    {"id": 2, "pick_up_time_start": '2023-05-01 13:00:00', "pick_up_time_end": '2023-05-01 14:00:00',
+     "note": "Please prepare the car on time", "status": "Waiting for Pick Up", "price": 108000, "priority": 0,
+     "buyer_id": 2}
 ]
 
 PRODUCTORDERS = [
