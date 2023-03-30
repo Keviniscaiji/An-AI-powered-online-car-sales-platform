@@ -35,7 +35,7 @@ class Config:
     blog_direct = os.path.join(basedir, 'app/static/img', 'blog')
 
     user = 'root'
-    password = 'Root8834'
+    password = '001029'
     database = 'flask_db'
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@127.0.0.1:3306/%s' % (user, password, database)
 
@@ -48,7 +48,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     user = 'root'
-    password = 'Root8834'
+    password = '001029'
     database = 'flask_db'
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@127.0.0.1:3306/%s' % (user, password, database)
     # WTF_CSRF_ENABLED = False
