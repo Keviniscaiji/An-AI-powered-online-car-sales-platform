@@ -307,30 +307,30 @@
         </div>
     </div>
     <!--Banner Area End-->
-    <!--Bestseller List Product Area Start-->
-    <div class="bestseller-list-product-area mt-80">
-        <div class="container">
-            <div class="row">
-                <!--Section Title Start-->
-                <div class="col-12">
-                    <div class="section-title text-center mb-35">
-                        <span>{{ _('The Most Trendy') }}</span>
-                        <h3>{{ _('Bestseller Products') }}</h3>
-                    </div>
-                </div>
-                <!--Section Title End-->
-            </div>
-            <div class="row">
-                <div class="product-list-slider-active">
-                    {% for items in products_best_seller %}
-                        <div class="col-md-4">
-                            {% for item in items %}
-                                <!--Row Product Start-->
-                                <div class="single-product product-list mb-35">
-                                    <div class="list-col-4">
-                                        <div class="product-img img-full">
-                                            <a href="{{ url_for('main.single_product', p=item.id) }}"><img src="{{ item.imagePaths[0].image_path }}" alt=""></a>
-                                            <span class="onsale">{{ _('Sale!') }}</span>
+{#    <!--Bestseller List Product Area Start-->#}
+{#    <div class="bestseller-list-product-area mt-80">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <!--Section Title Start-->#}
+{#                <div class="col-12">#}
+{#                    <div class="section-title text-center mb-35">#}
+{#                        <span>{{ _('The Most Trendy') }}</span>#}
+{#                        <h3>{{ _('Bestseller Products') }}</h3>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <!--Section Title End-->#}
+{#            </div>#}
+{#            <div class="row">#}
+{#                <div class="product-list-slider-active">#}
+{#                    {% for items in products_best_seller %}#}
+{#                        <div class="col-md-4">#}
+{#                            {% for item in items %}#}
+{#                                <!--Row Product Start-->#}
+{#                                <div class="single-product product-list mb-35">#}
+{#                                    <div class="list-col-4">#}
+{#                                        <div class="product-img img-full">#}
+{#                                            <a href="{{ url_for('main.single_product', p=item.id) }}"><img src="{{ item.imagePaths[0].image_path }}" alt=""></a>#}
+{#                                            <span class="onsale">{{ _('Sale!') }}</span>#}
 {#                                                <div class="product-action">#}
 {#                                                    <ul>#}
 {#                                                        <li><a href="#open-modal" data-toggle="modal" title="Quick view" tabindex="0"><i class="fa fa-search"></i></a></li>#}
@@ -338,33 +338,33 @@
 {#                                                        <li><a href="#" tabindex="0"><i class="fa fa-refresh"></i></a></li>#}
 {#                                                    </ul>#}
 {#                                                </div>#}
-                                        </div>
-                                    </div>
-                                    <div class="list-col-8">
-                                        <div class="product-content">
-                                            <h2><a href="{{ url_for('main.single_product', p=item.id) }}">{{ item.name }}</a></h2>
-                                            <div class="product-price">
-                                                <div class="price-box">
-                                                    {% if item.discount < 1 %}
-                                                        <span class="price">${{ item.price }}</span>
-                                                    {% endif %}
-                                                    <span class="regular-price">${{ item.price * item.discount }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Row Product End-->
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="list-col-8">#}
+{#                                        <div class="product-content">#}
+{#                                            <h2><a href="{{ url_for('main.single_product', p=item.id) }}">{{ item.name }}</a></h2>#}
+{#                                            <div class="product-price">#}
+{#                                                <div class="price-box">#}
+{#                                                    {% if item.discount < 1 %}#}
+{#                                                        <span class="price">${{ item.price }}</span>#}
+{#                                                    {% endif %}#}
+{#                                                    <span class="regular-price">${{ item.price * item.discount }}</span>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                            <div class="add-to-cart">#}
+{#                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <!--Row Product End-->#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
     <script>
         function add_to_cart(id, name, image_path, price) {

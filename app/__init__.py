@@ -63,7 +63,7 @@ def create_app(cfg_type: str):
     from .live import live as live_blueprint
     app.register_blueprint(live_blueprint)
 
-    from .carCostumize import carCostumize as carCostumize_blueprint
-    app.register_blueprint(carCostumize_blueprint)
+    from .car_customize import car_customize as car_customize_blueprint
+    app.register_blueprint(car_customize_blueprint)
 
     return app

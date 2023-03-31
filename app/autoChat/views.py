@@ -135,9 +135,9 @@ def get_answer(user_question):
     return best_answer
 
 
-@autoChat.route('/autoChat/index', methods=['POST', 'GET'])
+@autoChat.route('/auto_chat/index', methods=['POST', 'GET'])
 def index():
-    return render_template('autoChat/index.html')
+    return render_template('auto_chat/index.html')
 
 
 

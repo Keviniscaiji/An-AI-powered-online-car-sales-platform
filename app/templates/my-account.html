@@ -55,7 +55,7 @@
                 <div class="col-md-12 col-lg-2">
                     <!-- Nav tabs -->
                     <ul class="nav flex-column dashboard-list" role="tablist">
-                        <li><a class="nav-link active" data-toggle="tab" href="#address">{{ _('Addresses') }}</a></li>
+{#                        <li><a class="nav-link active" data-toggle="tab" href="#address">{{ _('Addresses') }}</a></li>#}
                         <li><a class="nav-link" data-toggle="tab" href="#orders">{{ _('Orders') }}</a></li>
                     </ul>
                 </div>
@@ -106,7 +106,8 @@
                                         <tr>
                                             <th>{{ _('ID') }}</th>
                                             <th>{{ _('Purchase Time') }}</th>
-                                            <th>{{ _('Ship Method') }}</th>
+                                            <th>{{ _('Pick Up Period') }}</th>
+{#                                            <th>{{ _('Ship Method') }}</th>#}
                                             <th>{{ _('Status') }}</th>
                                             <th>{{ _('Price') }}</th>
                                             <th>{{ _('Actions') }}</th>
@@ -117,7 +118,7 @@
                                         <tr>
                                             <td>{{ o.id }}</td>
                                             <td>{{ o.timestamp }}</td>
-                                            <td>{{ o.ship_way }}</td>
+                                            <td>{{ o.pick_up_time_start }} - {{ pick_up_time_end }}</td>
                                             <td>{{ o.status }}</td>
                                             <td>{{ o.price }}</td>
                                             <td><a class="btn_2_thin" href="{{ url_for('main.my_order', order_id=o.id) }}">{{ _('View Detail') }}</a></td>

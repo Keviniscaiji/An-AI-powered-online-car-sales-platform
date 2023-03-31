@@ -122,7 +122,7 @@ class Order(db.Model):
     pick_up_time_end = db.Column(db.DateTime)
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
-    status = db.Column(db.String(16), default='Created', index=True)
+    status = db.Column(db.String(32), default='Created', index=True)
     # ship_way. Respectively, 0/1 represents delivery/ pick-up
     # ship_way = db.Column(db.String(16), index=True)
     price = db.Column(db.Float, index=True)
