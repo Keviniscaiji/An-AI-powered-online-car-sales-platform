@@ -74,7 +74,7 @@ data = [
         "answer": "You can contact us by phone: 132-132-1321, or by email: autowheel@ucd.com."
     },
     {
-        "questions": ["What kind of website are you?", "What services does your website provide?"],
+        "questions": ["What kind of website are you?", "What services does your website provide?","What your website do"],
         "intent": "about_info",
         "answer": "We are an online car sales website. We hope to combine modern artificial intelligence methods with traditional websites to provide better services for our customers."
     },
