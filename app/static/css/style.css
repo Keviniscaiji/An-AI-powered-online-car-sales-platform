@@ -76,6 +76,7 @@ body {
     line-height: 25px;
     width: 100%;
     color: #ffffff;
+    background: #0a1f3f;
 }
 .img{
     max-width: 100%;
@@ -1100,7 +1101,8 @@ Common Style CSS
 	        transform: translateY(-50%);
 }
 .cart-icon:before {
-	content: '\f07a';
+	/*content: '\f07a';*/
+	content: '\f1b9';
 	font-family: FontAwesome;
 	line-height: 1;
 	font-size: 18px;
