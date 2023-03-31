@@ -2430,7 +2430,7 @@ Common Style CSS
 }
 .offer-slider {
     width: 100%;
-    margin-bottom: -270px;
+    /*margin-bottom: -270px;*/
 }
 .offer-slider .col-md-4.slick-slide{
     opacity: 0.5;
