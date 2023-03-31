@@ -248,35 +248,45 @@
                                 </div>
                             </div>
                            <!--Breadcrumb One End-->
-                            <!--Image Search Area Start-->
-                            <div class="header-search-area image-search">
-                                <form action="#">
-                                    <div class="form-input">
-                                        <input name="search" id="search" placeholder="" value="Image Search..." onblur="if(this.value==''){this.value='Search...'}" onfocus="if(this.value=='Search...'){this.value=''}" type="text">
-                                        <button type="submit" class="header-search-btn"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
 
-                            <button id="btn_display_canvas">Show</button><br>
-                            <div class="car_sl_area" id="car_sl_area">
-                                <div class="car_sl_mid_container" id="mid_container">
-                                    <input type="file" style="display: none;" id="hidden_upload">
-                                    <div class="car_sl_upload_area car_sl_drag_leave" id="upload_area">
-                                        <span id="upload_hint">Please drag file here or click to upload</span>
-                                        <span id="loading_hint">
-                                            <img src="/imgs/Wedges-3s-200px.gif" class="car_sl_loading_hint_gif">
-                                            <span id="loading_hint_text">locating vehicles</span>
-                                        </span>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <!--Image Search Area Start-->
+                                    <div class="ir_area">
+                                        <button id="btn_display_canvas" class="btn_ir">Search Image</button><br>
                                     </div>
-                                    <div class="car_sl_canvas_container" id="car_sl_canvas_container">
-                                        <h2 class="car_sl_hint">Please Select A Vehicle for Searching</h2>
-                                        <canvas width="500px" height="500px" id="canvas_area"></canvas>
+                                    <div class="car_sl_area" id="car_sl_area">
+                                        <div class="car_sl_mid_container" id="mid_container">
+                                            <input type="file" style="display: none;" id="hidden_upload">
+                                            <div class="car_sl_upload_area car_sl_drag_leave" id="upload_area">
+                                                <span id="upload_hint">Please drag file here or click to upload</span>
+                                                <span id="loading_hint">
+                                                    <img src="../../app/ir/static/imgs/Magnify-1.6s-200px.gif" class="car_sl_loading_hint_gif" alt="">
+                                                    <span id="loading_hint_text">locating vehicles</span>
+                                                </span>
+                                            </div>
+                                            <div class="car_sl_canvas_container" id="car_sl_canvas_container">
+                                                <h2 class="car_sl_hint">Please Select A Vehicle for Searching</h2>
+                                                <canvas width="500px" height="500px" id="canvas_area"></canvas>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <!--Image Search Area End-->
+                                </div>
+		                        <div class="col-lg-9">
+                                    <!--Text Search Area Start-->
+                                    <div class="header-search-area image-search">
+                                        <form action="#">
+                                            <div class="form-input">
+                                                <input name="search" id="search" placeholder="" value="Text Search..." onblur="if(this.value==''){this.value='Search...'}" onfocus="if(this.value=='Search...'){this.value=''}" type="text">
+                                                <button type="submit" class="header-search-btn"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--Text Search Area End-->
                                 </div>
                             </div>
 
-                            <!--Image Search Area End-->
 		                    <!--Grid & List View Start-->
 		                    <div class="shop-topbar-wrapper d-md-flex justify-content-md-between align-items-center">
 		                        <div class="grid-list-option">
@@ -447,69 +457,6 @@
             <input type="hidden" id="sortselect" name="sortselect" value="">
             <button type="submit" id="pass" class="btn btn-info" style="display: none">pass</button>
         </form>
-
-    <style>
-            .car_sl_area {
-                width: 100%;
-                position: absolute;
-                display: none;
-                z-index: 1000;
-            }
-
-            .car_sl_mid_container {
-                width: 50%;
-                text-align: center;
-                margin: 0 auto;
-            }
-
-            .car_sl_on_selecting {
-                border: 2px dashed #d9d9d9;
-                background-color: #f5f5f5;
-                border-radius: 10px;
-            }
-
-            .car_sl_upload_area {
-                width: 500px;
-                height: 500px;
-                text-align: center;
-                font-size: 20px;
-                line-height: 500px;
-                margin: 0 auto;
-                color: #999;
-                border-radius: 10px;
-                background-color: #f5f5f5;
-            }
-
-            .car_sl_drag_over {
-                border: 3px dashed orangered;
-            }
-
-            .car_sl_drag_leave {
-                border: 3px dashed #d9d9d9;
-            }
-
-            .car_sl_canvas_container {
-                width: 500px;
-                margin: 0 auto;
-                display: none;
-                text-align: center;
-            }
-
-            .car_sl_hint {
-                color: #999;
-                font-size: 15px;
-            }
-
-            #loading_hint {
-                display: none;
-            }
-
-            .car_sl_loading_hint_gif {
-                width: 30px;
-                vertical-align: middle;
-                margin-right: 10px;
-            }
-        </style>
 
     <script>
             window.onload = function(){
