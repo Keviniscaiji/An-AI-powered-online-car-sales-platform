@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Https -->
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <!-- Live stream css -->
     <link rel="stylesheet" href="../static/css/style_live.css">
 	<!-- Place favicon.ico in the root directory -->
@@ -435,11 +435,11 @@
     <!--Loading Figure End-->
 
     <!--Fixed Component Start-->
-    <img alt="agora-logo" src="../static/icon/agora-logo.png" style="width: 50px; height: 50px; position: fixed; bottom: 100px; right: 25px; cursor: pointer" id="open_liveroom">
+    <!-- <img alt="agora-logo" src="../static/icon/agora-logo.png" style="width: 50px; height: 50px; position: fixed; bottom: 100px; right: 25px; cursor: pointer" id="open_liveroom"> -->
     <!--Fixed Component End-->
 
     <!--Movable Component Start-->
-    <div class="live_container" id="liveroom">
+    <!-- <div class="live_container" id="liveroom">
         <div class="live_left">
 {#            <div class="live_left_top"></div>#}
             <div class="live_left_stream" id="stream">
@@ -464,7 +464,7 @@
               <button class="send_btn" id="send_btn">Send</button>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--Movable Component End-->
 
     <!--All Js Here-->
@@ -508,9 +508,9 @@
 	<!--Main Js-->
 	<script src="../static/js/main.js"></script>
     <!--Live stream Js-->
-    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="../static/js/bootstrap.bundle.min.js"></script>
     <script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/3.1.2/socket.io.js"></script> -->
 
     <script>
         $(document).ready(function(){
@@ -570,212 +570,212 @@
                 el.style.left = String((window.innerWidth-480)/2) + 'px';
             }
             // create Agora client
-            var client = null;
-            var localTracks = {
-                videoTrack: null,
-                audioTrack: null
-            };
-            var remoteUsers = {};
+        //     var client = null;
+        //     var localTracks = {
+        //         videoTrack: null,
+        //         audioTrack: null
+        //     };
+        //     var remoteUsers = {};
 
-            // Agora client options
-            var options = {
-                appid: "",
-                channel: "",
-                uid: null,
-                token: "",
-                role: "audience", // host or audience
-                audienceLatency: 1
-            };
+        //     // Agora client options
+        //     var options = {
+        //         appid: "",
+        //         channel: "",
+        //         uid: null,
+        //         token: "",
+        //         role: "audience", // host or audience
+        //         audienceLatency: 1
+        //     };
 
-            // global variable
-            var is_liveroom_opened = false;
-            var socket = null;
-            var user_name = "user";
+        //     // global variable
+        //     var is_liveroom_opened = false;
+        //     var socket = null;
+        //     var user_name = "user";
 
-            $("#open_liveroom").on('click', async function(){
-                {% if not current_user.is_authenticated %}
-                    window.location.href = "{{ url_for("auth.login") }}";
-                {% endif %}
+        //     $("#open_liveroom").on('click', async function(){
+        //         {% if not current_user.is_authenticated %}
+        //             window.location.href = "{{ url_for("auth.login") }}";
+        //         {% endif %}
 
-                if (is_liveroom_opened){
-                    await leave();
-                    document.getElementById('liveroom').style.visibility = "hidden";
-                    is_liveroom_opened = false;
+        //         if (is_liveroom_opened){
+        //             await leave();
+        //             document.getElementById('liveroom').style.visibility = "hidden";
+        //             is_liveroom_opened = false;
 
-                    if (socket){
-                         socket.emit("leave", {room: "liveroom", user: user_name});
-                    }
-                } else {
-                    document.getElementById('liveroom').style.visibility = "visible";
-                    is_liveroom_opened = true;
+        //             if (socket){
+        //                  socket.emit("leave", {room: "liveroom", user: user_name});
+        //             }
+        //         } else {
+        //             document.getElementById('liveroom').style.visibility = "visible";
+        //             is_liveroom_opened = true;
 
-                    socket = io.connect(
-                        'https://' + document.domain + ':' + location.port + '/liveroom',
-                        {
-                              'reconnection': true,
-                              'reconnectionAttempts': 8,
-                              'reconnectionDelay': 1000}
-                   );
+        //             socket = io.connect(
+        //                 'https://' + document.domain + ':' + location.port + '/liveroom',
+        //                 {
+        //                       'reconnection': true,
+        //                       'reconnectionAttempts': 8,
+        //                       'reconnectionDelay': 1000}
+        //            );
 
-                   // join comment channel
-                   user_name = "{{ current_user.username }}";
-                   socket.emit('join', {room: "liveroom", user: user_name, role: "customer"});
+        //            // join comment channel
+        //            user_name = "{{ current_user.username }}";
+        //            socket.emit('join', {room: "liveroom", user: user_name, role: "customer"});
 
-                   // receive message
-                   socket.on('msg_response', function(data) {
-                      var msg = data.msg;
-                      if (msg !== '') {
-                        if (data.user === user_name) {
-                            $('#live_msg_edit').val("");
-                        }
-                        if (data.user === "Music Zone 2022") {
-                            var msg_html = `<li class="msg_li"><div class="msg_li_in">
-                                                <span class="msg_admin">${data.user}:</span>
-                                                <span class="msg_content">${data.msg}</span>
-                                            </div></li>`;
-                        } else {
-                            var msg_html = `<li class="msg_li"><div class="msg_li_in">
-                                                <span class="msg_user">${data.user}:</span>
-                                                <span class="msg_content">${data.msg}</span>
-                                            </div></li>`;
-                        }
-                        $('#live_msg_history').append(msg_html);
-                        scrollToBottom();
-                      }
-                   });
+        //            // receive message
+        //            socket.on('msg_response', function(data) {
+        //               var msg = data.msg;
+        //               if (msg !== '') {
+        //                 if (data.user === user_name) {
+        //                     $('#live_msg_edit').val("");
+        //                 }
+        //                 if (data.user === "Music Zone 2022") {
+        //                     var msg_html = `<li class="msg_li"><div class="msg_li_in">
+        //                                         <span class="msg_admin">${data.user}:</span>
+        //                                         <span class="msg_content">${data.msg}</span>
+        //                                     </div></li>`;
+        //                 } else {
+        //                     var msg_html = `<li class="msg_li"><div class="msg_li_in">
+        //                                         <span class="msg_user">${data.user}:</span>
+        //                                         <span class="msg_content">${data.msg}</span>
+        //                                     </div></li>`;
+        //                 }
+        //                 $('#live_msg_history').append(msg_html);
+        //                 scrollToBottom();
+        //               }
+        //            });
 
-                   // token message
-                   socket.on('token_response', async function (data) {
-                       if (data.user === "{{ current_user.username }}") {
-                           options.token = data.token;
-                           options.uid = data.uid;
-                           options.appid = data.appid;
-                           options.channel = data.channel;
-                           client = AgoraRTC.createClient({mode: "live", codec: "vp8"});
-                           await join();
-                       }
-                   })
+        //            // token message
+        //            socket.on('token_response', async function (data) {
+        //                if (data.user === "{{ current_user.username }}") {
+        //                    options.token = data.token;
+        //                    options.uid = data.uid;
+        //                    options.appid = data.appid;
+        //                    options.channel = data.channel;
+        //                    client = AgoraRTC.createClient({mode: "live", codec: "vp8"});
+        //                    await join();
+        //                }
+        //            })
 
-                   // request agora token
-                   socket.emit('request_token', {user: user_name, role: "customer"});
-                }
-            });
+        //            // request agora token
+        //            socket.emit('request_token', {user: user_name, role: "customer"});
+        //         }
+        //     });
 
-            $('#leave_live').on('click', async function () {
-                await leave();
-                document.getElementById('liveroom').style.visibility = "hidden";
-                is_liveroom_opened = false;
+        //     $('#leave_live').on('click', async function () {
+        //         await leave();
+        //         document.getElementById('liveroom').style.visibility = "hidden";
+        //         is_liveroom_opened = false;
 
-                if (socket){
-                     socket.emit("leave", {room: "liveroom", user: user_name});
-                }
-            })
+        //         if (socket){
+        //              socket.emit("leave", {room: "liveroom", user: user_name});
+        //         }
+        //     })
 
-            $('#send_btn').on('click', function () {
-                var msg = $('#live_msg_edit').val();
-                // var msg_html = '<li class="msg_li"><div class="msg_user">' + user_name + ':</div><div class="msg_content">' + msg + '</div></li><br>';
-                // $('#live_msg_history').append(msg_html);
-                // scrollToBottom();
-                if (msg !== ""){
-                    socket.emit('send', {room: "liveroom", msg: msg, user: user_name});
-                }
-            })
+        //     $('#send_btn').on('click', function () {
+        //         var msg = $('#live_msg_edit').val();
+        //         // var msg_html = '<li class="msg_li"><div class="msg_user">' + user_name + ':</div><div class="msg_content">' + msg + '</div></li><br>';
+        //         // $('#live_msg_history').append(msg_html);
+        //         // scrollToBottom();
+        //         if (msg !== ""){
+        //             socket.emit('send', {room: "liveroom", msg: msg, user: user_name});
+        //         }
+        //     })
 
-            function scrollToBottom() {
-                $('.live_right_history').scrollTop($('.live_right_history')[0].scrollHeight);
-            }
+        //     function scrollToBottom() {
+        //         $('.live_right_history').scrollTop($('.live_right_history')[0].scrollHeight);
+        //     }
 
-            async function join() {
-                // create Agora client
+        //     async function join() {
+        //         // create Agora client
 
-                if (options.role === "audience") {
-                    client.setClientRole(options.role, {level: options.audienceLatency});
-                    // add event listener to play remote tracks when remote user publishs.
-                    client.on("user-published", handleUserPublished);
-                    client.on("user-unpublished", handleUserUnpublished);
-                }
-                else{
-                    client.setClientRole(options.role);
-                }
+        //         if (options.role === "audience") {
+        //             client.setClientRole(options.role, {level: options.audienceLatency});
+        //             // add event listener to play remote tracks when remote user publishs.
+        //             client.on("user-published", handleUserPublished);
+        //             client.on("user-unpublished", handleUserUnpublished);
+        //         }
+        //         else{
+        //             client.setClientRole(options.role);
+        //         }
 
-                // join the channel
-                options.uid = await client.join(options.appid, options.channel, options.token || null, options.uid || null)
-            }
+        //         // join the channel
+        //         options.uid = await client.join(options.appid, options.channel, options.token || null, options.uid || null)
+        //     }
 
-            async function leave() {
-                for (trackName in localTracks) {
-                    var track = localTracks[trackName];
-                    if (track) {
-                        track.stop();
-                        track.close();
-                        localTracks[trackName] = undefined;
-                    }
-                }
+        //     async function leave() {
+        //         for (trackName in localTracks) {
+        //             var track = localTracks[trackName];
+        //             if (track) {
+        //                 track.stop();
+        //                 track.close();
+        //                 localTracks[trackName] = undefined;
+        //             }
+        //         }
 
-                // remove remote users and player views
-                remoteUsers = {};
-                $("#stream").html("");
+        //         // remove remote users and player views
+        //         remoteUsers = {};
+        //         $("#stream").html("");
 
-                // leave the channel
-                await client.leave();
-            }
+        //         // leave the channel
+        //         await client.leave();
+        //     }
 
-            async function subscribe(user, mediaType) {
-                const uid = user.uid;
-                // subscribe to a remote user
-                await client.subscribe(user, mediaType);
-                console.log("subscribe success");
-                if (mediaType === 'video') {
-                    const player = $(`
-                    <div id="player-wrapper-${uid}">
-                        <div id="player-${uid}" class="player"></div>
-                    </div>
-                    `);
-                    $("#stream").append(player);
-                    user.videoTrack.play(`player-${uid}`, {fit:"contain"});
-                }
-                if (mediaType === 'audio') {
-                    user.audioTrack.play();
-                }
-            }
+        //     async function subscribe(user, mediaType) {
+        //         const uid = user.uid;
+        //         // subscribe to a remote user
+        //         await client.subscribe(user, mediaType);
+        //         console.log("subscribe success");
+        //         if (mediaType === 'video') {
+        //             const player = $(`
+        //             <div id="player-wrapper-${uid}">
+        //                 <div id="player-${uid}" class="player"></div>
+        //             </div>
+        //             `);
+        //             $("#stream").append(player);
+        //             user.videoTrack.play(`player-${uid}`, {fit:"contain"});
+        //         }
+        //         if (mediaType === 'audio') {
+        //             user.audioTrack.play();
+        //         }
+        //     }
 
-            function handleUserPublished(user, mediaType) {
-                const id = user.uid;
-                remoteUsers[id] = user;
-                subscribe(user, mediaType);
-            }
+        //     function handleUserPublished(user, mediaType) {
+        //         const id = user.uid;
+        //         remoteUsers[id] = user;
+        //         subscribe(user, mediaType);
+        //     }
 
-            function handleUserUnpublished(user, mediaType) {
-                if (mediaType === 'video') {
-                    const id = user.uid;
-                    delete remoteUsers[id];
-                    $(`#player-wrapper-${id}`).remove();
-                }
-            }
-        })
+        //     function handleUserUnpublished(user, mediaType) {
+        //         if (mediaType === 'video') {
+        //             const id = user.uid;
+        //             delete remoteUsers[id];
+        //             $(`#player-wrapper-${id}`).remove();
+        //         }
+        //     }
+        // })
 
-        $(() => {
-            let el = document.getElementById("liveroom");
-            el.onmousedown = (e) => {
-                let disX = e.clientX - el.offsetLeft;
-                let disY = e.clientY - el.offsetTop;
-                document.onmousemove = function (e) {
-                    let tX = e.clientX - disX;
-                    let tY = e.clientY - disY;
+        // $(() => {
+        //     let el = document.getElementById("liveroom");
+        //     el.onmousedown = (e) => {
+        //         let disX = e.clientX - el.offsetLeft;
+        //         let disY = e.clientY - el.offsetTop;
+        //         document.onmousemove = function (e) {
+        //             let tX = e.clientX - disX;
+        //             let tY = e.clientY - disY;
 
-                    if (tX >= 0 && tX <= window.innerWidth - el.offsetWidth) {
-                    el.style.left = tX + 'px';
-                    }
-                    if (tY >= 0 && tY <= window.innerHeight - el.offsetHeight) {
-                    el.style.top = tY + 'px';
-                    }
-                };
-                document.onmouseup = function (e) {
-                    document.onmousemove = null;
-                    document.onmouseup = null;
-                };
-            }
-        })
+        //             if (tX >= 0 && tX <= window.innerWidth - el.offsetWidth) {
+        //             el.style.left = tX + 'px';
+        //             }
+        //             if (tY >= 0 && tY <= window.innerHeight - el.offsetHeight) {
+        //             el.style.top = tY + 'px';
+        //             }
+        //         };
+        //         document.onmouseup = function (e) {
+        //             document.onmousemove = null;
+        //             document.onmouseup = null;
+        //         };
+        //     }
+        // })
     </script>
 </body>
 </html>
