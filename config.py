@@ -48,8 +48,8 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     user = 'root'
-    password = 'rentely'  # personal database pwd
-    # password = '001029'
+    # password = 'rentely'  # personal database pwd
+    password = '001029'
     database = 'flask_db'
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@127.0.0.1:3306/%s' % (user, password, database)
     # WTF_CSRF_ENABLED = False

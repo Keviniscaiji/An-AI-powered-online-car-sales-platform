@@ -1,13 +1,13 @@
 import os
 
-proj_path = "D:/ProjectGross/PycharmProjects/FYP/app/ir"
+proj_path = "D:/FYP/FYP/app/ir"
 
 ir_hci_cfg = dict(
     rtmdet_ins_cfg=dict(
-        mmdeploy_cfg_path='D:/ProjectGross/PycharmProjects/FYP/openmmlab/mmdeploy/configs/mmdet/instance-seg/instance'
+        mmdeploy_cfg_path='D:/FYP/openmmlab/mmdeploy/configs/mmdet/instance-seg/instance'
                           '-seg_rtmdet'
                           '-ins_onnxruntime_static-640x640.py',
-        mmdet_cfg_path='D:/ProjectGross/PycharmProjects/FYP/openmmlab/mmdetection/configs/rtmdet/rtmdet'
+        mmdet_cfg_path='D:/FYP/openmmlab/mmdetection/configs/rtmdet/rtmdet'
                        '-ins_tiny_8xb32-300e_coco.py',
         onnx_path=os.path.join(proj_path, "ckpts/end2end.onnx"),
         device='cpu',

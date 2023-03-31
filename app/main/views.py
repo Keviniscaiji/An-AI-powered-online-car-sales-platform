@@ -5,7 +5,7 @@ from flask import render_template, request, jsonify, current_app, session, redir
 
 from flask import render_template, request, jsonify, current_app, redirect, url_for, session
 from flask_login import login_required, current_user
-from sqlalchemy import desc
+from sqlalchemy import desc, case
 
 import app
 from app import db, babel
@@ -113,6 +113,40 @@ def index():
         products_best_seller=products_best_seller)
 
 
+def check_is_ir_search(c):
+    if len(c.split("_")) != 3:
+        return False
+    if c[:3] != "irs":
+        return False
+    if len(c.split("_")[1]) != 10:
+        return False
+    return True
+
+
+# @app.route("/shop/<string:c>", methods=['GET', 'POST'])
+# def shop(c):
+#     if check_is_ir_search(c):
+#         ts, selected_id = c.split("_")[1:]
+#
+#         target_path, target_img = load_from_cache(ts, selected_id, matting=True)
+#         rank = search_image(compiled_model3, target_img, ir_index)
+#
+#         response = dict(
+#             selcted=selected_id,
+#             target_path="../" + target_path,
+#             n_show=ir_cfg['n_show'],
+#             matched=[])
+#
+#         for i, item in enumerate(rank[:ir_cfg['n_show']]):
+#
+#             # item[0] -> key
+#             # response['matched'].append((i + 1, item[0]))
+#
+#         return render_template("shop.html", response=response)
+#
+#     return render_template("shop.html", response=dict(matched=[]))
+
+
 @main.route('/products/<string:c>', methods=['POST', 'GET'])
 def shop(c):
     if c == "+ image_path +":
@@ -166,6 +200,65 @@ def shop(c):
         session["price"] = price
         session["sort"] = _sort
         return jsonify({"status": "ok"})
+    elif check_is_ir_search(c):
+        page = request.args.get('page', 1, type=int)
+
+        ts, selected_id = c.split("_")[1:]
+
+        target_path, target_img = load_from_cache(ts, selected_id, matting=True)
+        rank = search_image(compiled_model3, target_img, ir_index)
+
+        response = dict(
+            selcted=selected_id,
+            target_path="../" + target_path,
+            n_show=ir_cfg['n_show'],
+            matched=[])
+
+        c = "all"
+        cat = c
+        price = ""
+        sort = "all"
+        search = ""
+        categories = Category.query.all()
+        cat_num = []
+        for cate in categories:
+            num = len(list(cate.products))
+            cat_num.append(num)
+        items = []
+        for i, item in enumerate(rank[:ir_cfg['n_show']]):
+            items.append(item[0])
+
+        ordering = case(
+            {key: index for index, key in enumerate(items)},
+            value=Product.key
+        )
+        pagination = Product.query.filter(Product.key.in_(items)).order_by(ordering).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
+
+        recommend = Product.query.filter(Product.key.in_(items)).order_by(ordering).limit(3).all()
+
+        products = pagination.items
+
+        if cat == "none":
+            pag = Product.query.filter(Product.name.contains(search)).order_by(Product.price).all()
+        elif cat == "all":
+            pag = Product.query.order_by(Product.price).all()
+        elif cat != "none" and cat != "all":
+            category = Category.query.filter_by(name=cat).first()
+            pag = category.products.order_by(Product.price).all()
+        if len(pag) == 0:
+            left = 0
+            right = 0
+        else:
+            left = pag[0].price
+            right = pag[-1].price
+        if price == "":
+            if c != "none" or sort == "all":
+                low = left
+                high = right
+        session["cate"] = cat
+        return render_template('shop.html', c=c, categories=categories, cat_num=cat_num, cat=cat, low=str(low),
+                               high=str(high), left=str(left), right=str(right), sort=sort, search=search,
+                               products=products, pagination=pagination, recommend=recommend)
     else:
         cat = c
         price = ""
@@ -898,6 +991,7 @@ print("ResNet50Encoder Model Loaded")
 with open(ir_cfg['index_path'], "rb") as f:
     ir_index = pickle.load(f)
 
+
 # ROUTE
 @main.route("/ir_search", methods=['GET', 'POST'])
 def ir_search():
@@ -906,7 +1000,7 @@ def ir_search():
         if request.values['mode'] == "ir":
             ts = request.values['ts']
             selected_id = request.values['selected']
-            return url_for('shop', c="irs_{}_{}".format(ts, selected_id))
+            return url_for('main.shop', c="irs_{}_{}".format(ts, selected_id))
 
         # response hci
         elif request.values['mode'] == "hci":
@@ -942,6 +1036,7 @@ def ir_search():
                 return jsonify(response)
 
     return render_template("shop.html")
+
 
 def check_is_ir_search(c):
     if len(c.split("_")) != 3:
