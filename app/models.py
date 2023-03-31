@@ -75,7 +75,7 @@ class Cart(db.Model):
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
-    key = db.Column(db.String(32))
+    key = db.Column(db.String(32), nullable=False, index=True)
     name = db.Column(db.String(128), nullable=False, index=True)
     brand = db.Column(db.String(64))
     model = db.Column(db.String(64))
