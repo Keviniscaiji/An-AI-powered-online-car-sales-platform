@@ -257,6 +257,25 @@
                                     </div>
                                 </form>
                             </div>
+
+                            <button id="btn_display_canvas">Show</button><br>
+                            <div class="car_sl_area" id="car_sl_area">
+                                <div class="car_sl_mid_container" id="mid_container">
+                                    <input type="file" style="display: none;" id="hidden_upload">
+                                    <div class="car_sl_upload_area car_sl_drag_leave" id="upload_area">
+                                        <span id="upload_hint">Please drag file here or click to upload</span>
+                                        <span id="loading_hint">
+                                            <img src="/imgs/Wedges-3s-200px.gif" class="car_sl_loading_hint_gif">
+                                            <span id="loading_hint_text">locating vehicles</span>
+                                        </span>
+                                    </div>
+                                    <div class="car_sl_canvas_container" id="car_sl_canvas_container">
+                                        <h2 class="car_sl_hint">Please Select A Vehicle for Searching</h2>
+                                        <canvas width="500px" height="500px" id="canvas_area"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!--Image Search Area End-->
 		                    <!--Grid & List View Start-->
 		                    <div class="shop-topbar-wrapper d-md-flex justify-content-md-between align-items-center">
@@ -429,5 +448,456 @@
             <button type="submit" id="pass" class="btn btn-info" style="display: none">pass</button>
         </form>
 
+    <style>
+            .car_sl_area {
+                width: 100%;
+                position: absolute;
+                display: none;
+                z-index: 1000;
+            }
+
+            .car_sl_mid_container {
+                width: 50%;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            .car_sl_on_selecting {
+                border: 2px dashed #d9d9d9;
+                background-color: #f5f5f5;
+                border-radius: 10px;
+            }
+
+            .car_sl_upload_area {
+                width: 500px;
+                height: 500px;
+                text-align: center;
+                font-size: 20px;
+                line-height: 500px;
+                margin: 0 auto;
+                color: #999;
+                border-radius: 10px;
+                background-color: #f5f5f5;
+            }
+
+            .car_sl_drag_over {
+                border: 3px dashed orangered;
+            }
+
+            .car_sl_drag_leave {
+                border: 3px dashed #d9d9d9;
+            }
+
+            .car_sl_canvas_container {
+                width: 500px;
+                margin: 0 auto;
+                display: none;
+                text-align: center;
+            }
+
+            .car_sl_hint {
+                color: #999;
+                font-size: 15px;
+            }
+
+            #loading_hint {
+                display: none;
+            }
+
+            .car_sl_loading_hint_gif {
+                width: 30px;
+                vertical-align: middle;
+                margin-right: 10px;
+            }
+        </style>
+
+    <script>
+            window.onload = function(){
+                // initialize global variables
+                window.listener = null;  // canvas event listener
+                window.flag2 = 0;  // anime progress indicator
+                window.is_drawing = false;  // whether anime is finished
+
+                window.tmp_canvas_offsetTop = 0;
+                window.tmp_canvas_offsetLeft = 0;
+
+                window.is_closed = true;  // whether car selection area is closed
+
+                // bind event
+                $('#btn_display_canvas').on('click', show_car_sl_area);
+                var upload_area = document.getElementById("upload_area");
+                upload_area.ondrop = function(e) {
+                    e.preventDefault();
+                    upload_image(e.dataTransfer.files[0]);
+                }
+                upload_area.ondragover = function() {
+                    upload_area.className = "car_sl_upload_area cal_sl_drag_over";
+                    return false;
+                }
+                upload_area.ondragleave = function() {
+                    upload_area.className = "car_sl_upload_area cal_sl_drag_leave";
+                    return false;
+                }
+                upload_area.onclick = function(e) {
+                    $('#hidden_upload').click();
+                }
+                $('#hidden_upload').on('change', function(){
+                    var fileObj = document.getElementById("hidden_upload").files[0];
+                    upload_image(fileObj);
+                })
+            }
+
+            window.onresize = function(){
+                // adjust coordinates transform
+                var canvas = document.getElementById('canvas_area');
+                tmp_canvas_offsetTop = element_pageY(canvas);
+                tmp_canvas_offsetLeft = element_pageX(canvas);
+
+                // adjust middle canvas container
+                var mid_container = document.getElementById("mid_container");
+                var percentage = (500 + 40) / mid_container.parentElement.offsetWidth;
+                mid_container.style.width = Math.ceil(percentage*100).toString() + "%";
+            }
+
+            function element_pageX(elem){
+                return elem.offsetParent?(elem.offsetLeft+element_pageX(elem.offsetParent)):elem.offsetLeft;
+            };
+
+            function element_pageY(elem){
+                return elem.offsetParent?(elem.offsetTop+element_pageY(elem.offsetParent)):elem.offsetTop;
+            };
+
+            class CanvasEventListener {
+                constructor (
+                    result,
+                    img_org, w, h,
+                    ratio,
+                    nw, nh,
+                    h_offset, w_offset) {
+
+                    this.cfg = result.cfg;
+                    this.results = [];
+                    this.results_imgs = [];
+                    this.results_masks = [];
+                    this.ts = result.ts;
+
+                    var _this = this;
+                    if (result.n_targets > 0) {
+                        for (var i=0; i<result.n_targets; i++) {
+                            this.results.push(result[i.toString()]);
+                        }
+
+                        // set param and load img after all resource loaded
+                        var post_load_resource = function(_this){
+                            _this.canvas = document.getElementById('canvas_area');
+                            _this.img_org = img_org;
+
+                            // param
+                            if(!_this.canvas.getContext) return;
+                            _this.ctx = _this.canvas.getContext("2d");
+
+                            _this.size = _this.canvas.width; _this.ratio = ratio;
+                            _this.nw = nw; _this.nh = nh;
+                            _this.h_offset = h_offset; _this.w_offset = w_offset;
+
+                            // apply css on mid_container
+                            document.getElementById("mid_container").className = "car_sl_mid_container car_sl_on_selecting ";
+
+                            // hide upload area and show canvas
+                            document.getElementById("upload_area").style.display = "none";
+                            document.getElementById("car_sl_canvas_container").style.display = "block";
+
+                            // get element coordinates to the page
+                            tmp_canvas_offsetTop = element_pageY(_this.canvas);
+                            tmp_canvas_offsetLeft = element_pageX(_this.canvas);
+
+                            // adjust middle canvas container
+                            var mid_container = document.getElementById("mid_container");
+                            var percentage = (500 + 40) / mid_container.parentElement.offsetWidth;
+                            mid_container.style.width = Math.ceil(percentage*100).toString() + "%";
+
+                            // event
+                            _this.canvas.onmousemove = _this.onMouseMove.bind(_this);
+                            _this.canvas.onmouseleave = _this.onMouseLeave.bind(_this);
+                            _this.canvas.onclick = _this.onMouseClick.bind(_this);
+                            _this.in_target = false;
+                            _this.in_target_id = -1;
+
+                            // draw image after all resource are loaded
+                            _this.ctx.drawImage(img_org, w_offset, h_offset, nw, nh);
+                        }
+
+                        // load masks
+                        var i = 0;
+                        (function load_sub_mask(){
+                            if (i < result.n_targets) {
+                                var image = new Image(60, 45);
+                                image.onload = function(){
+                                    _this.results_masks.push(this);
+                                    i++;
+                                    load_sub_mask();
+                                }
+                                image.src = result[i.toString()].m_path;
+                            } else {
+                                if (_this.cfg.enable_rs === 0) {
+                                    post_load_resource(_this);
+                                }
+                            }
+                        }())
+
+                        // load img clips
+                        if (_this.cfg.enable_rs === 1) {
+                            var j = 0;
+                            (function load_sub_img(){
+                                if (j < result.n_targets) {
+                                    var image = new Image(60, 45);
+                                    image.onload = function(){
+                                        _this.results_imgs.push(this);
+                                        j++;
+                                        load_sub_img();
+                                    }
+                                    image.src = result[j.toString()].im_path;
+                                } else {
+                                    post_load_resource(_this);
+                                }
+                            }())
+                        }
+                    }
+                }
+
+                onMouseMove(e){
+                    // TODO && BUG:
+                    //    When moving to another car before the anime of previous car finished,
+                    //    a BUG will appear which may cause the masks locked in the previous car.
+
+                    var ex = e.pageX - tmp_canvas_offsetLeft;
+                    var ey = e.pageY - tmp_canvas_offsetTop;
+
+                    var flag = false;  // whether mouse pointer is in a bbox
+
+                    for (var i=0; i<this.results.length; i++) {
+                        var xmin = this.results[i].xmin; var xmax = this.results[i].xmax;
+                        var ymin = this.results[i].ymin; var ymax = this.results[i].ymax;
+
+                        var xmin_new = Math.floor(this.results[i].xmin*this.ratio)+this.w_offset;
+                        var xmax_new = Math.floor(this.results[i].xmax*this.ratio)+this.w_offset;
+                        var ymin_new = Math.floor(this.results[i].ymin*this.ratio)+this.h_offset;
+                        var ymax_new = Math.floor(this.results[i].ymax*this.ratio)+this.h_offset;
+
+                        if (ex > xmin_new && ex < xmax_new && ey > ymin_new && ey < ymax_new) {
+                            if (this.in_target && (i != this.in_target_id)) {
+                                this.restoreCanvas();
+                            }
+                            if (!this.in_target) {
+                                is_drawing = true;
+                                var _this = this;
+                                var anime_id = 0;
+                                (function draw(){
+                                    _this.restoreBg();
+
+                                    if (_this.cfg.enable_rs == 0) {
+                                        _this.ctx.drawImage(
+                                            _this.results_img[i], Math.floor(xmin*_this.ratio)+_this.w_offset, Math.floor(ymin*_this.ratio)+_this.h_offset,
+                                            Math.floor((xmax-xmin)*_this.ratio), Math.floor((ymax-ymin)*_this.ratio));
+                                    } else {
+                                        var h_org = Math.floor((ymax-ymin)*_this.ratio);
+                                        var w_org = Math.floor((xmax-xmin)*_this.ratio);
+                                        var rs_ratio = _this.cfg.anime_rs_ratio - 1;
+
+                                        _this.ctx.drawImage(
+                                            _this.results_imgs[i],
+                                            Math.floor(xmin*_this.ratio)+_this.w_offset-w_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
+                                            Math.floor(ymin*_this.ratio)+_this.h_offset-h_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
+                                            Math.floor(w_org+w_org*rs_ratio*(flag2/_this.cfg.anime_length)),
+                                            Math.floor(h_org+h_org*rs_ratio*(flag2/_this.cfg.anime_length))
+                                        );
+
+                                        _this.ctx.drawImage(
+                                            _this.results_masks[i],
+                                            Math.floor(xmin*_this.ratio)+_this.w_offset-w_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
+                                            Math.floor(ymin*_this.ratio)+_this.h_offset-h_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
+                                            Math.floor(w_org+w_org*rs_ratio*(flag2/_this.cfg.anime_length)),
+                                            Math.floor(h_org+h_org*rs_ratio*(flag2/_this.cfg.anime_length))
+                                        );
+                                    }
+
+                                    _this.ctx.beginPath();
+                                    _this.ctx.fillStyle = "rgba(255, 105, 180, 255)";
+                                    _this.ctx.arc(Math.floor((xmax_new+xmin_new)/2), Math.floor((ymax_new+ymin_new)/2), flag2, 0, 2 * Math.PI);
+                                    _this.ctx.closePath();
+                                    _this.ctx.fill();
+
+                                    if (flag2 <= _this.cfg.anime_length && is_drawing) {
+                                        flag2 += _this.cfg.anime_speed;
+                                        requestAnimationFrame(draw);
+                                    }
+                                    else {
+                                        cancelAnimationFrame(draw);
+                                        is_drawing = false;
+                                        if (flag2 < _this.cfg.anime_length) {
+                                            _this.restoreBg();
+                                        }
+                                    }
+                                }())
+                                this.in_target = true;
+                                this.in_target_id = i;
+                            }
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if ((!flag) && this.in_target) {
+                        this.restoreCanvas();
+                        this.in_target_id = -1;
+                        flag2 = 0;
+                        is_drawing = false;
+                    }
+                }
+
+                onMouseLeave(e) {
+                    if (this.in_target) {
+                        this.restoreCanvas();
+                        this.in_target_id = -1;
+                        flag2 = 0;
+                        is_drawing = false;
+                    }
+                }
+
+                onMouseClick(e) {
+                    if (this.in_target_id >= 0) {
+                        $.post(
+                            "{{ url_for("main.ir_search") }}",
+                            {"mode": "ir", "ts": this.ts, "selected": this.in_target_id},
+                            function(result){
+                                show_car_sl_area();
+                                window.location.href = result;
+                            }
+                        )
+                    }
+                }
+
+                restoreBg() {
+                    this.ctx.clearRect(0, 0, this.size, this.size);
+                    this.ctx.drawImage(this.img_org, this.w_offset, this.h_offset, this.nw, this.nh);
+                }
+
+                restoreCanvas() {
+                    this.ctx.clearRect(0, 0, this.size, this.size);
+                    this.ctx.drawImage(this.img_org, this.w_offset, this.h_offset, this.nw, this.nh);
+                    this.in_target = false;
+                    flag2 = 0;
+                    is_drawing = false;
+                }
+
+
+            }
+
+            function reset_all(){
+                var canvas = document.getElementById('canvas_area');
+                if(!canvas.getContext) return;
+                var ctx = canvas.getContext("2d");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (listener != null) { listener = null; }
+
+                canvas.onmousemove = null;
+                canvas.onmouseleave = null;
+            }
+
+            function show_car_sl_area(){
+                if (is_closed) {
+                    document.getElementById('car_sl_area').style.display='block';
+                    is_closed = false;
+                } else {
+                    document.getElementById('car_sl_area').style.display='none';
+                    var upload_area = document.getElementById("upload_area");
+                    upload_area.style.display = "block";
+                    upload_area.className = "car_sl_upload_area car_sl_drag_leave";
+                    document.getElementById("upload_hint").style.display = "block";
+                    document.getElementById("loading_hint").style.display = "none";
+                    document.getElementById("loading_hint_text").innerHTML = "locating vehicles";
+                    document.getElementById("car_sl_canvas_container").style.display = "none";
+                    document.getElementById("mid_container").className = "cal_sl_mid_container";
+                    document.getElementById("mid_container").style.margin = "0 auto";
+
+                    reset_all()
+
+                    flag2 = 0;
+                    is_drawing = false;
+
+                    tmp_canvas_offsetTop = 0;
+                    tmp_canvas_offsetLeft = 0;
+                    is_closed = true;
+                }
+            }
+
+            function upload_image(fileObj){
+                if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+                    alert("Please Select Image");
+                    return;
+                }
+                var formFile = new FormData();
+                formFile.append("action", "UploadVMKImagePath");
+                formFile.append("file", fileObj);
+                formFile.append("mode", "hci");
+
+                var data = formFile;
+
+                $.ajax({
+                    url: "{{ url_for("main.ir_search") }}",
+                    data: data,
+                    type: "Post",
+                    dataType: "json",
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        // set loading hint
+                        document.getElementById("loading_hint_text").innerHTML = "loading resources";
+
+                        // Reset Canvas
+                        reset_all()
+
+                        // Set Uploaded Image
+                        var image = new Image(60, 45);
+                        image.onload = function (){
+                            var canvas = document.getElementById('canvas_area');
+                            if(!canvas.getContext) return;
+                            var ctx = canvas.getContext("2d");
+
+                            // calculate param
+                            var size = canvas.width;
+                            var padding = result.cfg.padding;
+                            var ratio = (size-padding) / Math.max(this.naturalWidth, this.naturalHeight);
+
+                            var nw = Math.floor(this.naturalWidth * ratio);
+                            var nh = Math.floor(this.naturalHeight * ratio);
+
+                            // align center
+                            var h_offset = Math.floor((size-nh)/2)
+                            var w_offset = Math.floor((size-nw)/2)
+
+                            // global
+                            listener = new CanvasEventListener(
+                                result,
+                                this, this.naturalWidth, this.naturalHeight,
+                                ratio,
+                                nw, nh,
+                                h_offset, w_offset)
+                        };
+
+                        if (result.use_rs === 0) {
+                            image.src = window.URL.createObjectURL(fileObj);
+                        } else {
+                            // for large image, load resized version from server
+                            image.src = result.src_path;
+                        }
+                    },
+                })
+
+                document.getElementById("upload_hint").style.display = "none";
+                document.getElementById("loading_hint").style.display = "block";
+            }
+        </script>
 
 {% endblock %}
