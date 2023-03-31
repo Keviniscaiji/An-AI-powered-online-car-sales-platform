@@ -12,3 +12,8 @@ data.sqlite
 venv/
 
 .DS_Store
+
+app/static/storage/products
+
+nltk_data.zip
+app/static/cache

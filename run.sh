@@ -1,1 +1,1 @@
-~/miniconda3/envs/projenv/bin/gunicorn run:app -b=0.0.0.0:8000 -w 1 --thread=2 -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker
+~/miniconda3/envs/projenv/bin/gunicorn run:app -b=0.0.0.0:8000 -w 2 --thread=4 -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker
