@@ -337,7 +337,7 @@ def bar_base_polar() -> Polar:
                                                 type_="category"),
             angleaxis_opts=opts.AngleAxisOpts(is_clockwise=True, max_=10),
         )
-            .add("A", order_list, type_="bar")
+            .add("Order", order_list, type_="bar")
             .set_global_opts(title_opts=opts.TitleOpts(title=""))
             .set_series_opts(label_opts=opts.LabelOpts(is_show=True))
         # .render("polar_radius.html")

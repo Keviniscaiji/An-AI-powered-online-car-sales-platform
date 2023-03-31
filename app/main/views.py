@@ -586,24 +586,26 @@ def checkout(user_id):
     # delivery_info_list = DeliveryInfo.query.filter_by(user_id=user_id).all()
     user_cart = Cart.query.filter_by(owner_id=user_id).filter_by(is_selected=True).all()
     product_pay = 0.0
-    total_weight = 0.0
+    # total_weight = 0.0
     if len(user_cart) == 0:
         flash("No product selected!")
         return redirect(url_for("main.cart"))
 
     for c in user_cart:
         product_pay += c.product.price * c.product.discount * c.count
-        total_weight += c.product.weight * c.count
-    weight_pay = total_weight * 0.1
+        # total_weight += c.product.weight * c.count
+    # weight_pay = total_weight * 0.1
     # is_pandemic = Pandemic.query.first().is_pandemic
     return render_template('checkout.html', cart=user_cart,
-                           product_pay=product_pay, weight_pay=weight_pay)
+                           product_pay=product_pay)
 
 
-@main.route('/place_order/<int:buyer_id>/<int:wp>/<int:pp>', methods=['POST', 'GET'])
-def place_order(buyer_id, wp, pp):
+@main.route('/place_order/<int:buyer_id>/<int:pp>', methods=['POST', 'GET'])
+def place_order(buyer_id, pp):
     if request.method == 'POST':
-        ship_way = request.form.get('delivery')
+        # ship_way = request.form.get('delivery')
+        start_time = request.form.get('start_time')
+        end_time = request.form.get('end_time')
         note = request.form.get('note')
         product_ids = request.form.getlist('product')
         counts = request.form.getlist('count')
@@ -614,32 +616,20 @@ def place_order(buyer_id, wp, pp):
                 flash_num = 1
         if flash_num == 0:
             timestamp = datetime.datetime.utcnow()
-            if ship_way == 'PICK UP':
-                ship_way = 'Pick-up'
-                price = pp
-                order = Order(
-                    timestamp=timestamp,
-                    note=note,
-                    status='Created',
-                    ship_way=ship_way,
-                    price=price,
-                    buyer_id=buyer_id
-                )
-            else:
-                # di = DeliveryInfo.query.filter_by(id=int(ship_way[-1])).first()
-                ship_way = 'Delivery'
-                price = wp + pp
-                order = Order(
-                    timestamp=timestamp,
-                    note=note,
-                    status='Created',
-                    ship_way=ship_way,
-                    price=price,
-                    buyer_id=buyer_id
-                )
+            price = pp
+            order = Order(
+                timestamp=timestamp,
+                pick_up_time_start=start_time,
+                pick_up_time_end=end_time,
+                note=note,
+                status='Created',
+                price=price,
+                buyer_id=buyer_id
+            )
             db.session.add(order)
             db.session.commit()
-            order = Order.query.filter_by(buyer_id=buyer_id).filter_by(timestamp=timestamp).first()
+            # order = Order.query.filter_by(buyer_id=buyer_id).filter_by(timestamp=timestamp).first()
+            # print(order)
             for i in range(0, len(product_ids)):
                 po = ProductOrder(
                     count=counts[i],
