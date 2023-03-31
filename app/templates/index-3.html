@@ -84,40 +84,40 @@
     <div class="shop-collection-area blue-bg pt-120 pb-25">
         <div class="container">
             <div class="row">
-                {% if products_collection | count != 0 %}
-                    <div class="col-md-6 col-left">
-                        <!--Single Collection Start-->
-                        <div class="single-collection mb-35">
-                            <div class="collection-img text-right mb-50">
-                                <img src="{{ products_collection[0].imagePaths[0].image_path }}" alt="">
-                            </div>
-                            <div class="collection-content">
-                                <h3>{{ products_collection[0].name }}</h3>
-                                <h4>{{ _('Category:') }} {{ products_collection[0].categories[0].name }}</h4>
-                                <p>{{ products_collection[0].description }}</p>
-                                <h2>${{ products_collection[0].price }}</h2>
-                                <a class="collection-btn" href="{{ url_for('main.single_product', p=products_collection[0].id) }}">{{ _('Buy Now') }}</a>
-                            </div>
-                        </div>
-                        <!--Single Collection End-->
-                    </div>
-                    <div class="col-md-6 col-right">
-                        <!--Single Collection Start-->
-                        <div class="single-collection mb-35">
-                            <div class="collection-content mb-50">
-                                <h3>{{ products_collection[1].name }}</h3>
-                                <h4>{{ _('Category:') }} {{ products_collection[1].categories[0].name }}</h4>
-                                <p>{{ products_collection[1].description }}</p>
-                                <h2>${{ products_collection[1].price }}</h2>
-                                <a class="collection-btn" href="{{ url_for('main.single_product', p=products_collection[1].id) }}">{{ _('Buy Now') }}</a>
-                            </div>
-                            <div class="collection-img text-left">
-                                <img src="{{ products_collection[1].imagePaths[0].image_path }}" alt="">
-                            </div>
-                        </div>
-                        <!--Single Collection End-->
-                    </div>
-                {% endif %}
+{#                {% if products_collection | count != 0 %}#}
+{#                    <div class="col-md-6 col-left">#}
+{#                        <!--Single Collection Start-->#}
+{#                        <div class="single-collection mb-35">#}
+{#                            <div class="collection-img text-right mb-50">#}
+{#                                <img src="{{ products_collection[0].imagePaths[0].image_path }}" alt="">#}
+{#                            </div>#}
+{#                            <div class="collection-content">#}
+{#                                <h3>{{ products_collection[0].name }}</h3>#}
+{#                                <h4>{{ _('Category:') }} {{ products_collection[0].categories[0].name }}</h4>#}
+{#                                <p>{{ products_collection[0].description }}</p>#}
+{#                                <h2>${{ products_collection[0].price }}</h2>#}
+{#                                <a class="collection-btn" href="{{ url_for('main.single_product', p=products_collection[0].id) }}">{{ _('Buy Now') }}</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!--Single Collection End-->#}
+{#                    </div>#}
+{#                    <div class="col-md-6 col-right">#}
+{#                        <!--Single Collection Start-->#}
+{#                        <div class="single-collection mb-35">#}
+{#                            <div class="collection-content mb-50">#}
+{#                                <h3>{{ products_collection[1].name }}</h3>#}
+{#                                <h4>{{ _('Category:') }} {{ products_collection[1].categories[0].name }}</h4>#}
+{#                                <p>{{ products_collection[1].description }}</p>#}
+{#                                <h2>${{ products_collection[1].price }}</h2>#}
+{#                                <a class="collection-btn" href="{{ url_for('main.single_product', p=products_collection[1].id) }}">{{ _('Buy Now') }}</a>#}
+{#                            </div>#}
+{#                            <div class="collection-img text-left">#}
+{#                                <img src="{{ products_collection[1].imagePaths[0].image_path }}" alt="">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!--Single Collection End-->#}
+{#                    </div>#}
+{#                {% endif %}#}
             </div>
         </div>
     </div>
