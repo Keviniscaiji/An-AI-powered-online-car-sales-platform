@@ -478,11 +478,11 @@
                     upload_image(e.dataTransfer.files[0]);
                 }
                 upload_area.ondragover = function() {
-                    upload_area.className = "car_sl_upload_area cal_sl_drag_over";
+                    upload_area.className = "car_sl_upload_area car_sl_drag_over";
                     return false;
                 }
                 upload_area.ondragleave = function() {
-                    upload_area.className = "car_sl_upload_area cal_sl_drag_leave";
+                    upload_area.className = "car_sl_upload_area car_sl_drag_leave";
                     return false;
                 }
                 upload_area.onclick = function(e) {
@@ -554,14 +554,14 @@
                             document.getElementById("upload_area").style.display = "none";
                             document.getElementById("car_sl_canvas_container").style.display = "block";
 
-                            // get element coordinates to the page
-                            tmp_canvas_offsetTop = element_pageY(_this.canvas);
-                            tmp_canvas_offsetLeft = element_pageX(_this.canvas);
-
                             // adjust middle canvas container
                             var mid_container = document.getElementById("mid_container");
                             var percentage = (500 + 40) / mid_container.parentElement.offsetWidth;
                             mid_container.style.width = Math.ceil(percentage*100).toString() + "%";
+
+                            // get element coordinates to the page
+                            tmp_canvas_offsetTop = element_pageY(_this.canvas);
+                            tmp_canvas_offsetLeft = element_pageX(_this.canvas);
 
                             // event
                             _this.canvas.onmousemove = _this.onMouseMove.bind(_this);
@@ -651,21 +651,13 @@
                                         var w_org = Math.floor((xmax-xmin)*_this.ratio);
                                         var rs_ratio = _this.cfg.anime_rs_ratio - 1;
 
-                                        _this.ctx.drawImage(
-                                            _this.results_imgs[i],
-                                            Math.floor(xmin*_this.ratio)+_this.w_offset-w_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
-                                            Math.floor(ymin*_this.ratio)+_this.h_offset-h_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
-                                            Math.floor(w_org+w_org*rs_ratio*(flag2/_this.cfg.anime_length)),
-                                            Math.floor(h_org+h_org*rs_ratio*(flag2/_this.cfg.anime_length))
-                                        );
+                                        var x1 = Math.floor(xmin*_this.ratio)+_this.w_offset-w_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length);
+                                        var y1 = Math.floor(ymin*_this.ratio)+_this.h_offset-h_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length);
+                                        var w = Math.floor(w_org+w_org*rs_ratio*(flag2/_this.cfg.anime_length));
+                                        var h = Math.floor(h_org+h_org*rs_ratio*(flag2/_this.cfg.anime_length));
 
-                                        _this.ctx.drawImage(
-                                            _this.results_masks[i],
-                                            Math.floor(xmin*_this.ratio)+_this.w_offset-w_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
-                                            Math.floor(ymin*_this.ratio)+_this.h_offset-h_org*(rs_ratio/2)*(flag2/_this.cfg.anime_length),
-                                            Math.floor(w_org+w_org*rs_ratio*(flag2/_this.cfg.anime_length)),
-                                            Math.floor(h_org+h_org*rs_ratio*(flag2/_this.cfg.anime_length))
-                                        );
+                                        _this.ctx.drawImage(_this.results_imgs[i], x1, y1, w, h);
+                                        _this.ctx.drawImage(_this.results_masks[i], x1, y1, w, h);
                                     }
 
                                     _this.ctx.beginPath();
@@ -714,7 +706,7 @@
                 onMouseClick(e) {
                     if (this.in_target_id >= 0) {
                         $.post(
-                            "{{ url_for("main.ir_search") }}",
+                            "{{ url_for('main.ir_search') }}",
                             {"mode": "ir", "ts": this.ts, "selected": this.in_target_id},
                             function(result){
                                 show_car_sl_area();
@@ -736,8 +728,6 @@
                     flag2 = 0;
                     is_drawing = false;
                 }
-
-
             }
 
             function reset_all(){
@@ -791,7 +781,7 @@
                 var data = formFile;
 
                 $.ajax({
-                    url: "{{ url_for("main.ir_search") }}",
+                    url: "{{ url_for('main.ir_search') }}",
                     data: data,
                     type: "Post",
                     dataType: "json",

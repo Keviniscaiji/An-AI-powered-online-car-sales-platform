@@ -6658,7 +6658,7 @@ a.ideas-btn:hover{
 }
 
 .car_sl_drag_over {
-    border: 3px dashed orangered;
+    border: 3px dashed #ff4500;
 }
 
 .car_sl_drag_leave {
