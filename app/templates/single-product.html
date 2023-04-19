@@ -1,17 +1,33 @@
-﻿<!-- <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Product</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../static/img/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="../static/css/style_chat.css">
-    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-</head>
-<body> -->
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
+
+{#<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href="../static/css/timedropper.css" rel="stylesheet" type="text/css">
+<!-- datedropper -->
+<script src="../static/js/datedropper-javascript.js"></script>
+<script>
+new dateDropper({
+    selector: 'input[type="date"]'
+});
+</script>
+<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="../static/js/timedropper.js"></script>
+<script>$( "#alarm" ).timeDropper();</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>#}
+
 {% block content %}
     <!-- Chat Style-->
     <link rel="stylesheet" href="../static/css/style_chat.css">
@@ -147,7 +163,36 @@
                                         <button class="product-btn" data-text="add to cart" id="add_to_cart">{{ _('Add To Cart') }}</button><span id="cart_op_note" style="margin-left: 10px;color: green"></span>
                                     </div>
                                 </div>
-                           </div>
+                            </div>
+                            <!--Select Date and Time-->
+                            <div class="single-product-quantity">
+                                <label for="alarm">Select Date:</label>
+                                <input type="text" id="alarm">
+                                <label for="datetime">Select Time:</label>
+                                <input type="date" id="datetime">
+                            </div>
+                            <script>
+                            new dateDropper({
+                                selector: 'input[type="date"]'
+                            });
+                            </script>
+                            <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+                            <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+                            <script src="../static/js/timedropper.js"></script>
+                            <script>$( "#alarm" ).timeDropper();</script>
+                            <script type="text/javascript">
+
+                              var _gaq = _gaq || [];
+                              _gaq.push(['_setAccount', 'UA-36251023-1']);
+                              _gaq.push(['_setDomainName', 'jqueryscript.net']);
+                              _gaq.push(['_trackPageview']);
+
+                              (function() {
+                                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                              })();
+                            </script>
 						   <!--Wishlist and Compare!!!!!-->
                             <div class="wishlist-compare-btn">
                                 <a class="fa fa-headphones" id="open_chatroom" style="cursor: pointer">{{ _('Customer Service') }}</a>
