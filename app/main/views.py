@@ -21,9 +21,9 @@ import pickle
 import calendar
 from openvino.runtime import Core
 
-from app.ir.ir_with_hci import *
-from app.ir.configs.ml_config import *
-from app.ir.configs.flask_config import *
+# from app.ir.ir_with_hci import *
+# from app.ir.configs.ml_config import *
+# from app.ir.configs.flask_config import *
 # IR end
 
 
@@ -978,18 +978,18 @@ def get_ts():
 
 ## Load Models and Index
 # Load RTMDet-Ins
-engine = RTMDetInsEngine()
+# engine = RTMDetInsEngine()
 print("RTMDet-Ins Model Loaded")
 
 # Load Encoder
 ie3 = Core()
-net3 = ie3.read_model(ir_cfg['encoder_path'])
-compiled_model3 = ie3.compile_model(net3, 'CPU')
+# net3 = ie3.read_model(ir_cfg['encoder_path'])
+# compiled_model3 = ie3.compile_model(net3, 'CPU')
 print("ResNet50Encoder Model Loaded")
 
 # Load Index
-with open(ir_cfg['index_path'], "rb") as f:
-    ir_index = pickle.load(f)
+# with open(ir_cfg['index_path'], "rb") as f:
+#     ir_index = pickle.load(f)
 
 
 # ROUTE
