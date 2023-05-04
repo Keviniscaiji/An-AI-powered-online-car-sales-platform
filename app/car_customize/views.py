@@ -4,5 +4,5 @@ from . import car_customize
 
 @car_customize.route('/car_customize')
 def index():
-    return render_template('car_customize/carthreejs/cartest.html')
+    return render_template('car_customize/index.html')
 

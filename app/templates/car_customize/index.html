@@ -1,91 +1,17 @@
+<!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-{#    <link rel="stylesheet" href="{{ url_for('static',filename="css/car_cos_main.css" )}}">#}
-
-    <script type="text/javascript">
-        var webSiteURL = "https://cdn4.maxuscloud.com/ops2/Public/3dwap/"; //_rootURL
-    </script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/three.min.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/loaders/draco/DRACOLoader.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/controls/OrbitControls.js"></script>
-
-    <!-- NodeLibrary -->
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/GLNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/TempNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/InputNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/FunctionNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/NodeBuilder.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/NodeMaterial.js"></script>
-
-    <!-- Accessors -->
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/accessors/NormalNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/accessors/ReflectNode.js"></script>
-    <!-- Inputs -->
-
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/inputs/FloatNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/inputs/ColorNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/inputs/Vector3Node.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/inputs/CubeTextureNode.js"></script>
-
-    <!-- Math -->
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/math/Math1Node.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/math/Math2Node.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/math/OperatorNode.js"></script>
-
-    <!-- Phong Material -->
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/materials/PhongNode.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/nodes/materials/PhongNodeMaterial.js"></script>
-
-
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/Tween.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/Detector.js"></script>
-
-
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/loaders/draco/geometry_helper.js"></script>
-{#    {{ url_for('static',filename="js/YappamCar.js") }}#}
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/DracoLoaderManage.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/MaterialsManage.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/LightsManage.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/D90Optional.js"></script>
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/DeviceTesting.js"></script>
-
-    <!--内饰全景-->
-    <script src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/pano/krpano.js"></script>
-    {#    <script src="./carjs/YappamCarPano.js"></script>#}
-{#    <script src="{{ url_for('static',filename="js/YappamCar.js") }}"></script>#}
-{#    <script src="{{ url_for('static',filename="js/YappamCarPano.js") }}"></script>#}
-
-    <!-- DRACOL解码器 -->
-    <script id="decoder_script" type="text/javascript"
-            src="https://cdn4.maxuscloud.com/ops2/Public/3dwap/car/D90/js/loaders/draco/draco_decoder.js"></script>
-    <script src="{{ url_for('static', filename='js/car_main.js') }}"></script>
-    </head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>360 Degree GLB Viewer</title>
-    <style>
-        body {
-            margin: 0;
-        }
-
-        canvas {
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Car ShowCase</title>
+  
+  <!-- 网页作者 -->
+  <link rel="icon" href="/feilongzuo.ico" />
+  <script type="module" crossoriginsrc src="{{url_for('static',filename="dist/assets/index.0f2af366.js")}}"></script>
+  <link rel='stylesheet'   href="{{url_for('static',filename="dist/assets/index.65809da3.css")}}">
 </head>
 <body>
-
-
+<div id="app"></div>
 
 </body>
 </html>
-
