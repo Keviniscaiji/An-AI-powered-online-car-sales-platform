@@ -1,4 +1,6 @@
-﻿{% include 'navi_bar.html' %}
+﻿{% extends 'base.html' %}
+{% block content %}
+
 <div class="breadcrumb-tow mb-120">
         <div class="container">
             <div class="row">
@@ -45,7 +47,7 @@
                                             {% else %}
                                                 <td class="plantmore-product-select"><i class="fa fa-square-o select_remove" id="cart_selected_{{ cart_item.product_id }}" onclick="sendCartItemSelectData({{ cart_item.product_id }})"></i></td>
                                             {% endif %}
-                                            <td class="plantmore-product-thumbnail"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}"><img src="{{ cart_item.product_img }}" alt="" style="width: 120px; height: 120px"></a></td>
+                                            <td class="plantmore-product-thumbnail"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}"><img src="{{ url_for('static', filename=cart_item.product_img) }}" alt="" style="width: 120px; height: 120px"></a></td>
                                             <td class="plantmore-product-name"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}">{{ cart_item.product_name }}</a></td>
                                             <td class="plantmore-product-price"><span class="amount" id="cart_item_price_{{ cart_item.product_id }}">${{ cart_item.product_price }}</span></td>
                                             <td class="plantmore-product-price"><span class="amount">{{ cart_item.product_discount }}</span></td>
@@ -153,4 +155,4 @@
             )
         }
     </script>
-{% include 'foot_bar.html' %}
+{% endblock %}

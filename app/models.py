@@ -103,6 +103,7 @@ class ProductImagePath(db.Model):
     __tablename__ = 'productImagePaths'
     id = db.Column(db.Integer, primary_key=True)
     image_path = db.Column(db.String(512), index=True)
+    resized_image_path = db.Column(db.String(512))
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
 

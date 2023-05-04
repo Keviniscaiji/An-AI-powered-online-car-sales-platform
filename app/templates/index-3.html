@@ -147,7 +147,7 @@
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                         <a href="{{ url_for('main.single_product', p=item.id) }}">
-                                            <img src="{{ url_for('static', filename=item.imagePaths[0].image_path) }}" alt="">
+                                            <img src="{{ url_for('static', filename=item.imagePaths[0].resized_image_path) }}" alt="">
                                         </a>
                                         <span class="onsale">{{ _('Sale!') }}</span>
 {#                                            <div class="product-action">#}
@@ -165,7 +165,7 @@
                                                 <span class="regular-price">${{ item.price }}</span>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>
+                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].resized_image_path }}", "{{ item.price }}")'>{{ _('Add Wish List') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -245,7 +245,7 @@
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                         <a href="{{ url_for('main.single_product',p=item.id) }}">
-                                            <img src="{{ url_for('static', filename=item.imagePaths[0].image_path) }}" alt="">
+                                            <img src="{{ url_for('static', filename=item.imagePaths[0].resized_image_path) }}" alt="">
                                         </a>
                                         <span class="onsale">{{ _('Sale!') }}</span>
 {#                                            <div class="product-action">#}
@@ -263,7 +263,7 @@
                                                 <span class="regular-price">${{ item.price }}</span>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].image_path }}", "{{ item.price }}")'>{{ _('Add To Cart') }}</a>
+                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].resized_image_path }}", "{{ item.price }}")'>{{ _('Add To Wish List') }}</a>
                                             </div>
                                         </div>
                                     </div>

@@ -125,347 +125,6 @@ def check_is_ir_search(ir):
     return True
 
 
-# @app.route("/shop/<string:c>", methods=['GET', 'POST'])
-# def shop(c):
-#     if check_is_ir_search(c):
-#         ts, selected_id = c.split("_")[1:]
-#
-#         target_path, target_img = load_from_cache(ts, selected_id, matting=True)
-#         rank = search_image(compiled_model3, target_img, ir_index)
-#
-#         response = dict(
-#             selcted=selected_id,
-#             target_path="../" + target_path,
-#             n_show=ir_cfg['n_show'],
-#             matched=[])
-#
-#         for i, item in enumerate(rank[:ir_cfg['n_show']]):
-#
-#             # item[0] -> key
-#             # response['matched'].append((i + 1, item[0]))
-#
-#         return render_template("shop.html", response=response)
-#
-#     return render_template("shop.html", response=dict(matched=[]))
-
-
-# @main.route('/products/<string:c>', methods=['POST', 'GET'])
-# def shop(c):
-#     if c == "+ image_path +":
-#         return jsonify({"status": 0})
-#     if c == "search":
-#         cat = "none"
-#         price = ""
-#         sort = "all"
-#         search = request.form.get("searchselect")
-#         if search is None:
-#             catInfo = session.get("cat")
-#             info = catInfo.split(" ")
-#             cat = info[0]
-#             if len(info) == 1:
-#                 search = ""
-#             if len(info) != 1:
-#                 search = info[1]
-#     elif c == "none":
-#         catInfo = request.form.get("catselect")
-#         if catInfo is not None:
-#             info = catInfo.split(" ")
-#             cat = info[0]
-#             if len(info) == 1:
-#                 search = ""
-#             if len(info) != 1:
-#                 search = info[1]
-#         price = request.form.get("priceselect")
-#         sort = request.form.get("sortselect")
-#         if catInfo is None:
-#             catInfo = session.get("cat")
-#             info = catInfo.split(" ")
-#             cat = info[0]
-#             if len(info) == 1:
-#                 search = ""
-#             if len(info) != 1:
-#                 search = info[1]
-#             price = session.get("price")
-#             sort = session.get("sort")
-#         if cat != session.get("cate"):
-#             price = ""
-#             sort = "all"
-#         if price != "":
-#             prices = price.split(" ")
-#             low = int(prices[0][1:])
-#             high = int(prices[2][1:])
-#     elif c == "page":
-#         cat = request.values.get("cat")
-#         price = request.values.get("price")
-#         _sort = request.values.get("sort")
-#         session["cat"] = cat
-#         session["price"] = price
-#         session["sort"] = _sort
-#         return jsonify({"status": "ok"})
-#     elif check_is_ir_search(c):
-#         page = request.args.get('page', 1, type=int)
-#
-#         ts, selected_id = c.split("_")[1:]
-#
-#         target_path, target_img = load_from_cache(ts, selected_id, matting=True)
-#         rank = search_image(compiled_model3, target_img, ir_index)
-#
-#         response = dict(
-#             selcted=selected_id,
-#             target_path="../" + target_path,
-#             n_show=ir_cfg['n_show'],
-#             matched=[])
-#
-#         c = "all"
-#         cat = c
-#         price = ""
-#         sort = "all"
-#         search = ""
-#         categories = Category.query.all()
-#         cat_num = []
-#         for cate in categories:
-#             num = len(list(cate.products))
-#             cat_num.append(num)
-#         items = []
-#         for i, item in enumerate(rank[:ir_cfg['n_show']]):
-#             items.append(item[0])
-#
-#         ordering = case(
-#             {key: index for index, key in enumerate(items)},
-#             value=Product.key
-#         )
-#         pagination = Product.query.filter(Product.key.in_(items)).order_by(ordering).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#
-#         recommend = Product.query.filter(Product.key.in_(items)).order_by(ordering).limit(3).all()
-#
-#         products = pagination.items
-#
-#         if cat == "none":
-#             pag = Product.query.filter(Product.name.contains(search)).order_by(Product.price).all()
-#         elif cat == "all":
-#             pag = Product.query.order_by(Product.price).all()
-#         elif cat != "none" and cat != "all":
-#             category = Category.query.filter_by(name=cat).first()
-#             pag = category.products.order_by(Product.price).all()
-#         if len(pag) == 0:
-#             left = 0
-#             right = 0
-#         else:
-#             left = pag[0].price
-#             right = pag[-1].price
-#         if price == "":
-#             if c != "none" or sort == "all":
-#                 low = left
-#                 high = right
-#         session["cate"] = cat
-#         return render_template('shop.html', c=c, categories=categories, cat_num=cat_num, cat=cat, low=str(low),
-#                                high=str(high), left=str(left), right=str(right), sort=sort, search=search,
-#                                products=products, pagination=pagination, recommend=recommend)
-#     else:
-#         cat = c
-#         price = ""
-#         sort = "all"
-#         search = ""
-#     categories = Category.query.all()
-#     cat_num = []
-#     for cate in categories:
-#         num = len(list(cate.products))
-#         cat_num.append(num)
-#     page = request.args.get('page', 1, type=int)
-#     if cat == "none":
-#         if price != "":
-#             if sort == "all":
-#                 pagination = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).paginate(
-#                     page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).limit(3).all()
-#             elif sort == "az":
-#                 pagination = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     Product.name).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     Product.name).limit(3).all()
-#             elif sort == "za":
-#                 pagination = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     desc(Product.name)).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                  error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     desc(Product.name)).limit(3).all()
-#             elif sort == "lh":
-#                 pagination = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     Product.price).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     Product.price).limit(3).all()
-#             elif sort == "hl":
-#                 pagination = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     desc(Product.price)).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                   error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).filter(Product.price >= low).filter(
-#                     Product.price <= high).order_by(
-#                     desc(Product.price)).limit(3).all()
-#         elif price == "":
-#             if sort == "all":
-#                 pagination = Product.query.filter(Product.name.contains(search)).paginate(page,
-#                                                                                           per_page=current_app.config[
-#                                                                                               'FLASKY_POST_PER_PAGE'],
-#                                                                                           error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).limit(3).all()
-#             elif sort == "az":
-#                 pagination = Product.query.filter(Product.name.contains(search)).order_by(Product.name).paginate(page,
-#                                                                                                                  per_page=
-#                                                                                                                  current_app.config[
-#                                                                                                                      'FLASKY_POST_PER_PAGE'],
-#                                                                                                                  error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).order_by(Product.name).limit(3).all()
-#             elif sort == "za":
-#                 pagination = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.name)).paginate(
-#                     page, per_page=current_app.config[
-#                         'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.name)).limit(
-#                     3).all()
-#             elif sort == "lh":
-#                 pagination = Product.query.filter(Product.name.contains(search)).order_by(Product.price).paginate(page,
-#                                                                                                                   per_page=
-#                                                                                                                   current_app.config[
-#                                                                                                                       'FLASKY_POST_PER_PAGE'],
-#                                                                                                                   error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).order_by(Product.price).limit(3).all()
-#             elif sort == "hl":
-#                 pagination = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.price)).paginate(
-#                     page, per_page=current_app.config[
-#                         'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.name.contains(search)).order_by(desc(Product.price)).limit(
-#                     3).all()
-#     elif cat == "all":
-#         if price != "":
-#             if sort == "all":
-#                 pagination = Product.query.filter(Product.price >= low).filter(Product.price <= high).paginate(
-#                     page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.price >= low).filter(Product.price <= high).limit(3).all()
-#             elif sort == "az":
-#                 pagination = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.name).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.name).limit(3).all()
-#             elif sort == "za":
-#                 pagination = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.name)).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                  error_out=False)
-#                 recommend = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.name)).limit(3).all()
-#             elif sort == "lh":
-#                 pagination = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.price).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.price).limit(3).all()
-#             elif sort == "hl":
-#                 pagination = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.price)).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                   error_out=False)
-#                 recommend = Product.query.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.price)).limit(3).all()
-#         elif price == "":
-#             if sort == "all":
-#                 pagination = Product.query.paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                     error_out=False)
-#                 recommend = Product.query.limit(3).all()
-#             elif sort == "az":
-#                 pagination = Product.query.order_by(Product.name).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.order_by(Product.name).limit(3).all()
-#             elif sort == "za":
-#                 pagination = Product.query.order_by(desc(Product.name)).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.order_by(desc(Product.name)).limit(3).all()
-#             elif sort == "lh":
-#                 pagination = Product.query.order_by(Product.price).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.order_by(Product.price).limit(3).all()
-#             elif sort == "hl":
-#                 pagination = Product.query.order_by(desc(Product.price)).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = Product.query.order_by(desc(Product.price)).limit(3).all()
-#     elif cat != "none" and cat != "all":
-#         category = Category.query.filter_by(name=cat).first()
-#         if price != "":
-#             if sort == "all":
-#                 pagination = category.products.filter(Product.price >= low).filter(Product.price <= high).paginate(
-#                     page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = category.products.filter(Product.price >= low).filter(Product.price <= high).limit(3).all()
-#             elif sort == "az":
-#                 pagination = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.name).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.name).limit(3).all()
-#             elif sort == "za":
-#                 pagination = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.name)).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                  error_out=False)
-#                 recommend = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.name)).limit(3).all()
-#             elif sort == "lh":
-#                 pagination = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.price).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     Product.price).limit(3).all()
-#             elif sort == "hl":
-#                 pagination = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.price)).paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                   error_out=False)
-#                 recommend = category.products.filter(Product.price >= low).filter(Product.price <= high).order_by(
-#                     desc(Product.price)).limit(3).all()
-#         elif price == "":
-#             if sort == "all":
-#                 pagination = category.products.paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'],
-#                                                         error_out=False)
-#                 recommend = category.products.limit(3).all()
-#             elif sort == "az":
-#                 pagination = category.products.order_by(Product.name).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = category.products.order_by(Product.name).limit(3).all()
-#             elif sort == "za":
-#                 pagination = category.products.order_by(desc(Product.name)).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = category.products.order_by(desc(Product.name)).limit(3).all()
-#             elif sort == "lh":
-#                 pagination = category.products.order_by(Product.price).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = category.products.order_by(Product.price).limit(3).all()
-#             elif sort == "hl":
-#                 pagination = category.products.order_by(desc(Product.price)).paginate(page, per_page=current_app.config[
-#                     'FLASKY_POST_PER_PAGE'], error_out=False)
-#                 recommend = category.products.order_by(desc(Product.price)).limit(3).all()
-#     products = pagination.items
-#     if cat == "none":
-#         pag = Product.query.filter(Product.name.contains(search)).order_by(Product.price).all()
-#     elif cat == "all":
-#         pag = Product.query.order_by(Product.price).all()
-#     elif cat != "none" and cat != "all":
-#         category = Category.query.filter_by(name=cat).first()
-#         pag = category.products.order_by(Product.price).all()
-#     if len(pag) == 0:
-#         left = 0
-#         right = 0
-#     else:
-#         left = pag[0].price
-#         right = pag[-1].price
-#     if price == "":
-#         if c != "none" or sort == "all":
-#             low = left
-#             high = right
-#     session["cate"] = cat
-#     return render_template('shop.html', c=c, categories=categories, cat_num=cat_num, cat=cat, low=str(low),
-#                            high=str(high), left=str(left), right=str(right), sort=sort, search=search,
-#                            products=products, pagination=pagination, recommend=recommend)
-
-
 @main.route('/products/<string:status>', methods=['POST', 'GET'])
 def shop(status):
     categories = Category.query.all()
@@ -476,19 +135,9 @@ def shop(status):
     page = request.args.get('page', 1, type=int)
 
     if status == "init":
-        search = "non"
-        cate = "all"
-        low = "non"
-        high = "non"
-        sort = "non"
-        ir = "non"
+        search, cate, low, high, sort, ir = "non", "all", "non", "non", "non", "non"
     elif status == "search":
-        search = request.form.get("searchcontent")
-        cate = "all"
-        low = "non"
-        high = "non"
-        sort = "non"
-        ir = "non"
+        search, cate, low, high, sort, ir = request.form.get("searchcontent"), "all", "non", "non", "non", "non"
     elif status == "filtrate":
         search = request.form.get("searchselect")
         cate = request.form.get("cateselect")
@@ -540,19 +189,9 @@ def shop(status):
         session["sort"] = sort
         session["ir"] = ir
     elif check_is_ir_search(status):
-        search = "non"
-        cate = "all"
-        low = "non"
-        high = "non"
-        sort = "non"
-        ir = status
+        search, cate, low, high, sort, ir = "non", "all", "non", "non", "non", status
     else:
-        search = "non"
-        cate = status
-        low = "non"
-        high = "non"
-        sort = "non"
-        ir = "non"
+        search, cate, low, high, sort, ir = "non", status, "non", "non", "non", "non"
 
     if cate != "all":
         res = db.session.query(Category).filter(Category.name == cate).first().products
@@ -590,13 +229,11 @@ def shop(status):
         left = ran[0].price
         right = ran[-1].price
     else:
-        left = 0
-        right = 0
+        left, right = 0, 0
     if low != "non":
         res = res.filter(Product.price >= low).filter(Product.price <= high)
     else:
-        low = left
-        high = right
+        low, high= left, right
     pagination = res.paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
     recommend = res.limit(3).all()
     products = pagination.items
@@ -1049,12 +686,15 @@ def single_product(p):
                     if i < 9:
                         product_all.append(c)
         if request.method == 'POST':
-            user = User.query.filter_by(id=current_user.id).first()
-            time = datetime.datetime.now()
-            body = request.form.get('comment')
-            comment = Comment(author_id=user.id, timestamp=time, product_id=p, body=body)
-            db.session.add(comment)
-            db.session.commit()
+            if request.form.get('comment') is not None:
+                user = User.query.filter_by(id=current_user.id).first()
+                time = datetime.datetime.now()
+                body = request.form.get('comment')
+                comment = Comment(author_id=user.id, timestamp=time, product_id=p, body=body)
+                db.session.add(comment)
+                db.session.commit()
+            else:
+                print("hello")
             return redirect(url_for('main.single_product', p=p))
     else:
         flash('Please login before browsing products!')
