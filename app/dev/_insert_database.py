@@ -35,7 +35,8 @@ def insert_products(cat_objs):
     for item, category in zip(PRODUCTS, PRODUCTS2CATEGORIES):
         product = Product(
             key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
-            price=item['price'], discount=item['discount'], inventory=item['inventory'], description=item['description']
+            max_speed=item['max_speed'], oil_consumption=item['oil_consumption'], price=item['price'],
+            discount=item['discount'], inventory=item['inventory'], description=item['description']
         )
         for j in category['category_ids']:
             product.categories.append(cat_objs[j-1])

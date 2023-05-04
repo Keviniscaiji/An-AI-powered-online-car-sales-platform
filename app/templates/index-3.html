@@ -9,7 +9,7 @@
                     <h1 style="color: #fff;font-size: 100px;line-height: 100px;font-weight: 500;text-align: center">{{ _('AUTO WHEEL') }}</h1>
                     <div style="background-color: #fff;"></div>
                     <div class="slider-btn" style="text-align: center;margin-top: 25px">
-                        <a href="{{ url_for('main.shop', c="all") }}" >{{ _('View Our Vehicle Collection') }} <i class="fa fa-chevron-right"></i></a>
+                        <a href="{{ url_for('main.shop', status="init") }}" >{{ _('View Our Vehicle Collection') }} <i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                         <a href="{{ url_for('main.single_product', p=item.id) }}">
-                                            <img src="{{ item.imagePaths[0].image_path }}" alt="">
+                                            <img src="{{ url_for('static', filename=item.imagePaths[0].image_path) }}" alt="">
                                         </a>
                                         <span class="onsale">{{ _('Sale!') }}</span>
 {#                                            <div class="product-action">#}
@@ -245,7 +245,7 @@
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                         <a href="{{ url_for('main.single_product',p=item.id) }}">
-                                            <img src="{{ item.imagePaths[0].image_path }}" alt="">
+                                            <img src="{{ url_for('static', filename=item.imagePaths[0].image_path) }}" alt="">
                                         </a>
                                         <span class="onsale">{{ _('Sale!') }}</span>
 {#                                            <div class="product-action">#}
@@ -286,7 +286,7 @@
                     <div class="single-banner mb-35">
                         <div class="banner-img">
                             <a href="#">
-                                <img src="../static/storage/background/banner3.jpg" alt="">
+                                <img src="{{ url_for('static', filename="storage/background/banner3.jpg") }}" alt="">
                             </a>
                         </div>
                     </div>
@@ -297,7 +297,7 @@
                     <div class="single-banner mb-35">
                         <div class="banner-img">
                             <a href="#">
-                                <img src="../static/storage/background/banner4.jpg" alt="">
+                                <img src="{{ url_for('static', filename="storage/background/banner4.jpg") }}" alt="">
                             </a>
                         </div>
                     </div>
@@ -389,7 +389,7 @@
                             var mci_html = "";  // mini cart item html
                             mci_html += '<li class="single-cart-item"><div class="cart-img">';
                             mci_html += '<a href="{{ url_for("main.single_product", p=id) }}">';
-                            mci_html += '<img src=' + image_path + ' alt="" style="width: 80px; height: 80px"></a></div>';
+                            mci_html += '<img src="{{ url_for('static', filename=image_path) }}"' + 'alt="" style="width: 80px; height: 80px"></a></div>';
                             mci_html += '<div class="cart-content"><h5 class="product-name">';
                             mci_html += '<a href="{{ url_for("main.single_product", p=id) }}">' + name + '</a></h5>';
                             mci_html += '<span class="cart-price">1 × $' + price.toString() + '</span></div></li>';
