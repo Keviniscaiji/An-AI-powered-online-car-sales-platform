@@ -165,14 +165,16 @@ new dateDropper({
                                     </div>
                                 </div>
                             </div>
-                            <label>Want to Book A Test Drive?</label>
+                            <label>Want to Book A Test Drive? Select Date and Time!</label>
                             <!--Select Date and Time-->
                             <form action="" name="timepickForm" method="post" novalidate="novalidate">
                                 <div class="single-product-quantity">
-                                    <label for="alarm">Select Date:</label>
-                                    <input type="date" id="datetime" name="start_date">
-                                    <label for="datetime">Select Time:</label>
-                                    <input type="text" id="alarm" name="start_time">
+                                    <label for="alarm"></label>
+{#                                    <label for="alarm">Select Date:</label>#}
+                                    <input type="date" id="datetime" name="start_date" placeholder="Date">
+                                    <label for="datetime"></label>
+{#                                    <label for="datetime">Select Time:</label>#}
+                                    <input type="text" id="alarm" name="start_time" placeholder="Time">
                                 </div>
                                 <button type="submit" class="btn_2" style="padding: 6px 26px">{{ _('Submit Request') }}</button>
                                 <script>
@@ -199,7 +201,7 @@ new dateDropper({
                                 </script>
                             </form>
 						   <!--Wishlist and Compare!!!!!-->
-                            <div class="wishlist-compare-btn">
+                            <div class="wishlist-compare-btn" style="margin-top: 30px;">
                                 <a class="fa fa-headphones" id="open_chatroom" style="cursor: pointer">{{ _('Customer Service') }}</a>
                             </div>
 							<!--Product Category!!!!!-->
