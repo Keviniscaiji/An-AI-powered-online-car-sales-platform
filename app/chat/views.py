@@ -28,6 +28,9 @@ def bot():
     if request.method == 'POST':
         text = request.values['msg-to-bot']
         preds = predict_text_all(text, models, 50)
+        brand = preds['brands']
+        product = preds['products']
+        intent = preds['intents']
         return jsonify({'msg-back': preds})
     
 
@@ -35,7 +38,7 @@ def bot():
 @chat.route('/admin', methods=['POST', 'GET'])
 def admin_chat():
     # print("okk")
-    return render_template('admin/chat.html')
+    return render_template('admin/app-chat-box.html')
 
 
 # Basic Operations
