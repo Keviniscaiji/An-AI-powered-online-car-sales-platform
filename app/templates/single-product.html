@@ -63,10 +63,10 @@ new dateDropper({
                               <div class="tab-pane fade show active" id="product1">
                                   <div class="product-large-thumb img-full" style="text-align: center">
                                      <div class="easyzoom easyzoom--overlay" style="text-align: center">
-                                        <a href="{{ p2.imagePaths[0].image_path }}">
-                                            <img src="{{ p2.imagePaths[0].image_path }}" alt="">
+                                        <a href="{{ url_for('static', filename=p2.imagePaths[0].image_path) }}">
+                                            <img src="{{ url_for('static', filename=p2.imagePaths[0].image_path) }}" alt="">
                                         </a>
-                                        <a href="{{ p2.imagePaths[0].image_path }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
+                                        <a href="{{ url_for('static', filename=p2.imagePaths[0].image_path) }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
                                      </div>
                                   </div>
                               </div>
@@ -74,10 +74,10 @@ new dateDropper({
                                   <div class="tab-pane fade" id="product2">
                                       <div class="product-large-thumb img-full" style="text-align: center">
                                          <div class="easyzoom easyzoom--overlay">
-                                            <a href="{{ p2.imagePaths[1].image_path }}">
-                                              <img src="{{ p2.imagePaths[1].image_path }}" alt="">
+                                            <a href="{{ url_for('static', filename=p2.imagePaths[1].image_path) }}">
+                                              <img src="{{ url_for('static', filename=p2.imagePaths[1].image_path) }}" alt="">
                                             </a>
-                                            <a href="{{ p2.imagePaths[1].image_path }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
+                                            <a href="{{ url_for('static', filename=p2.imagePaths[1].image_path) }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
                                          </div>
                                       </div>
                                   </div>
@@ -85,10 +85,10 @@ new dateDropper({
                                       <div class="tab-pane fade" id="product3">
                                           <div class="product-large-thumb img-full" style="text-align: center">
                                              <div class="easyzoom easyzoom--overlay">
-                                                <a href="{{ p2.imagePaths[2].image_path }}">
-                                                  <img src="{{ p2.imagePaths[2].image_path }}" alt="">
+                                                <a href="{{ url_for('static', filename=p2.imagePaths[2].image_path) }}">
+                                                  <img src="{{ url_for('static', filename=p2.imagePaths[2].image_path) }}" alt="">
                                                 </a>
-                                                <a href="{{ p2.imagePaths[2].image_path }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
+                                                <a href="{{ url_for('static', filename=p2.imagePaths[2].image_path) }}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-search"></i></a>
                                              </div>
                                           </div>
                                       </div>
@@ -100,15 +100,15 @@ new dateDropper({
 		                    <div class="product-menu">
 		                        <div class="nav product-tab-menu">
                                   <div class="product-details-img">
-                                    <a class="active" data-toggle="tab" href="#product1"><img src="{{ p2.imagePaths[0].image_path }}" alt=""></a>
+                                    <a class="active" data-toggle="tab" href="#product1"><img src="{{ url_for('static', filename=p2.imagePaths[0].image_path) }}" alt=""></a>
                                   </div>
                                   {% if p2.imagePaths.all()|length > 1 %}
                                       <div class="product-details-img">
-                                        <a data-toggle="tab" href="#product2"><img src="{{ p2.imagePaths[1].image_path }}" alt=""></a>
+                                        <a data-toggle="tab" href="#product2"><img src="{{ url_for('static', filename=p2.imagePaths[1].image_path) }}" alt=""></a>
                                       </div>
                                       {% if p2.imagePaths.all()|length > 2 %}
                                           <div class="product-details-img">
-                                            <a data-toggle="tab" href="#product3"><img src="{{ p2.imagePaths[2].image_path }}" alt=""></a>
+                                            <a data-toggle="tab" href="#product3"><img src="{{ url_for('static', filename=p2.imagePaths[2].image_path) }}" alt=""></a>
                                           </div>
                                       {% endif %}
                                   {% endif %}
@@ -160,39 +160,43 @@ new dateDropper({
                                          <input value="1" type="number" min="1" id="cart_item_count">
                                      </div>
                                     <div class="add-to-link">
-                                        <button class="product-btn" data-text="add to cart" id="add_to_cart">{{ _('Add To Cart') }}</button><span id="cart_op_note" style="margin-left: 10px;color: green"></span>
+                                        <button class="product-btn" data-text="add to cart" id="add_to_cart">{{ _('Add To Wish List') }}</button><span id="cart_op_note" style="margin-left: 10px;color: green"></span>
                                     </div>
                                 </div>
                             </div>
+                            <label>Want to Book A Test Drive?</label>
                             <!--Select Date and Time-->
-                            <div class="single-product-quantity">
-                                <label for="alarm">Select Date:</label>
-                                <input type="text" id="alarm">
-                                <label for="datetime">Select Time:</label>
-                                <input type="date" id="datetime">
-                            </div>
-                            <script>
-                            new dateDropper({
-                                selector: 'input[type="date"]'
-                            });
-                            </script>
-                            <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
-                            <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-                            <script src="../static/js/timedropper.js"></script>
-                            <script>$( "#alarm" ).timeDropper();</script>
-                            <script type="text/javascript">
+                            <form action="" name="timepickForm" method="post" novalidate="novalidate">
+                                <div class="single-product-quantity">
+                                    <label for="alarm">Select Date:</label>
+                                    <input type="date" id="datetime" name="start_date">
+                                    <label for="datetime">Select Time:</label>
+                                    <input type="text" id="alarm" name="start_time">
+                                </div>
+                                <button type="submit" class="btn_2" style="padding: 6px 26px">{{ _('Submit Request') }}</button>
+                                <script>
+                                new dateDropper({
+                                    selector: 'input[type="date"]'
+                                });
+                                </script>
+                                <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+                                <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+                                <script src="../static/js/timedropper.js"></script>
+                                <script>$( "#alarm" ).timeDropper();</script>
+                                <script type="text/javascript">
 
-                              var _gaq = _gaq || [];
-                              _gaq.push(['_setAccount', 'UA-36251023-1']);
-                              _gaq.push(['_setDomainName', 'jqueryscript.net']);
-                              _gaq.push(['_trackPageview']);
+                                  var _gaq = _gaq || [];
+                                  _gaq.push(['_setAccount', 'UA-36251023-1']);
+                                  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+                                  _gaq.push(['_trackPageview']);
 
-                              (function() {
-                                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-                              })();
-                            </script>
+                                  (function() {
+                                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                                  })();
+                                </script>
+                            </form>
 						   <!--Wishlist and Compare!!!!!-->
                             <div class="wishlist-compare-btn">
                                 <a class="fa fa-headphones" id="open_chatroom" style="cursor: pointer">{{ _('Customer Service') }}</a>
@@ -202,7 +206,7 @@ new dateDropper({
                                 <span class="posted-in">
                                         {{ _('Categories') }}:
                                     {% for category in p2.categories %}
-		                                <a href="{{ url_for('main.shop', c=category.name) }}">&nbsp&nbsp&nbsp{{  category.name }} &nbsp&nbsp&nbsp&nbsp</a>
+		                                <a href="{{ url_for('main.shop', status=category.name) }}">&nbsp&nbsp&nbsp{{  category.name }} &nbsp&nbsp&nbsp&nbsp</a>
                                     {% endfor %}
 		                            </span>
                             </div>
@@ -315,7 +319,7 @@ new dateDropper({
                                 <div class="single-product mb-25">
                                     <div class="product-img img-full">
                                        <a href="{{ url_for('main.single_product', p=product.id) }}">
-                                           <img src={{ product.imagePaths[0].image_path }} alt="">
+                                           <img src="{{ url_for('static', filename=product.imagePaths[0].image_path) }}" alt="">
                                         </a>
                                         <div class="product-action">
                                             <ul>
@@ -326,7 +330,7 @@ new dateDropper({
                                         </div>
                                     </div>
                                     <div class="product-content">
-                                        <h2><a href="{{ url_for('main.single_product', p=product.id) }}">{{ product.name}}</a></h2>
+                                        <h2><a href="{{ url_for('main.single_product', p=product.id) }}">{{ product.name }}</a></h2>
                                         <div class="product-price">
                                             <div class="price-box">
                                                 {% if product.discount < 1 %}
@@ -335,7 +339,7 @@ new dateDropper({
                                                 <span class="regular-price">${{ product.price * product.discount }}</span>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
+                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ url_for('static', filename=product.imagePaths[0].resized_image_path) }}", "{{ product.price }}")'>{{ _('Add To Wish List') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -375,6 +379,7 @@ new dateDropper({
           </div>
         </div>
     </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
    <script>
     $(document).ready(function () {
       // constant variables definition
@@ -406,7 +411,7 @@ new dateDropper({
         document.getElementById('chatroom').style.visibility = "visible";
         if (!is_connected){
           socket = io.connect(
-              'https://' + document.domain + ':' + location.port + '/chatroom',
+              'http://' + document.domain + ':' + location.port + '/chatroom',
               {
                   'reconnection': true,
                   'reconnectionAttempts': MAX_N_RECONNECTION,
@@ -589,7 +594,7 @@ new dateDropper({
                         var mci_html = "";  // mini cart item html
                         mci_html += '<li class="single-cart-item"><div class="cart-img">';
                         mci_html += '<a href="{{ url_for("main.single_product", p=p2.id) }}">';
-                        mci_html += '<img src="{{ p2.imagePaths[0].image_path }}" alt="" style="width: 80px; height: 80px"></a></div>';
+                        mci_html += '<img src="{{ url_for('static', filename=p2.imagePaths[0].image_path) }}" alt="" style="width: 80px; height: 80px"></a></div>';
                         mci_html += '<div class="cart-content"><h5 class="product-name">';
                         mci_html += '<a href="{{ url_for("main.single_product", p=p2.id) }}">{{ p2.name }}</a></h5>';
                         mci_html += '<span class="cart-price">' + count.toString() +' × ${{ p2.price }}</span></div></li>';

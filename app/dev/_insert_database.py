@@ -35,7 +35,8 @@ def insert_products(cat_objs):
     for item, category in zip(PRODUCTS, PRODUCTS2CATEGORIES):
         product = Product(
             key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
-            price=item['price'], discount=item['discount'], inventory=item['inventory'], description=item['description']
+            max_speed=item['max_speed'], oil_consumption=item['oil_consumption'], price=item['price'],
+            discount=item['discount'], inventory=item['inventory'], description=item['description']
         )
         for j in category['category_ids']:
             product.categories.append(cat_objs[j-1])
@@ -65,6 +66,28 @@ def insert_orders():
         db.session.commit()
 
 
+def insert_product_drives():
+    for item in PRODUCTDRIVES:
+        productDrive = ProductDrive(count=item['count'], product_id=item['product_id'], drive_id=item['drive_id'])
+        db.session.add(productDrive)
+    db.session.commit()
+
+
+def insert_drives():
+    for item in DRIVES:
+        timestamp = datetime.datetime.utcnow()
+        drive = Drive(timestamp=timestamp, drive_time_start=item['drive_time_start'],
+                      drive_time_end=item['drive_time_end'], note=item['note'], status=item['status'],
+                      priority=item['priority'], buyer_id=item['buyer_id'])
+        db.session.add(drive)
+        db.session.commit()
+        drive_aim = Drive.query.filter_by(buyer_id=item['buyer_id']).first()
+        productDrive_list = ProductDrive.query.filter_by(drive_id=drive_aim.id).all()
+        for pd in productDrive_list:
+            drive_aim.productDrives.append(pd)
+        db.session.commit()
+
+
 def insert_carts():
     for item in CARTS:
         cart = Cart(count=item["count"], owner_id=item['owner_id'], product_id=item['product_id'], is_selected=item['is_selected'])
@@ -75,7 +98,7 @@ def insert_carts():
 def insert_product_image_paths():
     for item in PRODUCTIMAGEPATHS:
         productImagePath = ProductImagePath(
-            image_path=item['image_path'], product_id=item['product_id']
+            image_path=item['image_path'], resized_image_path=item['resized_image_path'], product_id=item['product_id']
         )
         db.session.add(productImagePath)
     db.session.commit()

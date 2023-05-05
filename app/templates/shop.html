@@ -14,18 +14,27 @@
         $(document).ready(function(){
 	        "use Strict";
             const price = "$" + {{ low }} + " - $" + {{ high }};
-            const catInfo = '{{ cat }}' + " " + '{{ search }}';
-            $('#catselect').val(catInfo);
+            if('{{ search }}'!=="non") {
+                $('#textsearch').val('{{ search }}');
+            }
+            $('#searchselect').val('{{ search }}');
+            $('#cateselect').val('{{ cate }}');
             $('#priceselect').val(price);
             $('#sortselect').val('{{ sort }}');
+            $('#irselect').val('{{ ir }}')
             const select = document.getElementById("sortinput");
             for(let i=0; i<select.options.length; i++){
-                if(select.options[i].value == '{{ sort }}') {
+                if(select.options[i].value === '{{ sort }}') {
                     select.options[i].selected = true;
                     $('#sortinput').niceSelect('update');
                     break;
                 }
             }
+             $('#searchbutton').on('click', function (){
+                const search = $('#textsearch').val();
+                $('#searchselect').val(search);
+                $('#pass').click();
+            });
             $('#priceinput').on('click', function (){
                 const price = $('#amount').val();
                 $('#priceselect').val(price);
@@ -68,9 +77,9 @@
                 }
             }
         }
-        function selectCat(name, num){
+        function selectCate(name, num){
             if (num !== 0){
-                 $('#catselect').val(name);
+                $('#cateselect').val(name);
                 $('#pass').click();
             }
         }
@@ -84,16 +93,16 @@
             $('#list').attr('class', "tab-pane fade show active");
             localStorage.setItem("status", "list");
         }
-        function movePage(c, p){
-            const cat = $('#catselect').val();
+        function movePage(status, p){
+            const search = $('#searchselect').val();
+            const cate = $('#cateselect').val();
             const price = $('#priceselect').val();
             const option = $('#sortselect').val();
             $.post(
-                "{{ url_for('main.shop', c="page") }}",
-                {"cat": cat, "price": price, "sort": option},
+                "{{ url_for('main.shop', status="paging") }}",
+                {"search": search, "cate": cate, "price": price, "sort": option},
                 function () {
-                    window.location.href = "/products/" +
-                                    c + "?page=" + p;
+                    window.location.href = "/products/" + status + "?page=" + p;
                 })
         }
         function add_to_cart(id, name, image_path, price) {
@@ -118,7 +127,7 @@
                             var mci_html = "";  // mini cart item html
                             mci_html += '<li class="single-cart-item"><div class="cart-img">';
                             mci_html += '<a href="{{ url_for("main.single_product", p=id) }}">';
-                            mci_html += '<img src=' + image_path + ' alt="" style="width: 80px; height: 80px"></a></div>';
+                            mci_html += '<img src="{{ url_for('static', filename=image_path) }}"' + 'alt="" style="width: 80px; height: 80px"></a></div>';
                             mci_html += '<div class="cart-content"><h5 class="product-name">';
                             mci_html += '<a href="{{ url_for("main.single_product", p=id) }}">' + name + '</a></h5>';
                             mci_html += '<span class="cart-price">1 × $' + price.toString() + '</span></div></li>';
@@ -146,16 +155,18 @@
 		                    <div class="categori-checkbox">
 		                        <form action="#">
 		                            <ul id="catinput">
-                                        {% if cat != "all" %}
-                                            <li><a style="cursor: pointer" onclick="selectCat('all')">{{ _('all') }}</a></li>
+                                        {% if cate != "all" %}
+                                            <li><a style="cursor: pointer" onclick="selectCate('all')">{{ _('all') }}</a></li>
                                         {% else %}
-                                            <li><a style="cursor: pointer; color:#dec674" onclick="selectCat('all')">{{ _('all') }}</a></li>
+                                            <li><a style="cursor: pointer; color:#dec674" onclick="selectCate('all')">{{ _('all') }}</a></li>
                                         {% endif %}
-                                        {% for cate in categories %}
-                                            {% if cate.name != cat %}
-                                                <li><a style="cursor: pointer" onclick="selectCat('{{ cate.name }}', {{ cat_num[loop.index - 1] }})">{{ cate.name }}</a><span class="count">{{ cat_num[loop.index - 1] }}</span></li>
+                                        {% for cat in categories %}
+                                            {% if cat.name != cate %}
+                                                <li><a style="cursor: pointer" onclick="selectCate('{{ cat.name }}', {{ cate_num[loop.index - 1] }})">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
+                                                <li><a style="cursor: pointer" href="{{ url_for('main.shop', status=cat.name) }}">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
                                             {% else %}
-                                                <li><a style="cursor: pointer; color:#dec674" onclick="selectCat('{{ cate.name }}', {{ cat_num[loop.index - 1] }})">{{ cate.name }}</a><span class="count">{{ cat_num[loop.index - 1] }}</span></li>
+                                                <li><a style="cursor: pointer; color:#dec674" onclick="selectCate('{{ cat.name }}', {{ cate_num[loop.index - 1] }})">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
+                                                <li><a style="cursor: pointer; color:#dec674" href="{{ url_for('main.shop', status=cat.name) }}">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
                                             {% endif %}
 		                                {% endfor %}
 		                            </ul>
@@ -187,7 +198,7 @@
                                     {% for rec in recommend %}
 		                            <li>
 		                                <div class="rc-product-thumb img-full">
-		                                    <a href="{{ url_for('main.single_product', p=rec.id) }}"><img src={{ rec.imagePaths[0].image_path }} alt="" style="height: 72px; width: 72px"></a>
+		                                    <a href="{{ url_for('main.single_product', p=rec.id) }}"><img src="{{ url_for('static', filename=rec.imagePaths[0].resized_image_path) }}" alt="" style="height: 72px; width: 72px"></a>
 		                                </div>
 		                                <div class="rc-product-content">
 		                                    <h6><a href="{{ url_for('main.single_product', p=rec.id) }}">{{ rec.name }}</a></h6>
@@ -213,7 +224,7 @@
 		                <div class="shop-sidebar">
                             <div class="sidebar-banner single-banner">
 		                        <div class="banner-img">
-		                            <img src="../static/storage/background/shop-left-new.jpg" alt=""></a>
+		                            <img src="{{ url_for('static', filename="storage/background/shop-left-new.jpg") }}" alt=""></a>
 		                        </div>
 		                    </div>
 		                </div>
@@ -238,7 +249,7 @@
                            <!--Breadcrumb One Start-->
                             <div class="breadcrumb-one mb-120">
                                 <div class="breadcrumb-img">
-                                    <img src="../static/storage/background/shop-top-new.jpg" style="width: 870px; margin-bottom: -80px;" alt="">
+                                    <img src="{{ url_for('static', filename="storage/background/shop-top-new.jpg") }}" style="width: 870px; margin-bottom: -80px;" alt="">
                                 </div>
                                 <div class="breadcrumb-content">
                                     <ul>
@@ -261,7 +272,7 @@
                                             <div class="car_sl_upload_area car_sl_drag_leave" id="upload_area">
                                                 <span id="upload_hint">Please drag file here or click to upload</span>
                                                 <span id="loading_hint">
-                                                    <img src="../static/img/Wedges-3s-200px.gif" class="car_sl_loading_hint_gif" alt="">
+                                                    <img src="{{ url_for('static', filename="img/Wedges-3s-200px.gif") }}" class="car_sl_loading_hint_gif" alt="">
                                                     <span id="loading_hint_text">locating vehicles</span>
                                                 </span>
                                             </div>
@@ -278,8 +289,8 @@
                                     <div class="header-search-area image-search">
                                         <form action="#">
                                             <div class="form-input">
-                                                <input name="search" id="search" placeholder="" value="Text Search..." onblur="if(this.value==''){this.value='Search...'}" onfocus="if(this.value=='Search...'){this.value=''}" type="text">
-                                                <button type="submit" class="header-search-btn"><i class="fa fa-search"></i></button>
+                                                <input name="textsearch" id="textsearch" placeholder="" value="Text Search..." onblur="if(this.value===''){this.value='Text Search...'}" onfocus="if(this.value==='Text Search...'){this.value=''}" type="text">
+                                                <button id=searchbutton type="button" class="header-search-btn"><i class="fa fa-search"></i></button>
                                             </div>
                                         </form>
                                     </div>
@@ -304,11 +315,10 @@
                                      <div class="toolbar-shorter ">
                                         <label>{{ _('Sort By') }}:</label>
                                          <select id="sortinput" class="wide">
-                                             <option value="all">{{ _('Nothing') }}</option>
-                                             <option value="az">{{ _('Name, A to Z') }}</option>
-                                             <option value="za">{{ _('Name, Z to A') }}</option>
-                                             <option value="lh">{{ _('Price, low to high') }}</option>
-                                             <option value="hl">{{ _('Price, high to low') }}</option>
+                                             <option value="0">{{ _('Nothing') }}</option>
+                                             <option value="1">{{ _('Year, New to Old') }}</option>
+                                             <option value="2">{{ _('Speed, High to Low') }}</option>
+                                             <option value="3">{{ _('Gas Mileage, Low to High') }}</option>
                                          </select>
                                      </div>
                                      {% if pagination.total == 1 %}
@@ -336,7 +346,7 @@
                                                     <div class="single-product mb-25">
                                                         <div class="product-img img-full">
                                                             <a href="{{ url_for('main.single_product', p=product.id) }}">
-                                                                <img src={{ product.imagePaths[0].image_path }} alt="">
+                                                                <img src="{{ url_for('static', filename=product.imagePaths[0].resized_image_path) }}" alt="">
                                                             </a>
                                                             <span class="onsale">{{ _('Sale') }}!</span>
 {#                                                            <div class="product-action">#}
@@ -354,7 +364,7 @@
                                                                     <span class="regular-price">${{ product.price }}</span>
                                                                 </div>
                                                                 <div class="add-to-cart">
-                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
+                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].resized_image_path }}", "{{ product.price }}")'>{{ _('Add To Wish List') }}</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -375,7 +385,7 @@
 		                                                <div class="single-product">
 		                                                    <div class="product-img img-full">
 		                                                        <a href="{{ url_for('main.single_product', p=product.id) }}">
-                                                                    <img src={{ product.imagePaths[0].image_path }} alt="">
+                                                                    <img src="{{ url_for('static', filename=product.imagePaths[0].resized_image_path) }}" alt="">
                                                                 </a>
                                                                 <span class="onsale">{{ _('Sale') }}!</span>
 		                                                    </div>
@@ -404,7 +414,7 @@
                                                             </div>
                                                             <div class="product-list-action">
                                                                <div class="add-btn">
-                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].image_path }}", "{{ product.price }}")'>{{ _('Add To Cart') }}</a>
+                                                                    <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ product.imagePaths[0].resized_image_path }}", "{{ product.price }}")'>{{ _('Add To Wish List') }}</a>
                                                                 </div>
 {#                                                                <ul>#}
 {#                                                                    <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-search"></i></a></li>#}
@@ -424,19 +434,19 @@
 		                            <div class="product-pagination">
 		                                <ul>
                                             {% if pagination.has_prev %}
-                                                <li><a href="javascript:void(0);" onclick="movePage('{{ c }}', {{ pagination.prev_num }})"><i class="fa fa-angle-double-left"></i></a></li>
+                                                <li><a href="javascript:void(0);" onclick="movePage('{{ status }}', {{ pagination.prev_num }})"><i class="fa fa-angle-double-left"></i></a></li>
                                             {% endif %}
                                             {% for i in pagination.iter_pages() %}
                                                 {% if i == pagination.page %}
-                                                    <li class="active"><a href="javascript:void(0);" onclick="movePage('{{ c }}', {{ i }})">{{ i }}</a></li>
+                                                    <li class="active"><a href="javascript:void(0);" onclick="movePage('{{ status }}', {{ i }})">{{ i }}</a></li>
                                                 {% elif i == None %}
-                                                    <li><a href="javascript:void(0);" onclick="movePage('{{ c }}', {{ i }})">...</a></li>
+                                                    <li><a href="javascript:void(0);" onclick="movePage('{{ status }}', {{ i }})">...</a></li>
                                                 {% else %}
-                                                    <li><a href="javascript:void(0);" onclick="movePage('{{ c }}', {{ i }})">{{ i }}</a></li>
+                                                    <li><a href="javascript:void(0);" onclick="movePage('{{ status }}', {{ i }})">{{ i }}</a></li>
                                                 {% endif %}
                                             {% endfor %}
                                             {% if pagination.has_next %}
-                                                <li><a href="javascript:void(0);" onclick="movePage('{{ c }}', {{ pagination.next_num }})"><i class="fa fa-angle-double-right"></i></a></li>
+                                                <li><a href="javascript:void(0);" onclick="movePage('{{ status }}', {{ pagination.next_num }})"><i class="fa fa-angle-double-right"></i></a></li>
                                             {% endif %}
 		                                </ul>
 		                            </div>
@@ -451,10 +461,12 @@
 		</div>
 		<!--Shop Area End-->
 
-        <form action="{{ url_for('main.shop', c="none") }}" method="post" name="selectForm">
-            <input type="hidden" id="catselect" name="catselect" value="">
+        <form action="{{ url_for('main.shop', status="filtrate") }}" method="post" name="selectForm">
+            <input type="hidden" id="searchselect" name="searchselect" value="">
+            <input type="hidden" id="cateselect" name="cateselect" value="">
             <input type="hidden" id="priceselect" name="priceselect" value="">
             <input type="hidden" id="sortselect" name="sortselect" value="">
+            <input type="hidden" id="irselect" name="irselect" value="">
             <button type="submit" id="pass" class="btn btn-info" style="display: none">pass</button>
         </form>
 
