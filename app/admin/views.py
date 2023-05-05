@@ -23,7 +23,7 @@ from random import randrange
 @login_required
 def index():
     users = User.query.all()
-    return render_template('admin/index.html', users=users)
+    return render_template('admin/car-user.html', users=users)
 
 
 @admin.route('/category')

@@ -28,7 +28,7 @@
     <div class="card">
         <div class="card-body">
             <div class="d-lg-flex align-items-center mb-4 gap-3">
-                <div class="position-relative"><input type="text" class="form-control ps-5 radius-30" placeholder="Search Car"><span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span></div>
+                <div class="position-relative"><input type="text" class="form-control ps-5 radius-30" placeholder="Search Category"><span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span></div>
                 <div class="ms-auto">
                     <a data-bs-toggle="modal" data-bs-target="#addModal" class="btn btn-light radius-30 mt-2 mt-lg-0">
                         <i class="bx bxs-plus-square"></i>
@@ -54,10 +54,12 @@
                             <h6 class="m-0">{{ category.name }}</h6>
                         </td>
                         <td>
+                            <div class="d-flex order-actions">
                             <a data-bs-toggle="modal" data-bs-target="#modifyModal"
-                               onclick="Values_id_modify({{ category.id }})" style="cursor: pointer"><i class='bx bxs-edit'></i></a>
+                               onclick="Values_id_modify({{ category.id }})" ><i class='bx bxs-edit'></i></a>
                             <a data-bs-toggle="modal" data-bs-target="#removeModal"
-                               onclick="Values_id({{ category.id }})" style="cursor: pointer"><i class='bx bxs-trash'></i></a>
+                               onclick="Values_id({{ category.id }})" class="ms-3"><i class='bx bxs-trash'></i></a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}

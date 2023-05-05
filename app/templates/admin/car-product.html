@@ -59,7 +59,7 @@
                                 <h6 class="m-0">{{ product.key }}</h6>
                             </td>
                             <td>
-                                <h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="{{ product.imagePaths[0].image_path }}" alt="activity-user">{{ product.name }}</h6>
+                                <h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="{{ url_for('static', filename=product.imagePaths[0].resized_image_path) }}" alt="activity-user">{{ product.name }}</h6>
                             </td>
                             <td>
                                 <h6 class="m-0">{{ product.year }}</h6>

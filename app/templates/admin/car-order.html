@@ -46,7 +46,7 @@
                             <th>{{ _('Status') }}</th>
                             <th>{{ _('Price') }}</th>
                             <th>{{ _('Priority') }}</th>
-                            <th class="text-center">{{ _('Operation') }}</th>
+                            <th>{{ _('Operation') }}</th>
 {#                            <th>ID</th>#}
 {#                            <th>{{ _('Key') }}</th>#}
 {#                            <th>{{ _('Name') }}</th>#}
@@ -84,12 +84,14 @@
                         <td>
                             <h6 class="m-0">{{ o.priority }}</h6>
                         </td>
-                        <td class="text-center">
+                        <td>
+                        <div class="d-flex order-actions">
 {#                                                        <a href="{{ url_for('admin.modify_product', product_id=product.id) }}" class="label theme-bg2 text-white f-12">Modify</a>#}
-                            <a title="View Detail" href="{{ url_for('admin.modify_order', order_id=o.id) }}" class="fadeIn animated bx bx-info-circle" style="cursor: pointer"></a>
-                            <a title="Increase Priority" href="{{ url_for('admin.priority_up', order_id=o.id) }}" class="fadeIn animated bx bx-up-arrow-circle" style="cursor: pointer"></a>
-                            <a title="Decrease Priority" href="{{ url_for('admin.priority_down', order_id=o.id) }}" class="fadeIn animated bx bx-down-arrow-circle" style="cursor: pointer"></a>
+                            <a title="View Detail" href="{{ url_for('admin.modify_order', order_id=o.id) }}"><i class="bx bx-info-circle" ></i></a>
+                            <a title="Increase Priority" href="{{ url_for('admin.priority_up', order_id=o.id) }}" class="ms-3"><i class="bx bx-up-arrow-circle" ></i></a>
+                            <a title="Decrease Priority" href="{{ url_for('admin.priority_down', order_id=o.id) }}" class="ms-3"><i class="bx bx-down-arrow-circle" ></i></a>
 {#                                                        <a data-bs-toggle="modal" data-bs-target="#removeModal" onclick="Values_id({{ product.id }})" class="feather icon-trash-2 theme-bg4" style="cursor: pointer"></a>#}
+                        </div>
                         </td>
                     </tr>
                     {% endfor %}
