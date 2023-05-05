@@ -32,13 +32,38 @@ def bot():
         product = preds['products']
         intent = preds['intents']
         prod = Product.query.filter_by(name=product).first()
-        if intent == "":
+        response = dict()
+        if intent == "AUTOMATIC-PILOT":
             for category in prod.categories:
                 if category.name == "Autonomous":
                     is_auto = True
                 else:
                     is_auto = False
-        return jsonify({'msg-back': preds})
+            response['msg-back'] = "Autonomous Driving System (ADS) {} supported on {}.".format(
+                "is" if is_auto else "is not", prod.name
+            )
+        elif intent == "PRICE":
+            response['msg-back'] = "The overall estimated price of {} is ${}".format(
+                prod.name, prod.price
+            )
+        elif intent == "PERFORMANCE":
+            response['msg-back'] = "The maximum speed of {} is {}, while its oil consumption per mile is {} liters.".format(
+                prod.name, prod.max_speed, prod.oil_consumption
+            )
+        else:
+            response['msg-back'] = "We currently have five independent cars that support customization: "
+            for item in [
+                'tesla truck',
+                'infiniti',
+                'chevrole zr1',
+                'lexus lc500h',
+                'Porsche 911',
+                'Porsche old 911']:
+                response['msg-back'] += item + ", "
+            response['msg-back'] += "<br><br> Please access {} to customize your own color.".format(
+                "http://ipa-009.ucd.ie/car_customize"
+            )
+        return jsonify(response)
     
 
 
