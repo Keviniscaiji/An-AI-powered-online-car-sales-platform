@@ -56,7 +56,7 @@
           setChatTargetInfoVisibility("hidden");
 
           // socket connection
-          socket = io.connect('https://' + document.domain + ':' + location.port + '/chatroom');
+          socket = io.connect('http://' + document.domain + ':' + location.port + '/chatroom');
           socket.emit('admin_join_wait', {room: "waiting"});
 
           // user join waiting room

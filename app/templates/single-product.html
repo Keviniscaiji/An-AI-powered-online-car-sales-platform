@@ -379,6 +379,7 @@ new dateDropper({
           </div>
         </div>
     </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
    <script>
     $(document).ready(function () {
       // constant variables definition
@@ -410,7 +411,7 @@ new dateDropper({
         document.getElementById('chatroom').style.visibility = "visible";
         if (!is_connected){
           socket = io.connect(
-              'https://' + document.domain + ':' + location.port + '/chatroom',
+              'http://' + document.domain + ':' + location.port + '/chatroom',
               {
                   'reconnection': true,
                   'reconnectionAttempts': MAX_N_RECONNECTION,
