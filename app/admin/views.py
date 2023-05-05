@@ -30,7 +30,7 @@ def index():
 @login_required
 def category():
     categories = Category.query.all()
-    return render_template('admin/category.html', categories=categories)
+    return render_template('admin/car-category.html', categories=categories)
 
 
 # @admin.route('/pandemic', methods=['POST', 'GET'])
@@ -63,7 +63,7 @@ def product():
     product_num = Product.query.filter_by(is_hidden=False).count()
     pagination = Pagination(page=page, per_page=6, total=product_num, search=search, record_name='products')
     # path_list = products[0].imagePaths.all()
-    return render_template('admin/product.html', products=products, pagination=pagination)
+    return render_template('admin/car-product.html', products=products, pagination=pagination)
 
 
 @admin.route('/remove_product/', methods=['POST'])
@@ -174,7 +174,7 @@ def add_category():
         db.session.add(c)
         db.session.commit()
         return redirect(url_for('admin.category'))
-    return render_template('admin/category.html')
+    return render_template('admin/car-category.html')
 
 
 @admin.route('/add_product', methods=['GET', 'POST'])
@@ -232,7 +232,7 @@ def order():
     orders = Order.query.order_by(desc(Order.priority)).slice(start, end)
     order_num = Order.query.count()
     pagination = Pagination(page=page, per_page=6, total=order_num, search=search, record_name='orders')
-    return render_template('admin/order.html', orders=orders, pagination=pagination)
+    return render_template('admin/car-order.html', orders=orders, pagination=pagination)
 
 
 @admin.route('/modify_order/<int:order_id>', methods=['POST', 'GET'])
@@ -243,7 +243,7 @@ def modify_order(order_id):
     for item in order_aim.productOrders.all():
         p = Product.query.filter_by(id=item.product_id).first()
         product_list.append(p)
-    return render_template('admin/order_modify.html', order=order_aim, product_list=product_list)
+    return render_template('admin/car-order-modify.html', order=order_aim, product_list=product_list)
 
 
 @admin.route('/update_status', methods=['POST', 'GET'])
