@@ -3280,3 +3280,20 @@ PRODUCTORDERS = [
     {"id": 4, "count": 1, "product_id": 39, "order_id": 2},
     {"id": 5, "count": 1, "product_id": 13, "order_id": 2}
 ]
+
+DRIVES = [
+    {"id": 1, "drive_time_start": '2023-05-01 13:00:00', "drive_time_end": '2023-05-01 14:00:00',
+     "note": "Please make the car clean", "status": "Created", "priority": 1, "buyer_id": 2},
+    {"id": 2, "drive_time_start": '2023-05-01 13:00:00', "drive_time_end": '2023-05-01 14:00:00',
+     "note": "Please prepare the car on time", "status": "Waiting for Pick Up", "priority": 0,
+     "buyer_id": 2}
+]
+
+PRODUCTDRIVES = [
+    {"id": 1, "count": 1, "product_id": 4, "drive_id": 1},
+    {"id": 2, "count": 2, "product_id": 7, "drive_id": 1},
+    {"id": 3, "count": 2, "product_id": 66, "drive_id": 2},
+    {"id": 4, "count": 1, "product_id": 39, "drive_id": 2},
+    {"id": 5, "count": 1, "product_id": 13, "drive_id": 2}
+]
+

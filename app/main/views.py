@@ -10,7 +10,7 @@ from sqlalchemy import desc, case
 import app
 from app import db, babel
 from app.models import Product, ProductImagePath, Cart, User, Category, Comment, Order, ProductOrder, Blog, BlogComment, \
-    BlogImagePath
+    BlogImagePath, Drive, ProductDrive
 from config import Config
 from werkzeug.utils import secure_filename
 from . import main
@@ -273,19 +273,6 @@ def splithigh(price):
         return None
     res = price.split("$")[2]
     return int(res)
-
-
-# @main.route('/portfolio', methods=['POST', 'GET'])
-# def portfolio():
-#     img_all = ProductImagePath.query.all()
-#     random_img = []
-#     img_num = len(img_all)
-#     # print(img_num)
-#     for i in range(img_num):
-#         index = random.randint(0, img_num-i-1)
-#         random_img.append(img_all[index])
-#         del img_all[index]
-#     return render_template('portfolio.html', images=random_img)
 
 
 @main.route('/blog/', methods=['POST', 'GET'])
@@ -630,47 +617,6 @@ def modify_avatar():
         return redirect(url_for('main.account', user_id=user_id))
 
 
-# @login_required
-# @main.route('/modify_delivery_info/<int:delivery_id>', methods=['POST', 'GET'])
-# def modify_delivery_info(delivery_id):
-#     """
-#     modify details of deliver address
-#     """
-#     delivery_info_aim = DeliveryInfo.query.filter_by(id=delivery_id).first()
-#     if request.method == 'POST':
-#         delivery_info_aim.name = request.form.get('name')
-#         delivery_info_aim.gender = request.form.get('gender')
-#         delivery_info_aim.phone_number = request.form.get('phone')
-#         delivery_info_aim.country = request.form.get('country')
-#         delivery_info_aim.city = request.form.get('city')
-#         delivery_info_aim.street = request.form.get('street')
-#         delivery_info_aim.detail = request.form.get('detail')
-#         db.session.commit()
-#         return redirect(url_for('main.account', user_id=delivery_info_aim.user_id))
-#     return render_template('modify_delivery_info.html', delivery_info=delivery_info_aim)
-
-
-# @login_required
-# @main.route('/add_delivery_info/<int:user_id>', methods=['POST', 'GET'])
-# def add_delivery_info(user_id):
-#     """
-#     add details of deliver address
-#     """
-#     if request.method == 'POST':
-#         delivery_info_aim = DeliveryInfo(name=request.form.get('name'),
-#                                          gender=request.form.get('gender'),
-#                                          phone_number=request.form.get('phone'),
-#                                          country=request.form.get('country'),
-#                                          city=request.form.get('city'),
-#                                          street=request.form.get('street'),
-#                                          detail=request.form.get('detail'),
-#                                          user_id=user_id)
-#         db.session.add(delivery_info_aim)
-#         db.session.commit()
-#         return redirect(url_for('main.account', user_id=user_id))
-#     return render_template('add_delivery_info.html')
-
-
 @main.route('/wishlist', methods=['POST', 'GET'])
 def wishlist():
     """
@@ -703,19 +649,59 @@ def single_product(p):
         if request.method == 'POST':
             if request.form.get('comment') is not None:
                 user = User.query.filter_by(id=current_user.id).first()
-                time = datetime.datetime.now()
+                timestamp = datetime.datetime.now()
                 body = request.form.get('comment')
-                comment = Comment(author_id=user.id, timestamp=time, product_id=p, body=body)
+                comment = Comment(author_id=user.id, timestamp=timestamp, product_id=p, body=body)
                 db.session.add(comment)
                 db.session.commit()
             else:
-                print("hello")
+                user = User.query.filter_by(id=current_user.id).first()
+                timestamp = datetime.datetime.utcnow()
+                start_date = request.form.get('start_date')
+                start_time = change_time(request.form.get('start_time'), 0)
+                end_time = change_time(request.form.get('start_time'), 2)
+                st = datetime.datetime.strptime(start_date+" "+start_time, "%Y-%m-%d %H:%M:%S")
+                et = datetime.datetime.strptime(start_date+" "+end_time, "%Y-%m-%d %H:%M:%S")
+                print('hello', st, timestamp)
+                drive = Drive(
+                    timestamp=timestamp,
+                    drive_time_start=st,
+                    drive_time_end=et,
+                    note='Test Drive',
+                    status='Created',
+                    buyer_id=user.id
+                )
+                db.session.add(drive)
+                db.session.commit()
+                pd = ProductDrive(
+                    count=1,
+                    product_id=p,
+                    drive_id=drive.id
+                )
+                db.session.add(pd)
+                db.session.commit()
+                pd = ProductDrive.query.filter_by(product_id=p).filter_by(
+                    drive_id=drive.id).first()
+                drive.productDrives.append(pd)
+                db.session.commit()
             return redirect(url_for('main.single_product', p=p))
     else:
         flash('Please login before browsing products!')
         return redirect(url_for('auth.login'))
     return render_template('single-product.html', p2=product, product_all=product_all, comments=comments,
                            comments_num=comments_num, comments_show=comments_show)
+
+
+def change_time(raw_time, offset):
+    time_front = raw_time.split(" ")[0]
+    time_end = raw_time.split(" ")[1]
+    hour = int(time_front.split(":")[0])
+    minute = time_front.split(":")[1]
+    if time_end == "pm":
+        hour = hour + 12 + offset
+    elif time_end == "am":
+        hour = hour + offset
+    return str(hour) + ":" + minute + ":00"
 
 
 # Cart Utils

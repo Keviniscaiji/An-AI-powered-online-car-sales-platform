@@ -47,6 +47,15 @@ class ProductOrder(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
 
 
+class ProductDrive(db.Model):
+    __tablename__ = 'productDrives'
+    id = db.Column(db.Integer, primary_key=True)
+    count = db.Column(db.Integer, default=1)
+    # foreign keys:
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    drive_id = db.Column(db.Integer, db.ForeignKey('drives.id'))
+
+
 # record the N to N relationship between customer and product
 class Cart(db.Model):
     __tablename__ = 'carts'
@@ -131,6 +140,34 @@ class Order(db.Model):
     productOrders = db.relationship('ProductOrder', backref='order', lazy='dynamic')
 
 
+class Drive(db.Model):
+    __tablename__ = 'drives'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    drive_time_start = db.Column(db.DateTime)
+    drive_time_end = db.Column(db.DateTime)
+    note = db.Column(db.String(128), index=True, nullable=True)
+    # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
+    status = db.Column(db.String(32), default='Created', index=True)
+    # ship_way. Respectively, 0/1 represents delivery/ pick-up
+    # ship_way = db.Column(db.String(16), index=True)
+    # price = db.Column(db.Float, index=True)
+    # name = db.Column(db.String(32), index=True)
+    # gender = db.Column(db.Integer)
+    # phone_number = db.Column(db.Integer)
+    # Address comprises country + city + street + detail
+    # country = db.Column(db.String(32))
+    # city = db.Column(db.String(32))
+    # street = db.Column(db.String(64))
+    # detail = db.Column(db.String(32))
+    priority = db.Column(db.Integer, default=0, index=True)
+    # foreign keys:
+    buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # relationship:
+    buyer = db.relationship('User', back_populates='drives', lazy='joined')
+    productDrives = db.relationship('ProductDrive', backref='drive', lazy='dynamic')
+
+
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
@@ -159,6 +196,7 @@ class User(UserMixin, db.Model):
     carts = db.relationship('Cart', backref='owner', lazy='dynamic')
     # deliveryInfos = db.relationship('DeliveryInfo', backref='owner', lazy='dynamic')
     orders = db.relationship('Order', back_populates='buyer', lazy='dynamic')
+    drives = db.relationship('Drive', back_populates='buyer', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='author', lazy='dynamic')
     blogs = db.relationship('Blog', backref='author', lazy='dynamic')
     blogComments = db.relationship('BlogComment', backref='author', lazy='dynamic')
