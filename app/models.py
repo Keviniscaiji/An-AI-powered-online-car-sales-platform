@@ -10,20 +10,6 @@ from config import Config
 import os
 
 
-# class DeliveryInfo(db.Model):
-#     __tablename__ = 'deliveryInfos'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(32), nullable=False, index=True)
-#     gender = db.Column(db.Integer, nullable=False)
-#     phone_number = db.Column(db.Integer, nullable=False)
-#     # Address comprises country + city + street + detail
-#     country = db.Column(db.String(32), nullable=False)
-#     city = db.Column(db.String(32), nullable=False)
-#     street = db.Column(db.String(32), nullable=False)
-#     detail = db.Column(db.String(32), nullable=False)
-#     # foreign keys:
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
 class Initialization:
     @staticmethod
     def db_initialization():
@@ -158,21 +144,6 @@ class Comment(db.Model):
     product = db.relationship('Product', back_populates='comments', lazy='joined')
 
 
-# class DeliveryInfo(db.Model):
-#     __tablename__ = 'deliveryInfos'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(32), nullable=False, index=True)
-#     gender = db.Column(db.Integer, nullable=False)
-#     phone_number = db.Column(db.Integer, nullable=False)
-#     # Address comprises country + city + street + detail
-#     country = db.Column(db.String(32), nullable=False)
-#     city = db.Column(db.String(32), nullable=False)
-#     street = db.Column(db.String(32), nullable=False)
-#     detail = db.Column(db.String(32), nullable=False)
-#     # foreign keys:
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -288,12 +259,6 @@ class BlogImagePath(db.Model):
     image_path = db.Column(db.String(512), index=True)
     # foreign keys:
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
-
-
-# class Pandemic(db.Model):
-#     __tablename__ = 'pandemics'
-#     id = db.Column(db.Integer, primary_key=True)
-#     is_pandemic = db.Column(db.Boolean, default=False, index=True)
 
 
 @login_manager.user_loader
