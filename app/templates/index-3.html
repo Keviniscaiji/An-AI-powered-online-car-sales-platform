@@ -263,7 +263,7 @@
                                                 <span class="regular-price">${{ item.price }}</span>
                                             </div>
                                             <div class="add-to-cart">
-                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ item.imagePaths[0].resized_image_path }}", "{{ item.price }}")'>{{ _('Add To Wish List') }}</a>
+                                                <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ item.id }}", "{{ item.name }}", "{{ url_for('static', filename=item.imagePaths[0].resized_image_path) }}", "{{ item.price }}")'>{{ _('Add To Wish List') }}</a>
                                             </div>
                                         </div>
                                     </div>

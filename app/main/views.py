@@ -248,7 +248,7 @@ def shop(status):
     if low != "non":
         res = res.filter(Product.price >= low).filter(Product.price <= high)
     else:
-        low, high= left, right
+        low, high = left, right
     pagination = res.paginate(page, per_page=current_app.config['FLASKY_POST_PER_PAGE'], error_out=False)
     recommend = res.limit(3).all()
     products = pagination.items
@@ -641,6 +641,7 @@ def single_product(p):
         comments_num = len(comments)
         i = 0
         for category in product.categories:
+            print("hello", category)
             for c in category.products:
                 if c not in product_all:
                     i = i + 1

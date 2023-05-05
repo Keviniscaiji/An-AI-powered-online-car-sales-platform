@@ -8,7 +8,7 @@ import os
 
 from . import chat
 from app import socketio, db
-from app.models import Message
+from app.models import Message, Product
 from config import basedir
 
 from .fasttext_backend import prepare_models, predict_text, predict_text_all
@@ -28,14 +28,49 @@ def bot():
     if request.method == 'POST':
         text = request.values['msg-to-bot']
         preds = predict_text_all(text, models, 50)
-        return jsonify({'msg-back': preds})
+        brand = preds['brands']
+        product = preds['products']
+        intent = preds['intents']
+        prod = Product.query.filter_by(name=product).first()
+        response = dict()
+        if intent == "AUTOMATIC-PILOT":
+            for category in prod.categories:
+                if category.name == "Autonomous":
+                    is_auto = True
+                else:
+                    is_auto = False
+            response['msg-back'] = "Autonomous Driving System (ADS) {} supported on {}.".format(
+                "is" if is_auto else "is not", prod.name
+            )
+        elif intent == "PRICE":
+            response['msg-back'] = "The overall estimated price of {} is ${}".format(
+                prod.name, prod.price
+            )
+        elif intent == "PERFORMANCE":
+            response['msg-back'] = "The maximum speed of {} is {}, while its oil consumption per mile is {} liters.".format(
+                prod.name, prod.max_speed, prod.oil_consumption
+            )
+        else:
+            response['msg-back'] = "We currently have five independent cars that support customization: "
+            for item in [
+                'tesla truck',
+                'infiniti',
+                'chevrole zr1',
+                'lexus lc500h',
+                'Porsche 911',
+                'Porsche old 911']:
+                response['msg-back'] += item + ", "
+            response['msg-back'] += "<br><br> Please access {} to customize your own color.".format(
+                "http://ipa-009.ucd.ie/car_customize"
+            )
+        return jsonify(response)
     
 
 
 @chat.route('/admin', methods=['POST', 'GET'])
 def admin_chat():
     # print("okk")
-    return render_template('admin/chat.html')
+    return render_template('admin/app-chat-box.html')
 
 
 # Basic Operations
