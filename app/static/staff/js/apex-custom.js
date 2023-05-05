@@ -3,7 +3,7 @@ $(function () {
 	// chart 1
 	var options = {
 		series: [{
-			name: 'Likes',
+			name: 'Visit User',
 			data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
 		}],
 		chart: {
@@ -38,10 +38,10 @@ $(function () {
 		},
 		xaxis: {
 			type: 'datetime',
-			categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001', '4/11/2001', '5/11/2001', '6/11/2001'],
+			categories: ['1/11/2022', '2/11/2022', '3/11/2022', '4/11/2022', '5/11/2022', '6/11/2022', '7/11/2022', '8/11/2022', '9/11/2022', '10/11/2022', '11/11/2022', '12/11/2022', '1/11/2023', '2/11/2023', '3/11/2023', '4/11/2023', '5/11/2023', '6/11/2023'],
 		},
 		title: {
-			text: 'Line Chart',
+			text: 'Visiting Amount Chart',
 			align: 'left',
 			style: {
 				fontSize: "16px",
@@ -72,7 +72,7 @@ $(function () {
 		colors: ["#fff"],
 		yaxis: {
 			title: {
-				text: 'Engagement',
+				text: 'Visitor Amount',
 			},
 		}
 	};
@@ -153,10 +153,10 @@ $(function () {
 	// chart 4
 	var options = {
 		series: [{
-			name: 'series1',
+			name: 'Self-driving',
 			data: [31, 40, 28, 51, 42, 109, 100]
 		}, {
-			name: 'series2',
+			name: 'Non-self-driving',
 			data: [11, 32, 45, 32, 34, 52, 41]
 		}],
 		chart: {
@@ -170,9 +170,9 @@ $(function () {
 				show: true
 			},
 		},
-		colors: ["#fff", '#fff'],
+		colors: ["#fff", '#bbe5ff'],
 		title: {
-			text: 'Area Chart',
+			text: 'Sales Amount Chart',
 			align: 'left',
 			style: {
 				fontSize: "16px",
@@ -195,7 +195,7 @@ $(function () {
 		},
 		xaxis: {
 			type: 'datetime',
-			categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+			categories: ["2022-09-19T00:00:00.000Z", "2022-09-19T01:30:00.000Z", "2022-09-19T02:30:00.000Z", "2022-09-19T03:30:00.000Z", "2022-09-19T04:30:00.000Z", "2022-09-19T05:30:00.000Z", "2022-09-19T06:30:00.000Z"]
 		},
 		tooltip: {
 			x: {
@@ -612,11 +612,11 @@ $(function () {
 	// chart 9
 	var options = {
 		series: [{
-			name: 'Website Blog',
+			name: 'Web Visits',
 			type: 'column',
 			data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
 		}, {
-			name: 'Social Media',
+			name: 'Car Sales',
 			type: 'line',
 			data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
 		}],
@@ -636,7 +636,7 @@ $(function () {
 		},
 		colors: ['rgba(255, 255, 255, 0.20)', "#fff"],
 		title: {
-			text: 'Traffic Sources'
+			text: 'Sales and Visits'
 		},
 		dataLabels: {
 			enabled: true,
@@ -651,22 +651,22 @@ $(function () {
 			theme: 'dark',
 			y: {
 				formatter: function (val) {
-					return "$ " + val + " thousands"
+					return "" + val + ""
 				}
 			}
 		},
-		labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+		labels: ['01 Jan 2023', '02 Jan 2023', '03 Jan 2023', '04 Jan 2023', '05 Jan 2023', '06 Jan 2023', '07 Jan 2023', '08 Jan 2023', '09 Jan 2023', '10 Jan 2023', '11 Jan 2023', '12 Jan 2023'],
 		xaxis: {
 			type: 'datetime'
 		},
 		yaxis: [{
 			title: {
-				text: 'Website Blog',
+				text: 'Web Visits',
 			},
 		}, {
 			opposite: true,
 			title: {
-				text: 'Social Media'
+				text: 'Car Sales'
 			}
 		}]
 	};
@@ -755,14 +755,14 @@ $(function () {
 	chart.render();
 	// chart 11
 	var options = {
-		series: [44, 55, 13, 43, 22],
+		series: [44, 55, 13, 43, 22, 34],
 		chart: {
 			foreColor: 'rgba(255, 255, 255, 0.65)',
 			height: 380,
 			type: 'pie',
 		},
-		colors: ["#673ab7", "#32ab13", "#f02769", "#ffc107", "#198fed"],
-		labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+		colors: ["#ff0000", "#673ab7", "#32ab13", "#da7f99", "#ffc107", "#198fed"],
+		labels: ['Autonomous', 'City', 'Classic', 'Electric', 'Sedan', 'Sports'],
 		responsive: [{
 			breakpoint: 480,
 			options: {

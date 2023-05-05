@@ -284,6 +284,12 @@ def priority_down(order_id):
     return redirect(url_for('admin.order'))
 
 
+@admin.route('/data-analytics')
+@login_required
+def data_analytics():
+    return render_template('admin/data-analytics.html')
+
+
 @admin.route('/data_visualize')
 @login_required
 def data_visualize():

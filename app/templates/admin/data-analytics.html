@@ -18,14 +18,10 @@
     <link href="../../static/staff/css/app.css" rel="stylesheet">
     <link href="../../static/staff/css/icons.css" rel="stylesheet">
     <!-- Theme Style CSS -->
-    <link rel="stylesheet" href="../../static/staff/css/dark-theme.css">
-    <link rel="stylesheet" href="../../static/staff/css/semi-dark.css">
-    <link rel="stylesheet" href="../../static/staff/css/header-colors.css">
-    <!-- animation css -->
-    <link rel="stylesheet" href="../../static/plugins/animation/css/animate.min.css">
-    <!-- vendor css -->
-    <link rel="stylesheet" href="../../static/css/style_admin_2.css">
-    <title>AutoWheel Staff Portal</title>
+    <link rel="stylesheet" href="assets/css/dark-theme.css">
+    <link rel="stylesheet" href="assets/css/semi-dark.css">
+    <link rel="stylesheet" href="assets/css/header-colors.css">
+    <title>Dashtrans - Bootstrap5 Admin Template</title>
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -88,18 +84,129 @@
             </div>
         </header>
         <!--end header -->
-
-        <!--Page Wrapper-->
-        {% block content %}
-        {% endblock %}
-
-        <!-- <div class="overlay toggle-icon"></div> -->
-        <!--end overlay-->
-        <!--Start Back To Top Button--><a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
-        <!--End Back To Top Button-->
-        <!-- <footer class="page-footer"> -->
-            <!-- <p class="mb-0">Copyright (c) 2021. All right By <a href="http://www.sucai8.cn">sucai8.cn</a>.</p> -->
-        <!-- </footer> -->
+        <!--start page wrapper -->
+        <div class="page-wrapper">
+            <div class="page-content">
+                <!--breadcrumb-->
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                    <div class="breadcrumb-title pe-3">Charts</div>
+                    <div class="ps-3">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Apex Charts</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="ms-auto">
+                        <div class="btn-group"><button type="button" class="btn btn-light">Settings</button><button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"><span class="visually-hidden">Toggle Dropdown</span></button>
+                            <div
+                                class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"><a class="dropdown-item" href="javascript:;">Action</a><a class="dropdown-item" href="javascript:;">Another action</a><a class="dropdown-item" href="javascript:;">Something else here</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="javascript:;">Separated link</a></div>
+                    </div>
+                </div>
+            </div>
+            <!--end breadcrumb-->
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h6 class="mb-0 text-uppercase">Sales Amount</h6>
+                    <hr>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="chart4"></div>
+                        </div>
+                    </div>
+                    <h6 class="mb-0 text-uppercase">User Access Amount</h6>
+                    <hr>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="chart1"></div>
+                        </div>
+                    </div>
+{#                    <h6 class="mb-0 text-uppercase">Multi-Line Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart2"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <h6 class="mb-0 text-uppercase">Area Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart3"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <h6 class="mb-0 text-uppercase">Vertical Column Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart5"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <h6 class="mb-0 text-uppercase">Column & Line Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart6"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <h6 class="mb-0 text-uppercase">Mix Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart7"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <h6 class="mb-0 text-uppercase">Pie Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart8"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <h6 class="mb-0 text-uppercase">Sales & Browsing</h6>
+                    <hr>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="chart9"></div>
+                        </div>
+                    </div>
+{#                    <h6 class="mb-0 text-uppercase">Radar Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart10"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <h6 class="mb-0 text-uppercase">Car Category</h6>
+                    <hr>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="chart11"></div>
+                        </div>
+                    </div>
+{#                    <h6 class="mb-0 text-uppercase">Radial Bar Chart</h6>#}
+{#                    <hr>#}
+{#                    <div class="card">#}
+{#                        <div class="card-body">#}
+{#                            <div id="chart12"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+            </div>
+            <!--end row-->
+        </div>
+    </div>
+    <!--end page wrapper -->
+    <!--start overlay-->
+    <div class="overlay toggle-icon"></div>
+    <!--end overlay-->
+    <!--Start Back To Top Button--><a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+    <!--End Back To Top Button-->
+{#    <footer class="page-footer">#}
+{#        <p class="mb-0">Copyright (c) 2021. All right By <a href="http://www.sucai8.cn">sucai8.cn</a>.</p>#}
+{#    </footer>#}
     </div>
     <!--end wrapper-->
     <!--start switcher-->
@@ -134,22 +241,15 @@
     </div>
     <!--end switcher-->
     <!-- Bootstrap JS -->
-    <script src="../../static/staff/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/js/bootstrap.bundle.min.js"></script>
     <!--plugins-->
-    <script src="{{ url_for('static', filename="staff/js/jquery.min.js") }}"></script>
+    <script src="../../static/js/jquery.min.js"></script>
     <script src="../../static/staff/js/simplebar.min.js"></script>
     <script src="../../static/staff/js/metisMenu.min.js"></script>
     <script src="../../static/staff/js/perfect-scrollbar.js"></script>
     <script src="../../static/staff/js/apexcharts.min.js"></script>
     <script src="../../static/staff/js/apex-custom.js"></script>
-    <script src="../../static/staff/js/index.js"></script>
     <!--app JS-->
     <script src="../../static/staff/js/app.js"></script>
-
-    <script src="../../static/js/vendor-all.min.js"></script>
-    <script src="../../static/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../static/js/pcoded.min.js"></script>
-
-{#    <script src="../../static/staff/js/app.js"></script>#}
 </body>
 </html>
