@@ -8,7 +8,7 @@ import os
 
 from . import chat
 from app import socketio, db
-from app.models import Message
+from app.models import Message, Product
 from config import basedir
 
 from .fasttext_backend import prepare_models, predict_text, predict_text_all
@@ -31,6 +31,13 @@ def bot():
         brand = preds['brands']
         product = preds['products']
         intent = preds['intents']
+        prod = Product.query.filter_by(name=product).first()
+        if intent == "":
+            for category in prod.categories:
+                if category.name == "Autonomous":
+                    is_auto = True
+                else:
+                    is_auto = False
         return jsonify({'msg-back': preds})
     
 
