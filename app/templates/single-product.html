@@ -11,6 +11,7 @@ new dateDropper({
 </script>
 <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
 <script src="../static/js/timedropper.js"></script>
 <script>$( "#alarm" ).timeDropper();</script>
 <script type="text/javascript">
@@ -357,7 +358,7 @@ new dateDropper({
           <div class="chat-header clearfix">
             <img src="../static/storage/avatars/avatar_admin.jpg" alt="avatar" style="width: 50px; height: 50px"/>
             <div class="chat-about">
-              <div class="chat-with" id="chat_target">{{ _('Music Zone') }} {{ _('Official') }}</div>
+              <div class="chat-with" id="chat_target">{{ _('AutoWheel') }} {{ _('Official') }}</div>
               <div class="chat-num-messages" id="msgs_num">{{ _('already') }} 0 {{ _('messages') }}</div>
             </div>
             <i class="fa fa-sign-out online" href="#" id="leave_room"></i>
@@ -365,7 +366,7 @@ new dateDropper({
 
           <div class="chat-history">
             <ul id="chat_area" style="list-style: none;">
-                <li style="width: 100%; text-align: center; color: lightslategray">--{{ _('waiting for customer service') }}--</li>
+                
             </ul>
           </div>
 
@@ -392,23 +393,10 @@ new dateDropper({
       var is_adapted = false;
       var socket = null;
       var n_msgs = 0;
+      var current_target = "bot";
 
-      // user connect to server, join the waiting room
-      $('#open_chatroom').on('click', function () {
-        // adaptation
-        if (window.innerWidth < 600 && !is_adapted){
-            let el = document.getElementById("chatroom");
-            if (window.innerHeight < 510 || window.innerWidth < 350){
-                let alpha_h = window.innerHeight / 510;
-                let alpha_w = window.innerWidth / 350;
-                let alpha = alpha_h > alpha_w ? alpha_w:alpha_h;
-                el.style.transform = "scale("+alpha.toString()+")";
-                is_adapted = true;
-            }
-            el.style.top = String((window.innerHeight-510)/2) + 'px';
-            el.style.left = String((window.innerWidth-350)/2) + 'px';
-        }
-        document.getElementById('chatroom').style.visibility = "visible";
+      // bot -> customer service
+      function bot2service(){
         if (!is_connected){
           socket = io.connect(
               'http://' + document.domain + ':' + location.port + '/chatroom',
@@ -469,7 +457,7 @@ new dateDropper({
                     var t = getCurrentTime();
                     var msg_html = "";
                     msg_html = msg_html + '<li class="clearfix"><div class="message-data">';
-                    msg_html = msg_html + '<span class="message-data-name"><i class="fa fa-circle online"></i>' + "Music Zone Official" + '</span>';
+                    msg_html = msg_html + '<span class="message-data-name"><i class="fa fa-circle online"></i>' + "AutoWheel Official" + '</span>';
                     msg_html = msg_html + '<span class="message-data-time">' + t + ', Today</span></div>';
                     msg_html = msg_html + '<div class="other-message">' + msg + '</div></li>';
                     $('#chat_area').append(msg_html);
@@ -489,7 +477,7 @@ new dateDropper({
                   var t = getCurrentTime();
                   var img_html = "";
                   img_html = img_html + '<li><div class="message-data">';
-                  img_html = img_html + '<span class="message-data-name"><i class="fa fa-circle online"></i>' + "Music Zone Official" + '</span>';
+                  img_html = img_html + '<span class="message-data-name"><i class="fa fa-circle online"></i>' + "AutoWheel Official" + '</span>';
                   img_html = img_html + '<span class="message-data-time">' + t + ', Today</span></div>';
                   img_html = img_html + '<div class="other-img"><img src="' + img_url + '" style="width: 100%; height: 100%"></div></li>';
                   $('#chat_area').append(img_html);
@@ -499,7 +487,43 @@ new dateDropper({
               }
           });
         }
-      });
+      }
+
+      // customer service -> bot
+      function service2bot(){
+        socket.emit("leave", {room: room_name, user: user_name});
+        is_connected = false;
+        room_name = "waiting";
+        current_target = "bot";
+      }
+
+      $('#open_chatroom').on('click', function () {
+        // adaptation
+        if (window.innerWidth < 600 && !is_adapted){
+            let el = document.getElementById("chatroom");
+            if (window.innerHeight < 510 || window.innerWidth < 350){
+                let alpha_h = window.innerHeight / 510;
+                let alpha_w = window.innerWidth / 350;
+                let alpha = alpha_h > alpha_w ? alpha_w:alpha_h;
+                el.style.transform = "scale("+alpha.toString()+")";
+                is_adapted = true;
+            }
+            el.style.top = String((window.innerHeight-510)/2) + 'px';
+            el.style.left = String((window.innerWidth-350)/2) + 'px';
+        }
+        document.getElementById('chatroom').style.visibility = "visible";
+        
+        var t = getCurrentTime();
+        var msg = "This is Intelligent Bot<br><br>prompt:<br>if you want to connect with customer service, please type @service and send<br>"
+        msg += "if you want to switch to bot, please type @bot and send";
+
+        var msg_html = "";
+        msg_html = msg_html + '<li class="clearfix"><div class="message-data">';
+        msg_html = msg_html + '<span class="message-data-name"><i class="fa fa-circle online"></i>' + "AutoWheel Bot" + '</span>';
+        msg_html = msg_html + '<span class="message-data-time">' + t + ', Today</span></div>';
+        msg_html = msg_html + '<div class="other-message">' + msg + '</div></li>';
+        $('#chat_area').append(msg_html);
+      })
 
       // send message
       $('#send_btn2').on('click', function () {
@@ -515,7 +539,49 @@ new dateDropper({
           $('#chat_area').append(msg_html);
           scrollToBottom();
           $('#message-to-send').val('');
-          socket.emit('send', {room: room_name, msg: msg, user: user_name});
+          if (current_target !== 'bot') {
+            if (msg === '@bot') {
+                current_target = "bot";
+                var note_html = '<li style="width: 100%; text-align: center; color: lightslategray">--return to bot--</li>';
+                service2bot();
+                $('#chat_area').append(note_html);
+            } else if (msg === "@service") { } 
+            else {
+                socket.emit('send', {room: room_name, msg: msg, user: user_name});
+            }
+          } else {
+            if (msg === "@service") {
+                current_target = "service";
+                var note_html = '<li style="width: 100%; text-align: center; color: lightslategray">--waiting for customer service--</li>'
+                bot2service();
+                $('#chat_area').append(note_html);
+            } else if (msg === '@bot') { } 
+            else {
+                $.ajax({
+                    type: "POST",
+                    async:true,
+                    url: "{{ url_for('chat.bot') }}",
+                    data: {"msg-to-bot":msg},
+                    success: function(res) {
+                        var preds = res['msg-back'];
+                        var response = preds['brands'] + "<br>";
+                        response += preds['products'] + "<br>";
+                        response += preds['intents'];
+
+                        var t = getCurrentTime();
+                        var msg_html = "";
+                        msg_html = msg_html + '<li class="clearfix"><div class="message-data">';
+                        msg_html = msg_html + '<span class="message-data-name"><i class="fa fa-circle online"></i>' + "AutoWheel Official" + '</span>';
+                        msg_html = msg_html + '<span class="message-data-time">' + t + ', Today</span></div>';
+                        msg_html = msg_html + '<div class="other-message">' + response + '</div></li>';
+                        $('#chat_area').append(msg_html);                    
+                    },
+                    error: function (res) {
+                        alert('error')
+                    }
+                })
+            }
+          }
           n_msgs += 1;
           updateMessageNum(n_msgs);
         }
@@ -523,7 +589,12 @@ new dateDropper({
 
       // send image
       $('#send_img_pre').on('click', function () {
-        $('#send_img').click();
+        if (current_target !== 'bot') {
+            $('#send_img').click();
+        } else {
+            note_html = '<li style="width: 100%; text-align: center; color: red">--image not supported for bot--</li>';
+            $('#chat_area').append(note_html);
+        }
       })
       $('#send_img').on('change', function () {
         var file_name = document.getElementById('send_img').files[0].name;
@@ -549,21 +620,23 @@ new dateDropper({
 
       // leave room button
       $('#leave_room').on('click', function () {
-        socket.emit("leave", {room: room_name, user: user_name})
+        if (current_target === 'service') {
+            socket.emit("leave", {room: room_name, user: user_name})
+        }
         $('#chat_area').html('');
         $('#user_name').val('');
         $('#open_chatroom').val("Connect");
         is_connected = false;
         room_name = "waiting";
         n_msgs = 0;
+        current_target = "bot"
         updateMessageNum(n_msgs);
         document.getElementById('chatroom').style.visibility = "hidden";
-        document.getElementById('chat_area').innerHTML = '<li style="width: 100%; text-align: center; color: lightslategray">--waiting for customer service--</li>';
       })
 
       // leave room before the page refresh, close, ...
       window.onbeforeunload = function (event) {
-          if (socket){
+          if (socket && current_target === 'service'){
               socket.emit("leave", {room: room_name, user: user_name})
           }
       }
