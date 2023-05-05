@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, jsonify
 from flask_socketio import emit, join_room, leave_room, \
     close_room
 import random
@@ -11,16 +11,25 @@ from app import socketio, db
 from app.models import Message
 from config import basedir
 
+from .fasttext_backend import prepare_models, predict_text, predict_text_all
+
+
+models = prepare_models()
+
 
 # View Functions
 @chat.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
-
-
-@chat.route('/customer', methods=['POST', 'GET'])
-def customer_chat():
     return render_template('customer_chat.html')
+
+
+@chat.route('/bot', methods=['POST'])
+def bot():
+    if request.method == 'POST':
+        text = request.values['msg-to-bot']
+        preds = predict_text_all(text, models, 50)
+        return jsonify({'msg-back': preds})
+    
 
 
 @chat.route('/admin', methods=['POST', 'GET'])
@@ -98,6 +107,7 @@ def send_img(message):
 @socketio.on('admin_join_wait', namespace='/chatroom')
 def admin_join_wait(message):
     join_room('waiting')
+    print("OK")
     emit('admin_join_wait_response', {'room_name': message['room']}, room='waiting')
 
 
