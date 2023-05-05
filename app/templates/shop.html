@@ -162,10 +162,10 @@
                                         {% endif %}
                                         {% for cat in categories %}
                                             {% if cat.name != cate %}
-                                                <li><a style="cursor: pointer" onclick="selectCate('{{ cat.name }}', {{ cate_num[loop.index - 1] }})">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
+{#                                                <li><a style="cursor: pointer" onclick="selectCate('{{ cat.name }}', {{ cate_num[loop.index - 1] }})">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>#}
                                                 <li><a style="cursor: pointer" href="{{ url_for('main.shop', status=cat.name) }}">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
                                             {% else %}
-                                                <li><a style="cursor: pointer; color:#dec674" onclick="selectCate('{{ cat.name }}', {{ cate_num[loop.index - 1] }})">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
+{#                                                <li><a style="cursor: pointer; color:#dec674" onclick="selectCate('{{ cat.name }}', {{ cate_num[loop.index - 1] }})">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>#}
                                                 <li><a style="cursor: pointer; color:#dec674" href="{{ url_for('main.shop', status=cat.name) }}">{{ cat.name }}</a><span class="count">{{ cate_num[loop.index - 1] }}</span></li>
                                             {% endif %}
 		                                {% endfor %}

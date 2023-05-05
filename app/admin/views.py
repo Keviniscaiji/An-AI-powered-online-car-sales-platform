@@ -145,7 +145,7 @@ def modify_product(product_id):
             product_aim.categories.append(category_aim)
         db.session.commit()
         return redirect(url_for('admin.product'))
-    return render_template('admin/product_modify.html', product=product_aim, id=product_id, sort_dict=sort_dict)
+    return render_template('admin/car-product-modify.html', product=product_aim, id=product_id, sort_dict=sort_dict)
 
 
 @admin.route('/modify_product_image/', methods=['POST'])
