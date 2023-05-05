@@ -25,7 +25,22 @@ from app.ir.ir_with_hci import *
 from app.ir.configs.ml_config import *
 from app.ir.configs.flask_config import *
 
+## Load Models and Index
+# Load RTMDet-Ins
+engine = RTMDetInsEngine()
+print("RTMDet-Ins Model Loaded")
 
+# Load Encoder
+# ie3 = Core()
+# net3 = ie3.read_model(ir_cfg['encoder_path'])
+# compiled_model3 = ie3.compile_model(net3, 'CPU')
+import onnxruntime as rt
+sess = rt.InferenceSession(ir_cfg['encoder_path'])
+print("ResNet50Encoder Model Loaded")
+
+# Load Index
+with open(ir_cfg['index_path'], "rb") as f:
+    ir_index = pickle.load(f)
 # IR end
 
 
@@ -201,7 +216,7 @@ def shop(status):
     if ir != "non":
         ts, selected_id = ir.split("_")[1:]
         target_path, target_img = load_from_cache(ts, selected_id, matting=True)
-        rank = search_image(compiled_model3, target_img, ir_index)
+        rank = search_image(sess, target_img, ir_index)
         response = dict(
             selcted=selected_id,
             target_path="../" + target_path,
@@ -776,20 +791,7 @@ def get_ts():
     return str(calendar.timegm(time.gmtime()))
 
 
-## Load Models and Index
-# Load RTMDet-Ins
-engine = RTMDetInsEngine()
-print("RTMDet-Ins Model Loaded")
 
-# Load Encoder
-ie3 = Core()
-net3 = ie3.read_model(ir_cfg['encoder_path'])
-compiled_model3 = ie3.compile_model(net3, 'CPU')
-print("ResNet50Encoder Model Loaded")
-
-# Load Index
-with open(ir_cfg['index_path'], "rb") as f:
-    ir_index = pickle.load(f)
 
 
 # ROUTE
