@@ -180,5 +180,9 @@ def insert_all():
 
     insert_orders()
 
+    insert_product_drives()
+
+    insert_drives()
+
     # insert_pandemic()
 
