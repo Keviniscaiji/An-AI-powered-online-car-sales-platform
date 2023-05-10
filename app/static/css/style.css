@@ -5097,7 +5097,7 @@ p.checkout-coupon input[type="submit"] {
 	margin-bottom: 30px;
 }
 .country-select label, .checkout-form-list label {
-	color: #333;
+	color: #e3ce88;
 	margin: 0 0 5px;
 	display: block;
 }
@@ -5112,7 +5112,7 @@ p.checkout-coupon input[type="submit"] {
 .checkout-form-list input[type="text"],
 .checkout-form-list input[type="password"],
 .checkout-form-list input[type="email"] {
-	background: #fff none repeat scroll 0 0;
+	background: #051731 none repeat scroll 0 0;
 	border: 1px solid #e5e5e5;
 	border-radius: 0;
 	height: 42px;
@@ -5146,7 +5146,7 @@ p.checkout-coupon input[type="submit"] {
 	width: auto;
 }
 .order-notes textarea {
-	background-color: transparent;
+	background-color: #051b3c;
 	border: 1px solid #ddd;
 	height: 90px;
 	padding: 15px;
@@ -5157,7 +5157,7 @@ p.checkout-coupon input[type="submit"] {
     display: none;
 }
 .your-order {
-	background: #f2f2f2 none repeat scroll 0 0;
+	background: #051731 none repeat scroll 0 0;
 	padding: 30px 40px 45px;
 }
 .your-order h3 {
@@ -5176,6 +5176,9 @@ p.checkout-coupon input[type="submit"] {
 thead {
 	background-color: #f6f6f6;
 }
+.cart-product-name, .cart-product-total {
+    background-color: #051731;
+}
 .your-order-table table th {
 	border-top: medium none;
 	font-weight: normal;
@@ -5187,7 +5190,7 @@ thead {
 }
 .your-order-table table th,
 .your-order-table table td {
-	border-bottom: 1px solid #d8d8d8;
+	border-bottom: 1px solid #020f23;
 	border-right: medium none;
 	font-size: 14px;
     font-family: 'Montserrat',sans-serif;
@@ -5201,7 +5204,7 @@ thead {
 	border-bottom: medium none;
 }
 .your-order-table table tr.order-total td span {
-	color: #464646;
+	color: #f5dc8f;
 	font-size: 20px;
 }
 .your-order-table table .order-total th {
@@ -5241,7 +5244,7 @@ thead {
 	color: #515151;
 }
 .order-button-payment input {
-	background: #434343 none repeat scroll 0 0;
+	background: #dec674 none repeat scroll 0 0;
 	border: medium none;
 	color: #fff;
 	font-size: 17px;
@@ -5257,7 +5260,7 @@ thead {
 	cursor: pointer;
 }
 .order-button-payment input:hover{
-    background: #dec674;
+    background: #f5dc8f;
 }
 /*----------------------------------------*/
 /*  25. Login Register Page CSS
