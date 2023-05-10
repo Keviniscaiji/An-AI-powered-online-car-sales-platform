@@ -734,6 +734,7 @@ def get_cart_items() -> list:
                 "product_desc": _product.description,
                 "product_price": _product.price,
                 "product_discount": _product.discount,
+                "product_discount_price": _product.price * _product.discount,
                 "product_selected": cart_item.is_selected,
             })
         return data

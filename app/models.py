@@ -76,7 +76,6 @@ class Product(db.Model):
     max_speed = db.Column(db.Integer, nullable=False)
     oil_consumption = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, default=1000.0)
-    discount = db.Column(db.Float, default=1.0)
     inventory = db.Column(db.Integer, default=1000)
     description = db.Column(db.String(256))
     is_hidden = db.Column(db.Boolean, default=False)
