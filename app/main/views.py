@@ -505,8 +505,9 @@ def checkout(user_id):
 def place_order(buyer_id, pp):
     if request.method == 'POST':
         # ship_way = request.form.get('delivery')
-        start_time = request.form.get('start_time')
-        end_time = request.form.get('end_time')
+        start_date = request.form.get('start_date')
+        start_time = change_time(request.form.get('start_time'), 0)
+        st = datetime.datetime.strptime(start_date + " " + start_time, "%Y-%m-%d %H:%M:%S")
         note = request.form.get('note')
         product_ids = request.form.getlist('product')
         counts = request.form.getlist('count')
@@ -520,8 +521,7 @@ def place_order(buyer_id, pp):
             price = pp
             order = Order(
                 timestamp=timestamp,
-                pick_up_time_start=start_time,
-                pick_up_time_end=end_time,
+                pick_up_time=st,
                 note=note,
                 status='Created',
                 price=price,
