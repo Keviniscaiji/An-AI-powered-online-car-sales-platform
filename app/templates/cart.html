@@ -54,7 +54,7 @@
                                             <td class="plantmore-product-quantity">
                                                 <input value="{{ cart_item.product_num }}" type="number" id="cart_num_edit_{{ cart_item.product_id }}" onchange="sendProdNumEditData({{ cart_item.product_id }})" min="1">
                                             </td>
-                                            <td class="product-subtotal"><span class="amount" id="cart_item_total_{{ cart_item.product_id }}">${{ cart_item.product_num * cart_item.product_price }}</span></td>
+                                            <td class="product-subtotal"><span class="amount" id="cart_item_total_{{ cart_item.product_id }}">${{ cart_item.product_num * cart_item.prodcut_discount * cart_item.product_price }}</span></td>
                                             <td class="plantmore-product-remove"><i class="fa fa-times select_remove" id="cart_rm_item_{{ cart_item.product_id }}" onclick="sendCartItemRmData({{ cart_item.product_id }})"></i></td>
                                         </tr>
                                     {% endfor %}
@@ -106,7 +106,7 @@
                 {"prodid": _prodid, "prodnum": prodnum, "mode": "edit"},
                 function(data){
                     const price = Number(document.getElementById('cart_item_price_'+_prodid.toString()).innerText.slice(1));  // remove '$'
-                    const cart_item_total = prodnum * price;
+                    const cart_item_total = prodnum * price * data.product_discount;
                     document.getElementById("cart_item_total_"+_prodid.toString()).innerText = "$" + cart_item_total.toString();
 
                     document.getElementById("mini_cart_subtotal").innerText = "$" + data.product_price;

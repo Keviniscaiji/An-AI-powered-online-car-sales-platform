@@ -540,6 +540,10 @@ def place_order(buyer_id, pp):
                 db.session.commit()
                 po = ProductOrder.query.filter_by(product_id=product_ids[i]).filter_by(order_id=order.id).first()
                 order.productOrders.append(po)
+                cart_item = db.session.query(
+                    Cart).filter(Cart.owner_id == current_user.id).filter(Cart.product_id == product_ids[i]).first()
+                db.session.delete(cart_item)
+                db.session.commit()
             db.session.commit()
             return redirect(url_for('main.account', user_id=buyer_id))
         else:
@@ -726,7 +730,7 @@ def get_cart_items() -> list:
                 "product_id": cart_item.product_id,
                 "product_num": cart_item.count,
                 "product_name": _product.name,
-                "product_img": _product.imagePaths[0].image_path,
+                "product_img": _product.imagePaths[0].resized_image_path,
                 "product_desc": _product.description,
                 "product_price": _product.price,
                 "product_discount": _product.discount,
