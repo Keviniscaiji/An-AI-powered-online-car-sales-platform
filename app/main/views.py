@@ -504,7 +504,6 @@ def checkout(user_id):
 @main.route('/place_order/<int:buyer_id>/<int:pp>', methods=['POST', 'GET'])
 def place_order(buyer_id, pp):
     if request.method == 'POST':
-        # ship_way = request.form.get('delivery')
         start_date = request.form.get('start_date')
         start_time = change_time(request.form.get('start_time'), 0)
         st = datetime.datetime.strptime(start_date + " " + start_time, "%Y-%m-%d %H:%M:%S")
@@ -708,14 +707,11 @@ def change_time(raw_time, offset):
 # Cart Utils
 def price_calculator(cart_dicts: list) -> dict:
     output = {
-        "product_price": 0,
-        "shipping_price": 0,
-        "total_price": 0
+        "product_price": 0
     }
     for item in cart_dicts:
         if item["product_selected"]:
             output["product_price"] += item["product_price"] * item["product_discount"] * item["product_num"]
-    output["total_price"] = output["product_price"]
     return output
 
 

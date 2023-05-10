@@ -79,9 +79,9 @@
                                 <div class="cart-page-total">
                                     <h2>{{ _('Cart totals') }}</h2>
                                     <ul>
-{#                                        <li>{{ _('Subtotal') }} <span id="checkout_prod">${{ price.product_price }}</span></li>#}
+                                        <li>{{ _('Total') }} <span id="checkout_prod">${{ price.product_price }}</span></li>
 {#                                        <li>{{ _('Shipping') }} <span id="checkout_shipping">${{ price.shipping_price }}</span></li>#}
-                                        <li>{{ _('Total') }} <span id="checkout_total">${{ price.total_price }}</span></li>
+{#                                        <li>{{ _('Total') }} <span id="checkout_total">${{ price.total_price }}</span></li>#}
                                     </ul>
                                     <a href="{{ url_for('main.checkout', user_id=current_user.id) }}">{{ _('Proceed to checkout') }}</a>
                                 </div>
@@ -113,8 +113,8 @@
                     document.getElementById("mini_cart_price").innerText = "$" + data.product_price;
 
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;
-                    document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;
-                    document.getElementById("checkout_total").innerText = "$"+data.total_price;
+                    {#document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;#}
+                    {#document.getElementById("checkout_total").innerText = "$"+data.total_price;#}
                 }
             )
         }
@@ -127,8 +127,8 @@
                 function(data){
                     document.getElementById("mini_cart_count").innerText=data['count']
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;
-                    document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;
-                    document.getElementById("checkout_total").innerText = "$"+data.total_price;
+                    {#document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;#}
+                    {#document.getElementById("checkout_total").innerText = "$"+data.total_price;#}
                 }
             )
         }
@@ -149,8 +149,8 @@
                 _data,
                 function(data){
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;
-                    document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;
-                    document.getElementById("checkout_total").innerText = "$"+data.total_price;
+                    {#document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;#}
+                    {#document.getElementById("checkout_total").innerText = "$"+data.total_price;#}
                 }
             )
         }
