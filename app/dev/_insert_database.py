@@ -54,9 +54,8 @@ def insert_product_orders():
 def insert_orders():
     for item in ORDERS:
         timestamp = datetime.datetime.utcnow()
-        order = Order(timestamp=timestamp, pick_up_time_start=item['pick_up_time_start'],
-                      pick_up_time_end=item['pick_up_time_end'], note=item['note'], status=item['status'],
-                      price=item['price'], priority=item['priority'], buyer_id=item['buyer_id'])
+        order = Order(timestamp=timestamp, pick_up_time=item['pick_up_time'], note=item['note'],
+                      status=item['status'], price=item['price'], priority=item['priority'], buyer_id=item['buyer_id'])
         db.session.add(order)
         db.session.commit()
         order_aim = Order.query.filter_by(buyer_id=item['buyer_id']).first()
@@ -102,16 +101,6 @@ def insert_product_image_paths():
         )
         db.session.add(productImagePath)
     db.session.commit()
-
-
-# def insert_delivery_infos():
-#     for item in DELIVERYINFOS:
-#         deliveryInfos = DeliveryInfo(
-#             name=item['name'], gender=item['gender'], phone_number=item['phone_number'], country=item['country'],
-#             city=item['city'], street=item['street'], detail=item['detail'], user_id=item['user_id']
-#         )
-#         db.session.add(deliveryInfos)
-#     db.session.commit()
 
 
 def insert_blogs():

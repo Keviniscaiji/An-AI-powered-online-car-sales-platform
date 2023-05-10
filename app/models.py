@@ -116,8 +116,7 @@ class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
-    pick_up_time_start = db.Column(db.DateTime)
-    pick_up_time_end = db.Column(db.DateTime)
+    pick_up_time = db.Column(db.DateTime)
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
     status = db.Column(db.String(32), default='Created', index=True)

@@ -3266,11 +3266,10 @@ BLOGCOMMENTS = [
 ]
 
 ORDERS = [
-    {"id": 1, "pick_up_time_start": '2023-05-01 13:00:00', "pick_up_time_end": '2023-05-01 14:00:00',
-     "note": "Please make the car clean", "status": "Created", "price": 81000, "priority": 1, "buyer_id": 2},
-    {"id": 2, "pick_up_time_start": '2023-05-01 13:00:00', "pick_up_time_end": '2023-05-01 14:00:00',
-     "note": "Please prepare the car on time", "status": "Waiting for Pick Up", "price": 108000, "priority": 0,
-     "buyer_id": 2}
+    {"id": 1, "pick_up_time": '2023-05-01 13:00:00', "note": "Please make the car clean",
+     "status": "Created", "price": 81000, "priority": 1, "buyer_id": 2},
+    {"id": 2, "pick_up_time": '2023-05-01 13:00:00', "note": "Please prepare the car on time",
+     "status": "Waiting for Pick Up", "price": 108000, "priority": 0, "buyer_id": 2}
 ]
 
 PRODUCTORDERS = [
