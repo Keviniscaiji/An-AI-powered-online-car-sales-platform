@@ -330,6 +330,7 @@ textarea {
     padding: 10px;
     width: 100%;
     font-size: 14px;
+    color: #f3dba0;
 }
 textarea:focus {
     background: transparent;
@@ -611,6 +612,7 @@ textarea:focus {
  .white-bg { background: #fff !important; }
  .gray-bg { background: #f8f8fa !important; }
  .blue-bg { background: linear-gradient(to bottom, #051731, #0a1f3f); }
+ .heavy-blue-bg { background: #0a1f3f !important; }
  .dark-blue-bg { background: linear-gradient(to bottom, #020e1e, #020e1e); }
  .gold-bg { background: linear-gradient(to bottom, #c9c0bd, #eeeae5) !important; }
  .gray-bg2 { background: #f2f2f2 !important; }
@@ -2354,7 +2356,7 @@ Common Style CSS
 }
 .product-countdown-area {
 	/*background-image: url(../storage/background/countdown.jpg);*/
-	background-image: url(../storage/background/communication.jpg);
+	background-image: url(../storage/background/bg_1_new.jpg);
 	background-position: center center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -2912,7 +2914,7 @@ h2.entry-title > a:hover {
 }
 .product-filter > h5 {
 	border-bottom: 1px solid #ededed;
-	color: #222;
+	color: #ededed;
 	font-size: 35px;
 	font-weight: 400;
 	margin-bottom: 20px;
@@ -2977,7 +2979,7 @@ h2.entry-title > a:hover {
     text-align: left;
 }
 .entry-summary.blog-post-description blockquote {
-	background: #f6f6f6;
+	background: rgba(12, 50, 88, 0.5);
 	border: 1px solid #ededed;
 	border-left: 5px solid #dec674;
 	font-size: 14px;
@@ -5375,7 +5377,7 @@ input.checkbox {
 }
 .dashboard-list li a {
   border-bottom: 1px solid #ebebeb;
-  color: #222;
+  color: #e3ce88;
   display: block;
   font-size: 14px;
   padding: 12px 0;
@@ -5423,7 +5425,7 @@ input.checkbox {
   font-weight: 600;
 }
 .dashboard-content .table-responsive .table > tbody > tr > td{
-    color: #7b7b7b;
+    color: #f3dba0;
     font-size: 13px;
 }
 #dashboard a{
