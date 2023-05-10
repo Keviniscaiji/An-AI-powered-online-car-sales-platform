@@ -967,6 +967,9 @@ PRODUCTS = [
     {"id": 318, "key": "fff9b3a5373f", "name": "Land Rover Range Rover", "brand": "Land Rover", "model": "Range Rover",
      "year": 2011, "max_speed": 223, "oil_consumption": 8, "price": 36565, "discount": 0.7, "inventory": 999,
      "description": "This is a test car."},
+    # {"id": 319, "key": "fff9b3a5373f", "name": "Land Rover Range Rover", "brand": "Land Rover", "model": "Range Rover",
+    #  "year": 2011, "max_speed": 223, "oil_consumption": 8, "price": 36565, "discount": 0.7, "inventory": 999,
+    #  "description": "This is a test car."},
 ]
 
 PRODUCTS2CATEGORIES = [

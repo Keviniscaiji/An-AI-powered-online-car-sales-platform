@@ -504,7 +504,6 @@ def checkout(user_id):
 @main.route('/place_order/<int:buyer_id>/<int:pp>', methods=['POST', 'GET'])
 def place_order(buyer_id, pp):
     if request.method == 'POST':
-        # ship_way = request.form.get('delivery')
         start_date = request.form.get('start_date')
         start_time = change_time(request.form.get('start_time'), 0)
         st = datetime.datetime.strptime(start_date + " " + start_time, "%Y-%m-%d %H:%M:%S")
@@ -541,6 +540,10 @@ def place_order(buyer_id, pp):
                 db.session.commit()
                 po = ProductOrder.query.filter_by(product_id=product_ids[i]).filter_by(order_id=order.id).first()
                 order.productOrders.append(po)
+                cart_item = db.session.query(
+                    Cart).filter(Cart.owner_id == current_user.id).filter(Cart.product_id == product_ids[i]).first()
+                db.session.delete(cart_item)
+                db.session.commit()
             db.session.commit()
             return redirect(url_for('main.account', user_id=buyer_id))
         else:
@@ -708,14 +711,11 @@ def change_time(raw_time, offset):
 # Cart Utils
 def price_calculator(cart_dicts: list) -> dict:
     output = {
-        "product_price": 0,
-        "shipping_price": 0,
-        "total_price": 0
+        "product_price": 0
     }
     for item in cart_dicts:
         if item["product_selected"]:
             output["product_price"] += item["product_price"] * item["product_discount"] * item["product_num"]
-    output["total_price"] = output["product_price"]
     return output
 
 
@@ -730,7 +730,7 @@ def get_cart_items() -> list:
                 "product_id": cart_item.product_id,
                 "product_num": cart_item.count,
                 "product_name": _product.name,
-                "product_img": _product.imagePaths[0].image_path,
+                "product_img": _product.imagePaths[0].resized_image_path,
                 "product_desc": _product.description,
                 "product_price": _product.price,
                 "product_discount": _product.discount,
