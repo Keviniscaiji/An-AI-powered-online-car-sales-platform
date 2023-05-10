@@ -2203,8 +2203,7 @@ Common Style CSS
     transition: all .3s ease;
 }
 .price {
-	text-decoration: line-through;
-	color: #999;
+	color: #dec674;
 	font-size: 14px;
 	padding-right: 5px;
 }

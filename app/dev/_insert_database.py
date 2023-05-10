@@ -36,7 +36,7 @@ def insert_products(cat_objs):
         product = Product(
             key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
             max_speed=item['max_speed'], oil_consumption=item['oil_consumption'], price=item['price'],
-            inventory=item['inventory'], description=item['description']
+            description=item['description']
         )
         for j in category['category_ids']:
             product.categories.append(cat_objs[j-1])

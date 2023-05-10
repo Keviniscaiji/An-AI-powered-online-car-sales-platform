@@ -493,7 +493,7 @@ def checkout(user_id):
         return redirect(url_for("main.cart"))
 
     for c in user_cart:
-        product_pay += c.product.price * c.product.discount * c.count
+        product_pay += c.product.price * c.count
         # total_weight += c.product.weight * c.count
     # weight_pay = total_weight * 0.1
     # is_pandemic = Pandemic.query.first().is_pandemic
@@ -510,45 +510,37 @@ def place_order(buyer_id, pp):
         note = request.form.get('note')
         product_ids = request.form.getlist('product')
         counts = request.form.getlist('count')
-        flash_num = 0
+
+        timestamp = datetime.datetime.utcnow()
+        price = pp
+        order = Order(
+            timestamp=timestamp,
+            pick_up_time=st,
+            note=note,
+            status='Created',
+            price=price,
+            buyer_id=buyer_id
+        )
+        db.session.add(order)
+        db.session.commit()
+        # order = Order.query.filter_by(buyer_id=buyer_id).filter_by(timestamp=timestamp).first()
+        # print(order)
         for i in range(0, len(product_ids)):
-            product_aim = Product.query.filter_by(id=product_ids[i]).first()
-            if product_aim.inventory - int(counts[i]) < 0:
-                flash_num = 1
-        if flash_num == 0:
-            timestamp = datetime.datetime.utcnow()
-            price = pp
-            order = Order(
-                timestamp=timestamp,
-                pick_up_time=st,
-                note=note,
-                status='Created',
-                price=price,
-                buyer_id=buyer_id
+            po = ProductOrder(
+                count=counts[i],
+                product_id=product_ids[i],
+                order_id=order.id
             )
-            db.session.add(order)
+            db.session.add(po)
             db.session.commit()
-            # order = Order.query.filter_by(buyer_id=buyer_id).filter_by(timestamp=timestamp).first()
-            # print(order)
-            for i in range(0, len(product_ids)):
-                po = ProductOrder(
-                    count=counts[i],
-                    product_id=product_ids[i],
-                    order_id=order.id
-                )
-                db.session.add(po)
-                db.session.commit()
-                po = ProductOrder.query.filter_by(product_id=product_ids[i]).filter_by(order_id=order.id).first()
-                order.productOrders.append(po)
-                cart_item = db.session.query(
-                    Cart).filter(Cart.owner_id == current_user.id).filter(Cart.product_id == product_ids[i]).first()
-                db.session.delete(cart_item)
-                db.session.commit()
+            po = ProductOrder.query.filter_by(product_id=product_ids[i]).filter_by(order_id=order.id).first()
+            order.productOrders.append(po)
+            cart_item = db.session.query(
+                Cart).filter(Cart.owner_id == current_user.id).filter(Cart.product_id == product_ids[i]).first()
+            db.session.delete(cart_item)
             db.session.commit()
-            return redirect(url_for('main.account', user_id=buyer_id))
-        else:
-            flash('Sorry. The inventory of the product is not enough')
-            return redirect(url_for('main.checkout', user_id=buyer_id))
+        db.session.commit()
+        return redirect(url_for('main.account', user_id=buyer_id))
 
 
 @main.route('/account/<int:user_id>', methods=['POST', 'GET'])
@@ -715,7 +707,7 @@ def price_calculator(cart_dicts: list) -> dict:
     }
     for item in cart_dicts:
         if item["product_selected"]:
-            output["product_price"] += item["product_price"] * item["product_discount"] * item["product_num"]
+            output["product_price"] += item["product_price"] * item["product_num"]
     return output
 
 
@@ -733,8 +725,6 @@ def get_cart_items() -> list:
                 "product_img": _product.imagePaths[0].resized_image_path,
                 "product_desc": _product.description,
                 "product_price": _product.price,
-                "product_discount": _product.discount,
-                "product_discount_price": _product.price * _product.discount,
                 "product_selected": cart_item.is_selected,
             })
         return data
