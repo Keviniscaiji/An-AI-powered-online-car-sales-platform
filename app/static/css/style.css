@@ -2360,7 +2360,11 @@ Common Style CSS
 	background-size: cover;
 	background-repeat: no-repeat;
 	padding-top: 360px;
-	margin-bottom: 270px;
+	margin-bottom: 70px;
+}
+.customization-area {
+    background-image: url(../storage/background/Cartoon-Car.png);
+    background-size: contain;
 }
 .countdown-inner {
 	background: #fff;
