@@ -39,6 +39,7 @@ productCategories = db.Table('productCategories',
 class ProductOrder(db.Model):
     __tablename__ = 'productOrders'
     id = db.Column(db.Integer, primary_key=True)
+    customized_color = db.Column(db.String(16))
     count = db.Column(db.Integer, default=1)  # the number or this product in the order
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
@@ -59,6 +60,7 @@ class Cart(db.Model):
     __tablename__ = 'carts'
     id = db.Column(db.Integer, primary_key=True)
     count = db.Column(db.Integer, default=1)  # the number of this product in the cart
+    customized_color = db.Column(db.String(16))
     is_selected = db.Column(db.Boolean, index=True)
     # foreign keys:
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))

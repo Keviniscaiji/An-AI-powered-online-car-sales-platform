@@ -468,6 +468,7 @@ def add_to_cart():
             Cart).filter(Cart.owner_id == current_user.id).filter(Cart.product_id == product_id).first()
         if cart_item is None:
             item = Cart(
+                customized_color="None",
                 count=product_count,
                 is_selected=True,
                 owner_id=current_user.id,
@@ -723,6 +724,7 @@ def get_cart_items() -> list:
                 "product_img": _product.imagePaths[0].resized_image_path,
                 "product_desc": _product.description,
                 "product_price": _product.price,
+                "product_customize": cart_item.customized_color,
                 "product_selected": cart_item.is_selected,
             })
         return data

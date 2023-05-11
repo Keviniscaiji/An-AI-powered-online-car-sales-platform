@@ -1030,10 +1030,10 @@ PRODUCTS2CATEGORIES = [
 ]
 
 CARTS = [
-    {"id": 1, "count": 2, "owner_id": 2, "product_id": 1, "is_selected": True},
-    {"id": 2, "count": 3, "owner_id": 2, "product_id": 3, "is_selected": False},
-    {"id": 3, "count": 1, "owner_id": 2, "product_id": 4, "is_selected": True},
-    {"id": 4, "count": 2, "owner_id": 2, "product_id": 7, "is_selected": True},
+    {"id": 1, "customized_color": "None", "count": 2, "owner_id": 2, "product_id": 1, "is_selected": True},
+    {"id": 2, "customized_color": "None","count": 3, "owner_id": 2, "product_id": 3, "is_selected": False},
+    {"id": 3, "customized_color": "None","count": 1, "owner_id": 2, "product_id": 4, "is_selected": True},
+    {"id": 4, "customized_color": "None","count": 2, "owner_id": 2, "product_id": 7, "is_selected": True},
 ]
 
 PRODUCTIMAGEPATHS = [
@@ -3053,11 +3053,11 @@ ORDERS = [
 ]
 
 PRODUCTORDERS = [
-    {"id": 1, "count": 1, "product_id": 4, "order_id": 1},
-    {"id": 2, "count": 2, "product_id": 7, "order_id": 1},
-    {"id": 3, "count": 2, "product_id": 66, "order_id": 2},
-    {"id": 4, "count": 1, "product_id": 39, "order_id": 2},
-    {"id": 5, "count": 1, "product_id": 13, "order_id": 2}
+    {"id": 1, "customized_color": "None", "count": 1, "product_id": 4, "order_id": 1},
+    {"id": 2, "customized_color": "None", "count": 2, "product_id": 7, "order_id": 1},
+    {"id": 3, "customized_color": "None", "count": 2, "product_id": 66, "order_id": 2},
+    {"id": 4, "customized_color": "None", "count": 1, "product_id": 39, "order_id": 2},
+    {"id": 5, "customized_color": "None", "count": 1, "product_id": 13, "order_id": 2}
 ]
 
 DRIVES = [
