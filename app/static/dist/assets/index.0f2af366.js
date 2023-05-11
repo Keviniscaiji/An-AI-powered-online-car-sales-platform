@@ -3901,6 +3901,8 @@ float lamina_normalize(float v) { return lamina_map(v, -1.0, 1.0, 0.0, 1.0); }
 
                     async sendColorToServer() {
   const carColor = document.getElementById("car-color-picker-input").value;
+    const carSelector = document.getElementById('car-selector');
+    const selectedValue = carSelector.value;
   // const lightColor = m.value;
   try {
     const response = await fetch('/car_customize', {
@@ -3910,7 +3912,7 @@ float lamina_normalize(float v) { return lamina_map(v, -1.0, 1.0, 0.0, 1.0); }
       },
       body: JSON.stringify({
         carColor: carColor,
-        // lightColor: lightColor
+        carType: selectedValue
       })
     });
 

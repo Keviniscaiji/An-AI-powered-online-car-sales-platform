@@ -14,7 +14,7 @@ from flask import request, jsonify
 def handle_colors():
     data = request.get_json()
     car_color = data.get('carColor')
-    # light_color = data.get('lightColor')
+    carType = data.get('carType')
 
 
 
