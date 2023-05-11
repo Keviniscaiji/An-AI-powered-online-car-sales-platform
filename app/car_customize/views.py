@@ -19,7 +19,18 @@ def handle_colors():
     data = request.get_json()
     car_color = data.get('carColor')
     carType = data.get('carType')
-    product = Product.query.filter_by(name=carType).first()
+    print(car_color, carType)
+    type_dict = {
+        "911": "Porsche 911", 
+        "Infiniti": "Infiniti Project Black S", 
+        "old911": "Porsche Old 911", 
+        "Lexus": "Lexus ES 300h", 
+        "Tesla": "Tesla Cybertruck", 
+        "Mitsubishi": "Mitsubishi Lancer 2.0 GTE",
+        "Chevrole": "Chevrole Corvette C5 Z06"
+    }
+    
+    product = Product.query.filter_by(name=type_dict[carType]).first()
     item = Cart(
         customized_color=car_color,
         count=1,
