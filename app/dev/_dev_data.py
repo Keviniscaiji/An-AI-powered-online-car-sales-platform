@@ -685,20 +685,23 @@ PRODUCTS = [
      "description": "This is a test car."},
     {"id": 318, "key": "fff9b3a5373f", "name": "Land Rover Range Rover", "brand": "Land Rover", "model": "Range Rover",
      "year": 2011, "max_speed": 221, "oil_consumption": 11, "price": 31376, "description": "This is a test car."},
+]
+
+CUSTPRODUCTS = [
     {"id": 319, "key": "01", "name": "Porsche 911", "brand": "Porsche", "model": "911", "year": 2000, "max_speed": 300,
-     "oil_consumption": 15, "price": 89999, "description": "This is a test car."},
+     "oil_consumption": 15, "price": 89999, "description": "This is a test car.", "is_hidden": True},
     {"id": 320, "key": "02", "name": "Porsche Old 911", "brand": "Porsche", "model": "Old 911", "year": 1998, "max_speed": 280,
-     "oil_consumption": 13, "price": 69999, "description": "This is a test car."},
+     "oil_consumption": 13, "price": 69999, "description": "This is a test car.", "is_hidden": True},
     {"id": 321, "key": "03", "name": "Lexus ES 300h", "brand": "Lexus", "model": "ES 300h", "year": 2003, "max_speed": 220,
-     "oil_consumption": 8, "price": 32999, "description": "This is a test car."},
+     "oil_consumption": 8, "price": 32999, "description": "This is a test car.", "is_hidden": True},
     {"id": 322, "key": "04", "name": "Chevrole Corvette C5 Z06", "brand": "Chevrole", "model": "Corvette C5 Z06", "year": 2005, "max_speed": 240,
-     "oil_consumption": 7, "price": 28999, "description": "This is a test car."},
+     "oil_consumption": 7, "price": 28999, "description": "This is a test car.", "is_hidden": True},
     {"id": 323, "key": "05", "name": "Infiniti Project Black S", "brand": "Infiniti", "model": "Project Black S", "year": 2001, "max_speed": 250,
-     "oil_consumption": 7, "price": 24999, "description": "This is a test car."},
+     "oil_consumption": 7, "price": 24999, "description": "This is a test car.", "is_hidden": True},
     {"id": 324, "key": "06", "name": "Tesla Cybertruck", "brand": "Tesla", "model": "Cybertruck", "year": 2019, "max_speed": 200,
-     "oil_consumption": 0, "price": 31999, "description": "This is a test car."},
-    {"id": 325, "key": "07", "name": "Mitsubishi Lancer 2.0 GTE", "brand": "6. Mitsubishi", "model": "Lancer 2.0 GTE", "year": 2007, "max_speed": 260,
-     "oil_consumption": 8, "price": 26999, "description": "This is a test car."},
+     "oil_consumption": 0, "price": 31999, "description": "This is a test car.", "is_hidden": True},
+    {"id": 325, "key": "07", "name": "Mitsubishi Lancer 2.0 GTE", "brand": "Mitsubishi", "model": "Lancer 2.0 GTE", "year": 2007, "max_speed": 260,
+     "oil_consumption": 8, "price": 26999, "description": "This is a test car.", "is_hidden": True},
 ]
 
 PRODUCTS2CATEGORIES = [

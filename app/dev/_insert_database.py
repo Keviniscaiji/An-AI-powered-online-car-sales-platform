@@ -44,6 +44,19 @@ def insert_products(cat_objs):
     db.session.commit()
 
 
+def insert_custproducts(cat_objs):
+    for item, category in zip(CUSTPRODUCTS, PRODUCTS2CATEGORIES):
+        product = Product(
+            key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
+            max_speed=item['max_speed'], oil_consumption=item['oil_consumption'], price=item['price'],
+            description=item['description'], is_hidden=item['is_hidden']
+        )
+        for j in category['category_ids']:
+            product.categories.append(cat_objs[j-1])
+        db.session.add(product)
+    db.session.commit()
+
+
 def insert_product_orders():
     for item in PRODUCTORDERS:
         productOrder = ProductOrder(count=item['count'], product_id=item['product_id'], order_id=item['order_id'])
@@ -152,12 +165,11 @@ def insert_all():
     insert_users()
     # Insert Products
     insert_products(cat_objs)
+    insert_custproducts(cat_objs)
     # Insert Carts
     insert_carts()
     # Insert ProductImagePaths()
     insert_product_image_paths()
-    # Insert Addresses
-    # insert_delivery_infos()
     # Insert Blogs
     insert_blogs()
     # Insert BlogImagePaths
