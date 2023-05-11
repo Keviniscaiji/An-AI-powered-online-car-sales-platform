@@ -13,7 +13,12 @@ venv/
 
 .DS_Store
 
-app/static/storage/products
+app/static/storage/products/*
+app/static/storage/products_resized/*
+app/static/storage/cache/*
+app/static/storage/products.zip
+app/static/storage/products_resized.zip
 
 nltk_data.zip
 app/static/cache
+
