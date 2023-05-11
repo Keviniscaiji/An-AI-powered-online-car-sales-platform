@@ -564,7 +564,7 @@ $(function () {
 			theme: 'dark',
 			y: {
 				formatter: function (val) {
-					return "$ " + val + " thousands"
+					return "$ " + val + " thousands";
 				}
 			}
 		}
@@ -754,29 +754,29 @@ $(function () {
 	var chart = new ApexCharts(document.querySelector("#chart10"), options);
 	chart.render();
 	// chart 11
-	var options = {
-		series: [44, 55, 13, 43, 22, 34],
-		chart: {
-			foreColor: 'rgba(255, 255, 255, 0.65)',
-			height: 380,
-			type: 'pie',
-		},
-		colors: ["#ff0000", "#673ab7", "#32ab13", "#da7f99", "#ffc107", "#198fed"],
-		labels: ['Autonomous', 'City', 'Classic', 'Electric', 'Sedan', 'Sports'],
-		responsive: [{
-			breakpoint: 480,
-			options: {
-				chart: {
-					height: 360
-				},
-				legend: {
-					position: 'bottom'
-				}
-			}
-		}]
-	};
-	var chart = new ApexCharts(document.querySelector("#chart11"), options);
-	chart.render();
+	// var options = {
+	// 	series: [44, 55, 13, 43, 22, 34],
+	// 	chart: {
+	// 		foreColor: 'rgba(255, 255, 255, 0.65)',
+	// 		height: 380,
+	// 		type: 'pie',
+	// 	},
+	// 	colors: ["#ff0000", "#673ab7", "#32ab13", "#da7f99", "#ffc107", "#198fed"],
+	// 	labels: ['Autonomous', 'City', 'Classic', 'Electric', 'Sedan', 'Sports'],
+	// 	responsive: [{
+	// 		breakpoint: 480,
+	// 		options: {
+	// 			chart: {
+	// 				height: 360
+	// 			},
+	// 			legend: {
+	// 				position: 'bottom'
+	// 			}
+	// 		}
+	// 	}]
+	// };
+	// var chart = new ApexCharts(document.querySelector("#chart11"), options);
+	// chart.render();
 	// chart 12
 	var options = {
 		series: [44, 55, 41, 17, 15],

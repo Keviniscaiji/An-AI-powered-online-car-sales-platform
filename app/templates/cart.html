@@ -33,7 +33,7 @@
                                         <th class="plantmore-product-thumbnail">{{ _('images') }}</th>
                                         <th class="cart-product-name">{{ _('Product') }}</th>
                                         <th class="plantmore-product-price">{{ _('Unit Price') }}</th>
-                                        <th class="plantmore-product-price">{{ _('Discount') }}</th>
+                                        <th class="plantmore-product-customize">{{ _('Customize') }}</th>
                                         <th class="plantmore-product-quantity">{{ _('Quantity') }}</th>
                                         <th class="plantmore-product-subtotal">{{ _('Total') }}</th>
                                         <th class="plantmore-product-remove">{{ _('remove') }}</th>
@@ -50,7 +50,7 @@
                                             <td class="plantmore-product-thumbnail"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}"><img src="{{ url_for('static', filename=cart_item.product_img) }}" alt="" style="width: 120px; height: 120px"></a></td>
                                             <td class="plantmore-product-name"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}">{{ cart_item.product_name }}</a></td>
                                             <td class="plantmore-product-price"><span class="amount" id="cart_item_price_{{ cart_item.product_id }}">${{ cart_item.product_price }}</span></td>
-                                            <td class="plantmore-product-price"><span class="amount">{{ cart_item.product_discount }}</span></td>
+                                            <td class="plantmore-product-customize"><span class="amount" id="cart_item_customize_{{ cart_item.product_id }}">{{ cart_item.product_customize }}</span></td>
                                             <td class="plantmore-product-quantity">
                                                 <input value="{{ cart_item.product_num }}" type="number" id="cart_num_edit_{{ cart_item.product_id }}" onchange="sendProdNumEditData({{ cart_item.product_id }})" min="1">
                                             </td>
@@ -79,9 +79,9 @@
                                 <div class="cart-page-total">
                                     <h2>{{ _('Cart totals') }}</h2>
                                     <ul>
-{#                                        <li>{{ _('Subtotal') }} <span id="checkout_prod">${{ price.product_price }}</span></li>#}
+                                        <li>{{ _('Total') }} <span id="checkout_prod">${{ price.product_price }}</span></li>
 {#                                        <li>{{ _('Shipping') }} <span id="checkout_shipping">${{ price.shipping_price }}</span></li>#}
-                                        <li>{{ _('Total') }} <span id="checkout_total">${{ price.total_price }}</span></li>
+{#                                        <li>{{ _('Total') }} <span id="checkout_total">${{ price.total_price }}</span></li>#}
                                     </ul>
                                     <a href="{{ url_for('main.checkout', user_id=current_user.id) }}">{{ _('Proceed to checkout') }}</a>
                                 </div>
@@ -107,14 +107,15 @@
                 function(data){
                     const price = Number(document.getElementById('cart_item_price_'+_prodid.toString()).innerText.slice(1));  // remove '$'
                     const cart_item_total = prodnum * price;
+
                     document.getElementById("cart_item_total_"+_prodid.toString()).innerText = "$" + cart_item_total.toString();
 
                     document.getElementById("mini_cart_subtotal").innerText = "$" + data.product_price;
                     document.getElementById("mini_cart_price").innerText = "$" + data.product_price;
 
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;
-                    document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;
-                    document.getElementById("checkout_total").innerText = "$"+data.total_price;
+                    {#document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;#}
+                    {#document.getElementById("checkout_total").innerText = "$"+data.total_price;#}
                 }
             )
         }
@@ -127,8 +128,8 @@
                 function(data){
                     document.getElementById("mini_cart_count").innerText=data['count']
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;
-                    document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;
-                    document.getElementById("checkout_total").innerText = "$"+data.total_price;
+                    {#document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;#}
+                    {#document.getElementById("checkout_total").innerText = "$"+data.total_price;#}
                 }
             )
         }
@@ -149,8 +150,8 @@
                 _data,
                 function(data){
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;
-                    document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;
-                    document.getElementById("checkout_total").innerText = "$"+data.total_price;
+                    {#document.getElementById("checkout_shipping").innerText = "$"+data.shipping_price;#}
+                    {#document.getElementById("checkout_total").innerText = "$"+data.total_price;#}
                 }
             )
         }

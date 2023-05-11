@@ -35,12 +35,15 @@ print("RTMDet-Ins Model Loaded")
 # net3 = ie3.read_model(ir_cfg['encoder_path'])
 # compiled_model3 = ie3.compile_model(net3, 'CPU')
 import onnxruntime as rt
+
 sess = rt.InferenceSession(ir_cfg['encoder_path'])
 print("ResNet50Encoder Model Loaded")
 
 # Load Index
 with open(ir_cfg['index_path'], "rb") as f:
     ir_index = pickle.load(f)
+
+
 # IR end
 
 
@@ -85,7 +88,7 @@ def index():
     products_countdown = []  # pc
     products_best_seller = []  # pbs
 
-    products_all = Product.query.all()
+    products_all = Product.query.filter_by(is_hidden=False).all()
     n_products = len(products_all)
 
     if n_products > n_max_row * n_max_col:
@@ -209,9 +212,10 @@ def shop(status):
         search, cate, low, high, sort, ir = "non", status, "non", "non", "non", "non"
 
     if cate != "all":
-        res = db.session.query(Category).filter(Category.name == cate).first().products
+        res = db.session.query(Category).filter(Category.name == cate).first().products.filter(
+            Product.is_hidden == False)
     else:
-        res = db.session.query(Product)
+        res = db.session.query(Product).filter(Product.is_hidden == False)
 
     if ir != "non":
         ts, selected_id = ir.split("_")[1:]
@@ -256,7 +260,8 @@ def shop(status):
     print(status, cate, search, sort, low, high, categories, cate_num, left, right)
 
     return render_template('shop.html', status=status, cate=cate, search=search, sort=sort, low=low, high=high, ir=ir,
-                           categories=categories, cate_num=cate_num, left=str(left), right=str(right), pagination=pagination,
+                           categories=categories, cate_num=cate_num, left=str(left), right=str(right),
+                           pagination=pagination,
                            recommend=recommend, products=products)
 
 
@@ -463,6 +468,7 @@ def add_to_cart():
             Cart).filter(Cart.owner_id == current_user.id).filter(Cart.product_id == product_id).first()
         if cart_item is None:
             item = Cart(
+                customized_color="None",
                 count=product_count,
                 is_selected=True,
                 owner_id=current_user.id,
@@ -484,19 +490,14 @@ def checkout(user_id):
     """
     View function for checkout page
     """
-    # delivery_info_list = DeliveryInfo.query.filter_by(user_id=user_id).all()
     user_cart = Cart.query.filter_by(owner_id=user_id).filter_by(is_selected=True).all()
     product_pay = 0.0
-    # total_weight = 0.0
     if len(user_cart) == 0:
         flash("No product selected!")
         return redirect(url_for("main.cart"))
 
     for c in user_cart:
-        product_pay += c.product.price * c.product.discount * c.count
-        # total_weight += c.product.weight * c.count
-    # weight_pay = total_weight * 0.1
-    # is_pandemic = Pandemic.query.first().is_pandemic
+        product_pay += c.product.price * c.count
     return render_template('checkout.html', cart=user_cart,
                            product_pay=product_pay)
 
@@ -504,48 +505,41 @@ def checkout(user_id):
 @main.route('/place_order/<int:buyer_id>/<int:pp>', methods=['POST', 'GET'])
 def place_order(buyer_id, pp):
     if request.method == 'POST':
-        # ship_way = request.form.get('delivery')
-        start_time = request.form.get('start_time')
-        end_time = request.form.get('end_time')
+        start_date = request.form.get('start_date')
+        start_time = change_time(request.form.get('start_time'), 0)
+        st = datetime.datetime.strptime(start_date + " " + start_time, "%Y-%m-%d %H:%M:%S")
         note = request.form.get('note')
         product_ids = request.form.getlist('product')
         counts = request.form.getlist('count')
-        flash_num = 0
+
+        timestamp = datetime.datetime.utcnow()
+        price = pp
+        order = Order(
+            timestamp=timestamp,
+            pick_up_time=st,
+            note=note,
+            status='Created',
+            price=price,
+            buyer_id=buyer_id
+        )
+        db.session.add(order)
+        db.session.commit()
         for i in range(0, len(product_ids)):
-            product_aim = Product.query.filter_by(id=product_ids[i]).first()
-            if product_aim.inventory - int(counts[i]) < 0:
-                flash_num = 1
-        if flash_num == 0:
-            timestamp = datetime.datetime.utcnow()
-            price = pp
-            order = Order(
-                timestamp=timestamp,
-                pick_up_time_start=start_time,
-                pick_up_time_end=end_time,
-                note=note,
-                status='Created',
-                price=price,
-                buyer_id=buyer_id
+            po = ProductOrder(
+                count=counts[i],
+                product_id=product_ids[i],
+                order_id=order.id
             )
-            db.session.add(order)
+            db.session.add(po)
             db.session.commit()
-            # order = Order.query.filter_by(buyer_id=buyer_id).filter_by(timestamp=timestamp).first()
-            # print(order)
-            for i in range(0, len(product_ids)):
-                po = ProductOrder(
-                    count=counts[i],
-                    product_id=product_ids[i],
-                    order_id=order.id
-                )
-                db.session.add(po)
-                db.session.commit()
-                po = ProductOrder.query.filter_by(product_id=product_ids[i]).filter_by(order_id=order.id).first()
-                order.productOrders.append(po)
+            po = ProductOrder.query.filter_by(product_id=product_ids[i]).filter_by(order_id=order.id).first()
+            order.productOrders.append(po)
+            cart_item = db.session.query(
+                Cart).filter(Cart.owner_id == current_user.id).filter(Cart.product_id == product_ids[i]).first()
+            db.session.delete(cart_item)
             db.session.commit()
-            return redirect(url_for('main.account', user_id=buyer_id))
-        else:
-            flash('Sorry. The inventory of the product is not enough')
-            return redirect(url_for('main.checkout', user_id=buyer_id))
+        db.session.commit()
+        return redirect(url_for('main.account', user_id=buyer_id))
 
 
 @main.route('/account/<int:user_id>', methods=['POST', 'GET'])
@@ -628,10 +622,10 @@ def wishlist():
 @main.route('/single_product/<p>', methods=['POST', 'GET'])
 def single_product(p):
     if current_user.is_authenticated:
-        if int(p) in range(1, Product.query.count() + 1):
+        if int(p) in range(1, Product.query.filter_by(is_hidden=False).count() + 1):
             p = p
         elif int(p) == 0:
-            p = Product.query.count()
+            p = Product.query.filter_by(is_hidden=False).count()
         else:
             p = 1
         product_all = []
@@ -661,8 +655,8 @@ def single_product(p):
                 start_date = request.form.get('start_date')
                 start_time = change_time(request.form.get('start_time'), 0)
                 end_time = change_time(request.form.get('start_time'), 2)
-                st = datetime.datetime.strptime(start_date+" "+start_time, "%Y-%m-%d %H:%M:%S")
-                et = datetime.datetime.strptime(start_date+" "+end_time, "%Y-%m-%d %H:%M:%S")
+                st = datetime.datetime.strptime(start_date + " " + start_time, "%Y-%m-%d %H:%M:%S")
+                et = datetime.datetime.strptime(start_date + " " + end_time, "%Y-%m-%d %H:%M:%S")
                 print('hello', st, timestamp)
                 drive = Drive(
                     timestamp=timestamp,
@@ -708,14 +702,11 @@ def change_time(raw_time, offset):
 # Cart Utils
 def price_calculator(cart_dicts: list) -> dict:
     output = {
-        "product_price": 0,
-        "shipping_price": 0,
-        "total_price": 0
+        "product_price": 0
     }
     for item in cart_dicts:
         if item["product_selected"]:
-            output["product_price"] += item["product_price"] * item["product_discount"] * item["product_num"]
-    output["total_price"] = output["product_price"]
+            output["product_price"] += item["product_price"] * item["product_num"]
     return output
 
 
@@ -730,10 +721,10 @@ def get_cart_items() -> list:
                 "product_id": cart_item.product_id,
                 "product_num": cart_item.count,
                 "product_name": _product.name,
-                "product_img": _product.imagePaths[0].image_path,
+                "product_img": _product.imagePaths[0].resized_image_path,
                 "product_desc": _product.description,
                 "product_price": _product.price,
-                "product_discount": _product.discount,
+                "product_customize": cart_item.customized_color,
                 "product_selected": cart_item.is_selected,
             })
         return data
@@ -776,9 +767,6 @@ def random_string(length):
 
 def get_ts():
     return str(calendar.timegm(time.gmtime()))
-
-
-
 
 
 # ROUTE

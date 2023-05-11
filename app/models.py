@@ -6,8 +6,6 @@ from sqlalchemy_serializer import Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 # from itsdangerous.jws import TimedJSONWebSignatureSerializer as Serializer
 from . import db, login_manager
-from config import Config
-import os
 
 
 class Initialization:
@@ -41,6 +39,7 @@ productCategories = db.Table('productCategories',
 class ProductOrder(db.Model):
     __tablename__ = 'productOrders'
     id = db.Column(db.Integer, primary_key=True)
+    customized_color = db.Column(db.String(16))
     count = db.Column(db.Integer, default=1)  # the number or this product in the order
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
@@ -61,6 +60,7 @@ class Cart(db.Model):
     __tablename__ = 'carts'
     id = db.Column(db.Integer, primary_key=True)
     count = db.Column(db.Integer, default=1)  # the number of this product in the cart
+    customized_color = db.Column(db.String(16))
     is_selected = db.Column(db.Boolean, index=True)
     # foreign keys:
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -78,10 +78,7 @@ class Product(db.Model):
     max_speed = db.Column(db.Integer, nullable=False)
     oil_consumption = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, default=1000.0)
-    discount = db.Column(db.Float, default=1.0)
-    inventory = db.Column(db.Integer, default=1000)
     description = db.Column(db.String(256))
-    # weight = db.Column(db.Float, default=50.0)
     is_hidden = db.Column(db.Boolean, default=False)
     # relationship:
     imagePaths = db.relationship('ProductImagePath', backref='product', lazy='dynamic')
@@ -116,22 +113,11 @@ class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
-    pick_up_time_start = db.Column(db.DateTime)
-    pick_up_time_end = db.Column(db.DateTime)
+    pick_up_time = db.Column(db.DateTime)
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
     status = db.Column(db.String(32), default='Created', index=True)
-    # ship_way. Respectively, 0/1 represents delivery/ pick-up
-    # ship_way = db.Column(db.String(16), index=True)
     price = db.Column(db.Float, index=True)
-    # name = db.Column(db.String(32), index=True)
-    # gender = db.Column(db.Integer)
-    # phone_number = db.Column(db.Integer)
-    # Address comprises country + city + street + detail
-    # country = db.Column(db.String(32))
-    # city = db.Column(db.String(32))
-    # street = db.Column(db.String(64))
-    # detail = db.Column(db.String(32))
     priority = db.Column(db.Integer, default=0, index=True)
     # foreign keys:
     buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -149,17 +135,6 @@ class Drive(db.Model):
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
     status = db.Column(db.String(32), default='Created', index=True)
-    # ship_way. Respectively, 0/1 represents delivery/ pick-up
-    # ship_way = db.Column(db.String(16), index=True)
-    # price = db.Column(db.Float, index=True)
-    # name = db.Column(db.String(32), index=True)
-    # gender = db.Column(db.Integer)
-    # phone_number = db.Column(db.Integer)
-    # Address comprises country + city + street + detail
-    # country = db.Column(db.String(32))
-    # city = db.Column(db.String(32))
-    # street = db.Column(db.String(64))
-    # detail = db.Column(db.String(32))
     priority = db.Column(db.Integer, default=0, index=True)
     # foreign keys:
     buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))

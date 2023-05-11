@@ -36,7 +36,20 @@ def insert_products(cat_objs):
         product = Product(
             key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
             max_speed=item['max_speed'], oil_consumption=item['oil_consumption'], price=item['price'],
-            discount=item['discount'], inventory=item['inventory'], description=item['description']
+            description=item['description']
+        )
+        for j in category['category_ids']:
+            product.categories.append(cat_objs[j-1])
+        db.session.add(product)
+    db.session.commit()
+
+
+def insert_custproducts(cat_objs):
+    for item, category in zip(CUSTPRODUCTS, PRODUCTS2CATEGORIES):
+        product = Product(
+            key=item['key'], name=item['name'], brand=item['brand'], model=item['model'], year=item['year'],
+            max_speed=item['max_speed'], oil_consumption=item['oil_consumption'], price=item['price'],
+            description=item['description'], is_hidden=item['is_hidden']
         )
         for j in category['category_ids']:
             product.categories.append(cat_objs[j-1])
@@ -54,9 +67,8 @@ def insert_product_orders():
 def insert_orders():
     for item in ORDERS:
         timestamp = datetime.datetime.utcnow()
-        order = Order(timestamp=timestamp, pick_up_time_start=item['pick_up_time_start'],
-                      pick_up_time_end=item['pick_up_time_end'], note=item['note'], status=item['status'],
-                      price=item['price'], priority=item['priority'], buyer_id=item['buyer_id'])
+        order = Order(timestamp=timestamp, pick_up_time=item['pick_up_time'], note=item['note'],
+                      status=item['status'], price=item['price'], priority=item['priority'], buyer_id=item['buyer_id'])
         db.session.add(order)
         db.session.commit()
         order_aim = Order.query.filter_by(buyer_id=item['buyer_id']).first()
@@ -102,16 +114,6 @@ def insert_product_image_paths():
         )
         db.session.add(productImagePath)
     db.session.commit()
-
-
-# def insert_delivery_infos():
-#     for item in DELIVERYINFOS:
-#         deliveryInfos = DeliveryInfo(
-#             name=item['name'], gender=item['gender'], phone_number=item['phone_number'], country=item['country'],
-#             city=item['city'], street=item['street'], detail=item['detail'], user_id=item['user_id']
-#         )
-#         db.session.add(deliveryInfos)
-#     db.session.commit()
 
 
 def insert_blogs():
@@ -163,12 +165,11 @@ def insert_all():
     insert_users()
     # Insert Products
     insert_products(cat_objs)
+    insert_custproducts(cat_objs)
     # Insert Carts
     insert_carts()
     # Insert ProductImagePaths()
     insert_product_image_paths()
-    # Insert Addresses
-    # insert_delivery_infos()
     # Insert Blogs
     insert_blogs()
     # Insert BlogImagePaths

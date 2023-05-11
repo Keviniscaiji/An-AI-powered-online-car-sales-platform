@@ -287,13 +287,23 @@ def priority_down(order_id):
 @admin.route('/data-analytics')
 @login_required
 def data_analytics():
-    return render_template('admin/data-analytics.html')
+    category_list = Category.query.all()
+    list_a = []
+    list_b = []
+    for c in category_list:
+        list_a.append(c.name)
+        list_b.append(c.products.count())
+
+    # ProductOrder
+    return render_template('admin/data-analytics.html',
+                           category_names=list_a,
+                           category_product_counts=list_b)
 
 
-@admin.route('/data_visualize')
-@login_required
-def data_visualize():
-    return render_template('admin/data_visualize.html')
+# @admin.route('/data_visualize')
+# @login_required
+# def data_visualize():
+#     return render_template('admin/data_visualize.html')
 
 
 @admin.route('/bar_polar')

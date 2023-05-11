@@ -12,7 +12,7 @@
 	</head>
 
 	<body class="home blog custom-background round-avatars">
-		<div class="Yarn_Background" style="background-image: url( ../static/img/blog-background.jpg);"></div>
+		<div class="Yarn_Background" style="background-image: url( ../static/img/blog-background-new.jpg);"></div>
 		<form class="js-search search-form search-form--modal" method="post" action="{{ url_for('main.blog_search') }}" role="search">
 			<div class="search-form__inner">
 				<div>
@@ -51,9 +51,9 @@
 									<li id="menu-item-252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-252">
 										<a href="{{ url_for('main.blog_update') }}">{{ _('Update') }}</a>
 									</li>
-									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-										<a href="{{ url_for('main.gustbook') }}">{{ _('Guest Book') }}</a>
-									</li>
+{#									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">#}
+{#										<a href="{{ url_for('main.gustbook') }}">{{ _('Guest Book') }}</a>#}
+{#									</li>#}
 								</ul>
 							</div>
 						</div>
@@ -67,16 +67,17 @@
 		</div>
 		<header id="masthead" class="overlay animated from-bottom" itemprop="brand">
 			<div class="site-branding text-center">
-				<a href="#">
-					<figure>
-						<img class="custom-logo avatar" src="../static/img/omikron.png" />
-					</figure>
-				</a>
-				<h3 class="blog-description"><p style="font-size: xx-large; font-weight: 900; color: saddlebrown">{{ _('Music Zone') }} - {{ _('Blog') }}</p></h3>
+{#				<a href="#">#}
+{#					<figure>#}
+{#						<img class="custom-logo avatar" src="../static/img/omikron.png" />#}
+{#					</figure>#}
+{#				</a>#}
+				<h3 class="blog-description"><p style="font-size: xx-large; font-weight: 900; color: #bd2682">{{ _('Auto Wheel') }} - {{ _('Blog') }}</p></h3>
 			</div>
 			<!-- .site-branding -->
 			<div class="decor-part">
-				<div id="particles-js"></div>
+				<div id="particles-js" style="background-image: {{ url_for('static', filename='storage/background/about1.jpg') }}">
+                </div>
 			</div>
 			<div class="animation-header">
 				<div class="decor-wrapper">
@@ -123,8 +124,8 @@
 				</li>
 			</div>
 			<div class="cr">
-				Copyright&copy;2022. Design by
-				<a href="#">SEP2-7</a>
+				Copyright&copy;2023. Designed by
+				<a href="#">MetaPluser</a>
 			</div>
 			<script type='text/javascript' src='../static/js/jquery.min.js'></script>
 			<script type='text/javascript' src='../static/js/blog-plugins.js'></script>

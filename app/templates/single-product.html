@@ -145,15 +145,12 @@ new dateDropper({
                             </div>
 							<!--Product Price!!!!!-->
                             <div class="single-product-price">
-                                {% if p2.discount < 1 %}
-                                    <span class="price">${{ p2.price }}</span>
-                                {% endif %}
-                                <span class="regular-price">${{ p2.price*p2.discount }}.0</span>
+                                <span class="price">${{ p2.price }}</span>
                             </div>
 							<!--Product Description!!!!!-->
                             <br>
 							<!--Product Stock!!!!!-->
-                            <p class="stock in-stock">{{ p2.inventory }} {{ _('in stock') }}</p>
+                            <p class="stock in-stock">{{ _('In stock') }}</p>
 							<!--Add Cart!!!!!-->
                             <div class="single-product-quantity">
                                 <div class="add-quantity">
@@ -336,10 +333,7 @@ new dateDropper({
                                         <h2><a href="{{ url_for('main.single_product', p=product.id) }}">{{ product.name }}</a></h2>
                                         <div class="product-price">
                                             <div class="price-box">
-                                                {% if product.discount < 1 %}
-                                                    <span class="price">${{ product.price }}</span>
-                                                {% endif %}
-                                                <span class="regular-price">${{ product.price * product.discount }}</span>
+                                                <span class="price">${{ product.price }}</span>
                                             </div>
                                             <div class="add-to-cart">
                                                 <a tabindex="0" style="cursor: pointer" onclick='add_to_cart("{{ product.id }}", "{{ product.name }}", "{{ url_for('static', filename=product.imagePaths[0].resized_image_path) }}", "{{ product.price }}")'>{{ _('Add To Wish List') }}</a>
