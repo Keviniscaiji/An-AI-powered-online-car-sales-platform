@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="assets/css/dark-theme.css">
     <link rel="stylesheet" href="assets/css/semi-dark.css">
     <link rel="stylesheet" href="assets/css/header-colors.css">
-    <title>Dashtrans - Bootstrap5 Admin Template</title>
+    <title>Staff</title>
+    <script src="../../static/staff/js/apexcharts.min.js"></script>
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -98,7 +99,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <div class="ms-auto">
+                    <div class="ms-auto" style="display: none">
                         <div class="btn-group"><button type="button" class="btn btn-light">Settings</button><button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"><span class="visually-hidden">Toggle Dropdown</span></button>
                             <div
                                 class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"><a class="dropdown-item" href="javascript:;">Action</a><a class="dropdown-item" href="javascript:;">Another action</a><a class="dropdown-item" href="javascript:;">Something else here</a>
@@ -185,6 +186,37 @@
                         <div class="card-body">
                             <div id="chart11"></div>
                         </div>
+                        <script>
+                            var category_names = '{{ category_names|tojson|safe }}';
+                            category_names = JSON.parse(category_names);
+                            var category_product_counts = '{{ category_product_counts|tojson|safe }}';
+                            category_product_counts = JSON.parse(category_product_counts);
+                            var options = {
+                                series: category_product_counts,
+                                {#series: [44, 55, 13, 43, 22, 34],#}
+                                chart: {
+                                    foreColor: 'rgba(255, 255, 255, 0.65)',
+                                    height: 380,
+                                    type: 'pie',
+                                },
+                                colors: ["#ff0000", "#673ab7", "#32ab13", "#da7f99", "#ffc107", "#198fed"],
+                                labels: category_names,
+                                {#labels: ['Autonomous', 'City', 'Classic', 'Electric', 'Sedan', 'Sports'],#}
+                                responsive: [{
+                                    breakpoint: 480,
+                                    options: {
+                                        chart: {
+                                            height: 360
+                                        },
+                                        legend: {
+                                            position: 'bottom'
+                                        }
+                                    }
+                                }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart11"), options);
+                            chart.render();
+                        </script>
                     </div>
 {#                    <h6 class="mb-0 text-uppercase">Radial Bar Chart</h6>#}
 {#                    <hr>#}
