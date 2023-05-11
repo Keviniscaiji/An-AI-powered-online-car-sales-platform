@@ -35,12 +35,15 @@ print("RTMDet-Ins Model Loaded")
 # net3 = ie3.read_model(ir_cfg['encoder_path'])
 # compiled_model3 = ie3.compile_model(net3, 'CPU')
 import onnxruntime as rt
+
 sess = rt.InferenceSession(ir_cfg['encoder_path'])
 print("ResNet50Encoder Model Loaded")
 
 # Load Index
 with open(ir_cfg['index_path'], "rb") as f:
     ir_index = pickle.load(f)
+
+
 # IR end
 
 
@@ -85,7 +88,7 @@ def index():
     products_countdown = []  # pc
     products_best_seller = []  # pbs
 
-    products_all = Product.query.all()
+    products_all = Product.query.filter_by(is_hidden=False).all()
     n_products = len(products_all)
 
     if n_products > n_max_row * n_max_col:
@@ -209,9 +212,10 @@ def shop(status):
         search, cate, low, high, sort, ir = "non", status, "non", "non", "non", "non"
 
     if cate != "all":
-        res = db.session.query(Category).filter(Category.name == cate).first().products
+        res = db.session.query(Category).filter(Category.name == cate).first().products.filter(
+            Product.is_hidden == False)
     else:
-        res = db.session.query(Product)
+        res = db.session.query(Product).filter(Product.is_hidden == False)
 
     if ir != "non":
         ts, selected_id = ir.split("_")[1:]
@@ -256,7 +260,8 @@ def shop(status):
     print(status, cate, search, sort, low, high, categories, cate_num, left, right)
 
     return render_template('shop.html', status=status, cate=cate, search=search, sort=sort, low=low, high=high, ir=ir,
-                           categories=categories, cate_num=cate_num, left=str(left), right=str(right), pagination=pagination,
+                           categories=categories, cate_num=cate_num, left=str(left), right=str(right),
+                           pagination=pagination,
                            recommend=recommend, products=products)
 
 
@@ -484,19 +489,14 @@ def checkout(user_id):
     """
     View function for checkout page
     """
-    # delivery_info_list = DeliveryInfo.query.filter_by(user_id=user_id).all()
     user_cart = Cart.query.filter_by(owner_id=user_id).filter_by(is_selected=True).all()
     product_pay = 0.0
-    # total_weight = 0.0
     if len(user_cart) == 0:
         flash("No product selected!")
         return redirect(url_for("main.cart"))
 
     for c in user_cart:
         product_pay += c.product.price * c.count
-        # total_weight += c.product.weight * c.count
-    # weight_pay = total_weight * 0.1
-    # is_pandemic = Pandemic.query.first().is_pandemic
     return render_template('checkout.html', cart=user_cart,
                            product_pay=product_pay)
 
@@ -523,8 +523,6 @@ def place_order(buyer_id, pp):
         )
         db.session.add(order)
         db.session.commit()
-        # order = Order.query.filter_by(buyer_id=buyer_id).filter_by(timestamp=timestamp).first()
-        # print(order)
         for i in range(0, len(product_ids)):
             po = ProductOrder(
                 count=counts[i],
@@ -623,10 +621,10 @@ def wishlist():
 @main.route('/single_product/<p>', methods=['POST', 'GET'])
 def single_product(p):
     if current_user.is_authenticated:
-        if int(p) in range(1, Product.query.count() + 1):
+        if int(p) in range(1, Product.query.filter_by(is_hidden=False).count() + 1):
             p = p
         elif int(p) == 0:
-            p = Product.query.count()
+            p = Product.query.filter_by(is_hidden=False).count()
         else:
             p = 1
         product_all = []
@@ -656,8 +654,8 @@ def single_product(p):
                 start_date = request.form.get('start_date')
                 start_time = change_time(request.form.get('start_time'), 0)
                 end_time = change_time(request.form.get('start_time'), 2)
-                st = datetime.datetime.strptime(start_date+" "+start_time, "%Y-%m-%d %H:%M:%S")
-                et = datetime.datetime.strptime(start_date+" "+end_time, "%Y-%m-%d %H:%M:%S")
+                st = datetime.datetime.strptime(start_date + " " + start_time, "%Y-%m-%d %H:%M:%S")
+                et = datetime.datetime.strptime(start_date + " " + end_time, "%Y-%m-%d %H:%M:%S")
                 print('hello', st, timestamp)
                 drive = Drive(
                     timestamp=timestamp,
@@ -767,9 +765,6 @@ def random_string(length):
 
 def get_ts():
     return str(calendar.timegm(time.gmtime()))
-
-
-
 
 
 # ROUTE
