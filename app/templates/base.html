@@ -105,6 +105,7 @@
                                         <ul class="main-menu">
                                             <li><a href="{{ url_for('main.index') }}">{{ _('Home') }}</a></li>
                                             <li><a href="{{ url_for('main.shop', status="init") }}">{{ _('Shop') }}</a></li>
+                                            <li><a href="{{ url_for('car_customize.index') }}">{{ _('Customize') }}</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -114,7 +115,7 @@
                                     <div class="mini-cart-search">
                                         <div class="mini-cart">
                                             {% if current_user.is_authenticated %}
-                                                <a href="{{ url_for('main.cart') }}">
+                                                <a href="{{ url_for('main.wishlist') }}">
                                                     <span class="cart-icon">
                                                        <span class="cart-quantity" id="mini_cart_count">{{ ncart }}</span>
                                                     </span>
@@ -138,7 +139,7 @@
                                                     <p class="cart-subtotal"><strong>{{ _('Subtotal') }}:</strong><span class="float-right" id="mini_cart_subtotal">${{ mcp.product_price }}</span></p>
                                                     <p class="cart-btn">
                                                         <!--Update required!!!-->
-                                                        <a href="{{ url_for('main.cart') }}">{{ _('View all') }}</a>
+                                                        <a href="{{ url_for('main.wishlist') }}">{{ _('View all') }}</a>
                                                     </p>
                                                 </div>
                                             {% else %}
@@ -180,7 +181,7 @@
                                                             </a>
                                                         {% endif %}
                                                         </li>
-                                                        <li><a href="{{ url_for('main.cart') }}">{{ _('Wish List') }}</a></li>
+                                                        <li><a href="{{ url_for('main.wishlist') }}">{{ _('Wish List') }}</a></li>
 {#                                                        <li><a href="{{ url_for('main.portfolio') }}">{{ _('Portfolio') }}</a></li>#}
                                                         <li><a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a></li>
 {#                                                        <li><a href="{{ url_for('main.about') }}">{{ _('About Us') }}</a></li>#}
@@ -191,28 +192,28 @@
                                                             <li><a style="cursor: pointer" href="{{ url_for('auth.login') }}">{{ _('Log In') }}</a></li>
                                                         {% endif %}
                                                     </ul>
-                                                    <div class="switcher">
-                                                        <div class="language">
-                                                            <span class="switcher-title">{{ _('Language') }}: </span>
-                                                            <div class="switcher-menu">
-                                                                <ul id="selected-language">
-                                                                    {% if session['language'] %}
-                                                                    <li><a href="#">{{ session['language'] }}</a>
-                                                                        <ul class="switcher-dropdown">
-                                                                            <li><a href="#" id="alternative-language">{{ session['alternative_language'] }}</a></li>
-                                                                        </ul>
-                                                                    </li>
-                                                                    {% else %}
-                                                                    <li><a href="#">English</a>
-                                                                        <ul class="switcher-dropdown">
-                                                                            <li><a href="#" id="alternative-language">Chinese</a></li>
-                                                                        </ul>
-                                                                    </li>
-                                                                    {% endif %}
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+{#                                                    <div class="switcher">#}
+{#                                                        <div class="language">#}
+{#                                                            <span class="switcher-title">{{ _('Language') }}: </span>#}
+{#                                                            <div class="switcher-menu">#}
+{#                                                                <ul id="selected-language">#}
+{#                                                                    {% if session['language'] %}#}
+{#                                                                    <li><a href="#">{{ session['language'] }}</a>#}
+{#                                                                        <ul class="switcher-dropdown">#}
+{#                                                                            <li><a href="#" id="alternative-language">{{ session['alternative_language'] }}</a></li>#}
+{#                                                                        </ul>#}
+{#                                                                    </li>#}
+{#                                                                    {% else %}#}
+{#                                                                    <li><a href="#">English</a>#}
+{#                                                                        <ul class="switcher-dropdown">#}
+{#                                                                            <li><a href="#" id="alternative-language">Chinese</a></li>#}
+{#                                                                        </ul>#}
+{#                                                                    </li>#}
+{#                                                                    {% endif %}#}
+{#                                                                </ul>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
                                                 </div>
                                             </div>
                                         </div>
@@ -397,11 +398,6 @@
 		            <div class="container">
 		                <div class="row">
 		                    <div class="col-md-12">
-                                <!--Footer Payment Start-->
-		                        <div class="footer-payments-image">
-		                            <img src="{{ url_for('static', filename="storage/img/payment/payment-icon.png") }}" alt="">
-		                        </div>
-		                        <!--Footer Payment End-->
 		                        <!--Footer Menu Start-->
 		                        <div class="footer-menu text-center">
 		                            <nav>

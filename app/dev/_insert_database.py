@@ -102,7 +102,8 @@ def insert_drives():
 
 def insert_carts():
     for item in CARTS:
-        cart = Cart(count=item["count"], owner_id=item['owner_id'], product_id=item['product_id'], is_selected=item['is_selected'])
+        cart = Cart(count=item["count"], customized_color=item['customized_color'], owner_id=item['owner_id'],
+                    product_id=item['product_id'], is_selected=item['is_selected'])
         db.session.add(cart)
     db.session.commit()
 

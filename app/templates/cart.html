@@ -51,20 +51,31 @@
                                             <td class="plantmore-product-name"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}">{{ cart_item.product_name }}</a></td>
                                             <td class="plantmore-product-price"><span class="amount" id="cart_item_price_{{ cart_item.product_id }}">${{ cart_item.product_price }}</span></td>
                                             <style>
-                                                #color-square {
-                                                    width: 20px;
-                                                    height: 20px;
+                                                #cart_item_customize_{{ cart_item.product_id }} {
+                                                    {#width: 20px;#}
+                                                    {#height: 20px;#}
                                                     background-color: var(--color);
                                                 }
                                             </style>
-                                            <td class="plantmore-product-customize" id="color-container">
-                                                <div id="color-square"></div>
+                                            <td class="plantmore-product-customize" id="color-container-{{ cart_item.product_id }}">
+{#                                                <div id="color-square-{{ cart_item.product_id }}"></div>#}
                                                 <span class="amount" id="cart_item_customize_{{ cart_item.product_id }}">{{ cart_item.product_customize }}</span>
                                                 <script>
-                                                    const colorContainer = document.getElementById('color-container');
-                                                    const hexValueElement = document.getElementById('art_item_customize_{{ cart_item.product_id }}');
-                                                    if (hexValueElement !== 'None') {
-                                                        colorContainer.style.setProperty('--color', hexValueElement);
+                                                    {#let colorContainer = document.getElementById('color-container-{{ cart_item.product_id }}');
+                                                    let hexValueElement = document.getElementById('cart_item_customize_{{ cart_item.product_id }}');
+                                                    let hexVal = hexValueElement.textContent;
+                                                    if (hexVal !== 'None') {
+                                                        console.log('This car is customized.');
+                                                        colorContainer.style.setProperty('--color', hexVal);
+                                                    } else {
+                                                        console.log('This car has no color.')
+                                                    }#}
+                                                    if (document.getElementById('cart_item_customize_{{ cart_item.product_id }}').textContent !== 'None') {
+                                                        {#console.log('This car is customized.');#}
+                                                        document.getElementById('cart_item_customize_{{ cart_item.product_id }}').style.width =
+                                                            document.getElementById('cart_item_customize_{{ cart_item.product_id }}').offsetWidth * 1.5 + 'px';
+                                                        document.getElementById('color-container-{{ cart_item.product_id }}').style.setProperty('--color',
+                                                            document.getElementById('cart_item_customize_{{ cart_item.product_id }}').textContent);
                                                     }
                                                 </script>
                                             </td>
@@ -119,7 +130,7 @@
                 return;
             }
             $.post(
-                "{{ url_for('main.cart') }}",
+                "{{ url_for('main.wishlist') }}",
                 {"prodid": _prodid, "prodnum": prodnum, "mode": "edit"},
                 function(data){
                     const price = Number(document.getElementById('cart_item_price_'+_prodid.toString()).innerText.slice(1));  // remove '$'
@@ -140,7 +151,7 @@
             // action after product is removed from cart
             $("#cart_item_"+_prodid.toString()).hide();
             $.post(
-                "{{ url_for('main.cart') }}",
+                "{{ url_for('main.wishlist') }}",
                 {"prodid": _prodid, "mode": "remove"},
                 function(data){
                     document.getElementById("mini_cart_count").innerText=data['count']
@@ -163,7 +174,7 @@
                 document.getElementById(("cart_selected_"+_prodid.toString())).setAttribute('class', "fa fa-square-o select_remove");
             }
             $.post(
-                "{{ url_for('main.cart') }}",
+                "{{ url_for('main.wishlist') }}",
                 _data,
                 function(data){
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;

@@ -52,30 +52,30 @@
                     <h5>{{ _('Information') }}</h5>
                 </div>
                 <div class="entry-summary blog-post-description">
-                    <div class="row">
-                        <div class="col-6">
-                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">
-                            <h4><strong>{{ _('Name') }}: </strong>{{ order.name }}</h4>
-                            </blockquote>
-                        </div>
-                        <div class="col-6">
-                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">
-                            <h4><strong>{{ _('Gender') }}: </strong>{{ order.gender }}</h4>
-                            </blockquote>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">
-                            <h4><strong>{{ _('Phone Number') }}: </strong>{{ order.phone_number }}</h4>
-                            </blockquote>
-                        </div>
-                        <div class="col-6">
-                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">
-                            <h4><strong>{{ _('Ship Method') }}: </strong>{{ order.ship_way }}</h4>
-                            </blockquote>
-                        </div>
-                    </div>
+{#                    <div class="row">#}
+{#                        <div class="col-6">#}
+{#                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">#}
+{#                            <h4><strong>{{ _('Name') }}: </strong>{{ order.name }}</h4>#}
+{#                            </blockquote>#}
+{#                        </div>#}
+{#                        <div class="col-6">#}
+{#                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">#}
+{#                            <h4><strong>{{ _('Gender') }}: </strong>{{ order.gender }}</h4>#}
+{#                            </blockquote>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-6">#}
+{#                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">#}
+{#                            <h4><strong>{{ _('Phone Number') }}: </strong>{{ order.phone_number }}</h4>#}
+{#                            </blockquote>#}
+{#                        </div>#}
+{#                        <div class="col-6">#}
+{#                            <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">#}
+{#                            <h4><strong>{{ _('Ship Method') }}: </strong>{{ order.ship_way }}</h4>#}
+{#                            </blockquote>#}
+{#                        </div>#}
+{#                    </div>#}
                     {% if order.ship_way == 'Delivery' %}
                         <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">
                         <h4><strong>{{ _('Address') }}: </strong>{{ order.country }}-{{ order.city }}-{{ order.street }}-{{ order.detail }}</h4>
@@ -84,7 +84,7 @@
                     <blockquote style="margin: 0 0 10px 0; padding: 12px 15px; font-style: normal">
                     <h4><strong>{{ _('Note') }}: </strong>{{ order.note }}</h4>
                     </blockquote>
-                    <a class="btn_2" data-toggle="modal" href="#orderModal" onclick="Values_id({{ order.id }})">{{ _('Edit Info') }}</a>
+{#                    <a class="btn_2" data-toggle="modal" href="#orderModal" onclick="Values_id({{ order.id }})">{{ _('Edit Info') }}</a>#}
                 </div>
             </div>
 
