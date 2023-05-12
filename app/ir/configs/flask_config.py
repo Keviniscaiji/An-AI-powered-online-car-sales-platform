@@ -1,6 +1,6 @@
 import os
 
-proj_path = "/home/student/workspace/FYP/FYP/app"
+proj_path = "/Users/Yuchen/Desktop/FYP/FYP/app"
 
 flask_cfg = dict(
     static_path=os.path.join(proj_path, "static"),
