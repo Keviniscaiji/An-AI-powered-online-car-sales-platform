@@ -22,12 +22,12 @@ def handle_colors():
     print(car_color, carType)
     type_dict = {
         "911": "Porsche 911", 
-        "Infiniti": "Infiniti Project Black S", 
+        "infiniti": "Infiniti Project Black S", 
         "old911": "Porsche Old 911", 
-        "Lexus": "Lexus ES 300h", 
+        "lexus": "Lexus ES 300h", 
         "Tesla": "Tesla Cybertruck", 
-        "Mitsubishi": "Mitsubishi Lancer 2.0 GTE",
-        "Chevrole": "Chevrole Corvette C5 Z06"
+        "mitsubishi": "Mitsubishi Lancer 2.0 GTE",
+        "chevrole": "Chevrole Corvette C5 Z06"
     }
     
     product = Product.query.filter_by(name=type_dict[carType]).first()
