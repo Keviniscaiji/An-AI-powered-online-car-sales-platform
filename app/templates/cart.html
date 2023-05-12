@@ -50,7 +50,24 @@
                                             <td class="plantmore-product-thumbnail"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}"><img src="{{ url_for('static', filename=cart_item.product_img) }}" alt="" style="width: 120px; height: 120px"></a></td>
                                             <td class="plantmore-product-name"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}">{{ cart_item.product_name }}</a></td>
                                             <td class="plantmore-product-price"><span class="amount" id="cart_item_price_{{ cart_item.product_id }}">${{ cart_item.product_price }}</span></td>
-                                            <td class="plantmore-product-customize"><span class="amount" id="cart_item_customize_{{ cart_item.product_id }}">{{ cart_item.product_customize }}</span></td>
+                                            <style>
+                                                #color-square {
+                                                    width: 20px;
+                                                    height: 20px;
+                                                    background-color: var(--color);
+                                                }
+                                            </style>
+                                            <td class="plantmore-product-customize" id="color-container">
+                                                <div id="color-square"></div>
+                                                <span class="amount" id="cart_item_customize_{{ cart_item.product_id }}">{{ cart_item.product_customize }}</span>
+                                                <script>
+                                                    const colorContainer = document.getElementById('color-container');
+                                                    const hexValueElement = document.getElementById('art_item_customize_{{ cart_item.product_id }}');
+                                                    if (hexValueElement !== 'None') {
+                                                        colorContainer.style.setProperty('--color', hexValueElement);
+                                                    }
+                                                </script>
+                                            </td>
                                             <td class="plantmore-product-quantity">
                                                 <input value="{{ cart_item.product_num }}" type="number" id="cart_num_edit_{{ cart_item.product_id }}" onchange="sendProdNumEditData({{ cart_item.product_id }})" min="1">
                                             </td>
