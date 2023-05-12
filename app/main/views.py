@@ -418,9 +418,9 @@ def question():
     return render_template('faq.html')
 
 
-@main.route('/cart', methods=['POST', 'GET'])
+@main.route('/wishlist', methods=['POST', 'GET'])
 @login_required
-def cart():
+def wishlist():
     """
     View function for user cart
     """
@@ -609,14 +609,6 @@ def modify_avatar():
         else:
             flash('Invalid Image')
         return redirect(url_for('main.account', user_id=user_id))
-
-
-@main.route('/wishlist', methods=['POST', 'GET'])
-def wishlist():
-    """
-    View function for wishlist page
-    """
-    return render_template('wishlist.html')
 
 
 @main.route('/single_product/<p>', methods=['POST', 'GET'])

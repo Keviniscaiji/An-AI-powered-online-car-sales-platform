@@ -130,7 +130,7 @@
                 return;
             }
             $.post(
-                "{{ url_for('main.cart') }}",
+                "{{ url_for('main.wishlist') }}",
                 {"prodid": _prodid, "prodnum": prodnum, "mode": "edit"},
                 function(data){
                     const price = Number(document.getElementById('cart_item_price_'+_prodid.toString()).innerText.slice(1));  // remove '$'
@@ -151,7 +151,7 @@
             // action after product is removed from cart
             $("#cart_item_"+_prodid.toString()).hide();
             $.post(
-                "{{ url_for('main.cart') }}",
+                "{{ url_for('main.wishlist') }}",
                 {"prodid": _prodid, "mode": "remove"},
                 function(data){
                     document.getElementById("mini_cart_count").innerText=data['count']
@@ -174,7 +174,7 @@
                 document.getElementById(("cart_selected_"+_prodid.toString())).setAttribute('class', "fa fa-square-o select_remove");
             }
             $.post(
-                "{{ url_for('main.cart') }}",
+                "{{ url_for('main.wishlist') }}",
                 _data,
                 function(data){
                     document.getElementById("checkout_prod").innerText = "$"+data.product_price;
