@@ -192,28 +192,28 @@
                                                             <li><a style="cursor: pointer" href="{{ url_for('auth.login') }}">{{ _('Log In') }}</a></li>
                                                         {% endif %}
                                                     </ul>
-                                                    <div class="switcher">
-                                                        <div class="language">
-                                                            <span class="switcher-title">{{ _('Language') }}: </span>
-                                                            <div class="switcher-menu">
-                                                                <ul id="selected-language">
-                                                                    {% if session['language'] %}
-                                                                    <li><a href="#">{{ session['language'] }}</a>
-                                                                        <ul class="switcher-dropdown">
-                                                                            <li><a href="#" id="alternative-language">{{ session['alternative_language'] }}</a></li>
-                                                                        </ul>
-                                                                    </li>
-                                                                    {% else %}
-                                                                    <li><a href="#">English</a>
-                                                                        <ul class="switcher-dropdown">
-                                                                            <li><a href="#" id="alternative-language">Chinese</a></li>
-                                                                        </ul>
-                                                                    </li>
-                                                                    {% endif %}
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+{#                                                    <div class="switcher">#}
+{#                                                        <div class="language">#}
+{#                                                            <span class="switcher-title">{{ _('Language') }}: </span>#}
+{#                                                            <div class="switcher-menu">#}
+{#                                                                <ul id="selected-language">#}
+{#                                                                    {% if session['language'] %}#}
+{#                                                                    <li><a href="#">{{ session['language'] }}</a>#}
+{#                                                                        <ul class="switcher-dropdown">#}
+{#                                                                            <li><a href="#" id="alternative-language">{{ session['alternative_language'] }}</a></li>#}
+{#                                                                        </ul>#}
+{#                                                                    </li>#}
+{#                                                                    {% else %}#}
+{#                                                                    <li><a href="#">English</a>#}
+{#                                                                        <ul class="switcher-dropdown">#}
+{#                                                                            <li><a href="#" id="alternative-language">Chinese</a></li>#}
+{#                                                                        </ul>#}
+{#                                                                    </li>#}
+{#                                                                    {% endif %}#}
+{#                                                                </ul>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
                                                 </div>
                                             </div>
                                         </div>
@@ -398,11 +398,6 @@
 		            <div class="container">
 		                <div class="row">
 		                    <div class="col-md-12">
-                                <!--Footer Payment Start-->
-		                        <div class="footer-payments-image">
-		                            <img src="{{ url_for('static', filename="storage/img/payment/payment-icon.png") }}" alt="">
-		                        </div>
-		                        <!--Footer Payment End-->
 		                        <!--Footer Menu Start-->
 		                        <div class="footer-menu text-center">
 		                            <nav>
