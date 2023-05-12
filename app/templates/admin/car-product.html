@@ -43,9 +43,9 @@
                             <th>{{ _('Key') }}</th>
                             <th>{{ _('Name') }}</th>
                             <th>{{ _('Year') }}</th>
+                            <th>{{ _('Max Speed') }}(km/h)</th>
+                            <th>{{ _('Gas Mileage') }}(l/km)</th>
                             <th>{{ _('Price') }}($)</th>
-                            <th>{{ _('Discount') }}</th>
-                            <th>{{ _('Inventory') }}</th>
                             <th>{{ _('Operation') }}</th>
                         </tr>
                     </thead>
@@ -65,13 +65,13 @@
                                 <h6 class="m-0">{{ product.year }}</h6>
                             </td>
                             <td>
+                                <h6 class="m-0">{{ product.max_speed }}</h6>
+                            </td>
+                            <td>
+                                <h6 class="m-0">{{ product.oil_consumption }}</h6>
+                            </td>
+                            <td>
                                 <h6 class="m-0">{{ product.price }}</h6>
-                            </td>
-                            <td>
-                                <h6 class="m-0">{{ product.discount }}</h6>
-                            </td>
-                            <td>
-                                <h6 class="m-0">{{ product.inventory }}</h6>
                             </td>
                             <td>
                                 <div class="d-flex order-actions">

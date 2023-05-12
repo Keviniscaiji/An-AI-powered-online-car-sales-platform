@@ -12,13 +12,11 @@ CATEGORIES = [{"id": 1, "name": "Autonomous"}, {"id": 2, "name": "Luxury"},
     ]
 
 USERS = [
-    {"id": 1, "email": "incognito@gmail.com", "username": "Incognito", "password": "123456", "role_id": 2, "confirmed": True,
-     "avatar_path": '../static/img/no-image.png'},
+    {"id": 1, "email": "heweiwang@ucdconnect.ie", "username": "Corgi", "password": "123456", "role_id": 2, "confirmed": True,
+     "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
     {"id": 2, "email": "bcd234@gmail.com", "username": "bcd234", "password": "123456", "role_id": 2, "confirmed": True,
      "avatar_path": "../static/storage/avatars/default_avatar.jpg"},
     {"id": 3, "email": "abc123@gmail.com", "username": "abc123", "password": "123456", "role_id": 1, "confirmed": True,
-     "avatar_path": "../static/storage/avatars/default_avatar.jpg"},
-    {"id": 4, "email": "wuyunze@gmail.com", "username": "wuyunze", "password": "123456", "role_id": 2, "confirmed": True,
      "avatar_path": "../static/storage/avatars/avatar_admin.jpg"},
 ]
 

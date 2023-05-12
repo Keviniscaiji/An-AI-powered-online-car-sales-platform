@@ -42,7 +42,7 @@
                             <th>ID</th>
                             <th>{{ _('Purchaser') }}</th>
                             <th>{{ _('Place Time') }}</th>
-                            <th>{{ _('Pick Up Period') }}</th>
+                            <th>{{ _('Pick Up Time') }}</th>
                             <th>{{ _('Status') }}</th>
                             <th>{{ _('Price') }}</th>
                             <th>{{ _('Priority') }}</th>
@@ -70,11 +70,8 @@
                             <h6 class="m-0">{{ o.timestamp }}</h6>
                         </td>
                         <td>
-                            <h6 class="m-0">{{ o.pick_up_time_start }} - {{ o.pick_up_time_end }}</h6>
+                            <h6 class="m-0">{{ o.pick_up_time }}</h6>
                         </td>
-{#                                                    <td>#}
-{#                                                        <h6 class="m-0">{{ o.ship_way }}</h6>#}
-{#                                                    </td>#}
                         <td>
                             <h6 class="m-0">{{ o.status }}</h6>
                         </td>
