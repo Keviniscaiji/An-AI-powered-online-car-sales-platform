@@ -57,14 +57,17 @@
                                                     background-color: var(--color);
                                                 }
                                             </style>
-                                            <td class="plantmore-product-customize" id="color-container">
-                                                <div id="color-square"></div>
+                                            <td class="plantmore-product-customize" id="color-container-{{ cart_item.product_id }}">
+                                                <div id="color-square-{{ cart_item.product_id }}"></div>
                                                 <span class="amount" id="cart_item_customize_{{ cart_item.product_id }}">{{ cart_item.product_customize }}</span>
                                                 <script>
-                                                    const colorContainer = document.getElementById('color-container');
-                                                    const hexValueElement = document.getElementById('art_item_customize_{{ cart_item.product_id }}');
+                                                    const colorContainer = document.getElementById('color-container-{{ cart_item.product_id }}');
+                                                    const hexValueElement = document.getElementById('cart_item_customize_{{ cart_item.product_id }}');
                                                     if (hexValueElement !== 'None') {
+                                                        console.log('This car is customized.');
                                                         colorContainer.style.setProperty('--color', hexValueElement);
+                                                    } else {
+                                                        console.log('This car has no color.')
                                                     }
                                                 </script>
                                             </td>
