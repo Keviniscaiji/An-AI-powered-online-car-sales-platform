@@ -1,13 +1,13 @@
 import os
 
-proj_path = "/Users/Yuchen/Desktop/FYP/FYP/app/ir"
+proj_path = "/home/student/workspace/FYP/FYP/app/ir"
 
 ir_hci_cfg = dict(
     rtmdet_ins_cfg=dict(
-        mmdeploy_cfg_path='/Users/Yuchen/Desktop/FYP/openmmlab/mmdeploy/configs/mmdet/instance-seg/instance'
+        mmdeploy_cfg_path='/home/student/workspace/openmmlab/mmdeploy/configs/mmdet/instance-seg/instance'
                           '-seg_rtmdet'
                           '-ins_onnxruntime_static-640x640.py',
-        mmdet_cfg_path='/Users/Yuchen/Desktop/FYP/openmmlab/mmdetection/configs/rtmdet/rtmdet'
+        mmdet_cfg_path='/home/student/workspace/openmmlab/mmdetection/configs/rtmdet/rtmdet'
                        '-ins_tiny_8xb32-300e_coco.py',
         onnx_path=os.path.join(proj_path, "ckpts/end2end.onnx"),
         device='cpu',
