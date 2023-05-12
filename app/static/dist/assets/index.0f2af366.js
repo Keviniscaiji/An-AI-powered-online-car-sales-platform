@@ -3919,7 +3919,7 @@ float lamina_normalize(float v) { return lamina_map(v, -1.0, 1.0, 0.0, 1.0); }
     if (response.ok) {
       const result = await response.json();
       console.log('Success:', result);
-      window.location.href = "{{ url_for('main.cart')}}"
+      window.location.href = "/cart";
     } else {
       console.log('Error:', response.statusText);
     }
