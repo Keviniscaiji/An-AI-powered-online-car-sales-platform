@@ -1034,8 +1034,8 @@ PRODUCTS2CATEGORIES = [
 
 CARTS = [
     {"id": 1, "customized_color": "None", "count": 2, "owner_id": 2, "product_id": 1, "is_selected": True},
-    {"id": 2, "customized_color": "None", "count": 3, "owner_id": 2, "product_id": 3, "is_selected": False},
-    {"id": 3, "customized_color": "None", "count": 1, "owner_id": 2, "product_id": 4, "is_selected": True},
+    {"id": 2, "customized_color": "#078080", "count": 3, "owner_id": 2, "product_id": 3, "is_selected": False},
+    {"id": 3, "customized_color": "#f9bc60", "count": 1, "owner_id": 2, "product_id": 4, "is_selected": True},
     {"id": 4, "customized_color": "#b12020", "count": 2, "owner_id": 2, "product_id": 7, "is_selected": True},
 ]
 
