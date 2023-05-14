@@ -55,6 +55,14 @@ class ProductDrive(db.Model):
     drive_id = db.Column(db.Integer, db.ForeignKey('drives.id'))
 
 
+class ProductView(db.Model):
+    __tablename__ = 'productViews'
+    id = db.Column(db.Integer, primary_key=True)
+    # foreign keys:
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    view_id = db.Column(db.Integer, db.ForeignKey('views.id'))
+
+
 # record the N to N relationship between customer and product
 class Cart(db.Model):
     __tablename__ = 'carts'
@@ -87,6 +95,8 @@ class Product(db.Model):
                                  backref=db.backref('products', lazy='dynamic'),
                                  lazy='dynamic')
     productOrders = db.relationship('ProductOrder', backref='product', lazy='dynamic')
+    productDrives = db.relationship('ProductDrive', backref='product', lazy='dynamic')
+    productViews = db.relationship('ProductView', backref='product', lazy='dynamic')
     carts = db.relationship('Cart', backref='product', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='product', lazy='dynamic')
 
@@ -143,6 +153,17 @@ class Drive(db.Model):
     productDrives = db.relationship('ProductDrive', backref='drive', lazy='dynamic')
 
 
+class View(db.Model):
+    __tablename__ = 'views'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    # foreign keys:
+    buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # relationship:
+    buyer = db.relationship('User', back_populates='views', lazy='joined')
+    productViews = db.relationship('ProductView', backref='view', lazy='dynamic')
+
+
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
@@ -169,9 +190,9 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     # relationship:
     carts = db.relationship('Cart', backref='owner', lazy='dynamic')
-    # deliveryInfos = db.relationship('DeliveryInfo', backref='owner', lazy='dynamic')
     orders = db.relationship('Order', back_populates='buyer', lazy='dynamic')
     drives = db.relationship('Drive', back_populates='buyer', lazy='dynamic')
+    views = db.relationship('View', back_populates='buyer', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='author', lazy='dynamic')
     blogs = db.relationship('Blog', backref='author', lazy='dynamic')
     blogComments = db.relationship('BlogComment', backref='author', lazy='dynamic')

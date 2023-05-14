@@ -10,15 +10,11 @@
 	<meta name="robots" content="noindex, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Https -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
-    <!-- Live stream css -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_live.css') }}">
-{#    <link rel="stylesheet" href="../static/css/style_live.css">#}
+
 	<!-- Place favicon.ico in the root directory -->
 	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
     <!--All Css Here-->
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_live.css') }}">
     <!-- Bootstrap CSS-->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<!-- Linearicon CSS-->
@@ -56,9 +52,6 @@
     <script src="{{ url_for('static', filename='js/datedropper-javascript.js') }}"></script>
 
     <!--Google Login-->
-{#    <meta name="google-signin-scope" content="profile email">#}
-{#    <meta name="google-signin-client_id" content="739725862362-ulv61obr6dqhfl4l5ponl5g6vrpf1r8e.apps.googleusercontent.com">#}
-{#    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>#}
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>

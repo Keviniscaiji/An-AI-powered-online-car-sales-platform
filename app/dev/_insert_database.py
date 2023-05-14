@@ -59,7 +59,8 @@ def insert_custproducts(cat_objs):
 
 def insert_product_orders():
     for item in PRODUCTORDERS:
-        productOrder = ProductOrder(count=item['count'], product_id=item['product_id'], order_id=item['order_id'])
+        productOrder = ProductOrder(customized_color=item['customized_color'], count=item['count'],
+                                    product_id=item['product_id'], order_id=item['order_id'])
         db.session.add(productOrder)
     db.session.commit()
 
@@ -97,6 +98,26 @@ def insert_drives():
         productDrive_list = ProductDrive.query.filter_by(drive_id=drive_aim.id).all()
         for pd in productDrive_list:
             drive_aim.productDrives.append(pd)
+        db.session.commit()
+
+
+def insert_product_views():
+    for item in PRODUCTVIEWS:
+        productView = ProductView(product_id=item['product_id'], view_id=item['view_id'])
+        db.session.add(productView)
+    db.session.commit()
+
+
+def insert_views():
+    for item in VIEWS:
+        timestamp = datetime.datetime.utcnow()
+        view = View(timestamp=timestamp, buyer_id=item['buyer_id'])
+        db.session.add(view)
+        db.session.commit()
+        view_aim = View.query.filter_by(buyer_id=item['buyer_id']).first()
+        productView_list = ProductView.query.filter_by(view_id=view_aim.id).all()
+        for pv in productView_list:
+            view_aim.productViews.append(pv)
         db.session.commit()
 
 
@@ -144,12 +165,6 @@ def insert_blog_comments():
     db.session.commit()
 
 
-# def insert_pandemic():
-#     pandemic = Pandemic(is_pandemic=False)
-#     db.session.add(pandemic)
-#     db.session.commit()
-
-
 def reset():
     # Drop and create
     db.drop_all()
@@ -186,5 +201,7 @@ def insert_all():
 
     insert_drives()
 
-    # insert_pandemic()
+    insert_product_views()
+
+    insert_views()
 

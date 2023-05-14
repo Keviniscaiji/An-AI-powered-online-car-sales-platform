@@ -3077,3 +3077,16 @@ PRODUCTDRIVES = [
     {"id": 5, "count": 1, "product_id": 13, "drive_id": 2}
 ]
 
+VIEWS = [
+    {"id": 1, "buyer_id": 2},
+    {"id": 2, "buyer_id": 2}
+]
+
+PRODUCTVIEWS = [
+    {"id": 1, "product_id": 4, "view_id": 1},
+    {"id": 2, "product_id": 7, "view_id": 1},
+    {"id": 3, "product_id": 66, "view_id": 2},
+    {"id": 4, "product_id": 39, "view_id": 2},
+    {"id": 5, "product_id": 13, "view_id": 2}
+]
+
