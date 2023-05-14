@@ -278,16 +278,12 @@ def data_analytics():
         list_a.append(c.name)
         list_b.append(c.products.count())
 
+
+
     # ProductOrder
     return render_template('admin/data-analytics.html',
                            category_names=list_a,
                            category_product_counts=list_b)
-
-
-# @admin.route('/data_visualize')
-# @login_required
-# def data_visualize():
-#     return render_template('admin/data_visualize.html')
 
 
 @admin.route('/bar_polar')
