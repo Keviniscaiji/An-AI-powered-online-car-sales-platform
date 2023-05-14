@@ -46,23 +46,6 @@ class ProductOrder(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
 
 
-class ProductDrive(db.Model):
-    __tablename__ = 'productDrives'
-    id = db.Column(db.Integer, primary_key=True)
-    count = db.Column(db.Integer, default=1)
-    # foreign keys:
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
-    drive_id = db.Column(db.Integer, db.ForeignKey('drives.id'))
-
-
-class ProductView(db.Model):
-    __tablename__ = 'productViews'
-    id = db.Column(db.Integer, primary_key=True)
-    # foreign keys:
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
-    view_id = db.Column(db.Integer, db.ForeignKey('views.id'))
-
-
 # record the N to N relationship between customer and product
 class Cart(db.Model):
     __tablename__ = 'carts'
@@ -95,8 +78,6 @@ class Product(db.Model):
                                  backref=db.backref('products', lazy='dynamic'),
                                  lazy='dynamic')
     productOrders = db.relationship('ProductOrder', backref='product', lazy='dynamic')
-    productDrives = db.relationship('ProductDrive', backref='product', lazy='dynamic')
-    productViews = db.relationship('ProductView', backref='product', lazy='dynamic')
     carts = db.relationship('Cart', backref='product', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='product', lazy='dynamic')
 
@@ -150,7 +131,6 @@ class Drive(db.Model):
     buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     # relationship:
     buyer = db.relationship('User', back_populates='drives', lazy='joined')
-    productDrives = db.relationship('ProductDrive', backref='drive', lazy='dynamic')
 
 
 class View(db.Model):
@@ -161,7 +141,6 @@ class View(db.Model):
     buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     # relationship:
     buyer = db.relationship('User', back_populates='views', lazy='joined')
-    productViews = db.relationship('ProductView', backref='view', lazy='dynamic')
 
 
 class Comment(db.Model):

@@ -18,6 +18,46 @@ USERS = [
      "avatar_path": "../static/storage/avatars/default_avatar.jpg"},
     {"id": 3, "email": "abc123@gmail.com", "username": "abc123", "password": "123456", "role_id": 1, "confirmed": True,
      "avatar_path": "../static/storage/avatars/avatar_admin.jpg"},
+    {"id": 4, "email": "289090@gmail.com", "username": "User751917", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 5, "email": "641630@gmail.com", "username": "User751321", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 6, "email": "679545@gmail.com", "username": "User250921", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 7, "email": "124101@gmail.com", "username": "User447896", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 8, "email": "283574@gmail.com", "username": "User411718", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 9, "email": "151518@gmail.com", "username": "User770172", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 10, "email": "411297@gmail.com", "username": "User466771", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 11, "email": "530160@gmail.com", "username": "User514997", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 12, "email": "220409@gmail.com", "username": "User198964", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 13, "email": "352919@gmail.com", "username": "User735208", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 14, "email": "190952@gmail.com", "username": "User672670", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 15, "email": "825253@gmail.com", "username": "User319058", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 16, "email": "537264@gmail.com", "username": "User252920", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 17, "email": "246209@gmail.com", "username": "User993962", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 18, "email": "566537@gmail.com", "username": "User510525", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 19, "email": "985598@gmail.com", "username": "User702530", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 20, "email": "474428@gmail.com", "username": "User655091", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 21, "email": "605406@gmail.com", "username": "User517643", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 22, "email": "911719@gmail.com", "username": "User871837", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
+    {"id": 23, "email": "470074@gmail.com", "username": "User964083", "password": "123456", "role_id": 2,
+     "confirmed": True, "avatar_path": '../static/storage/avatars/default_avatar.jpg'},
 ]
 
 PRODUCTS = [
@@ -1031,10 +1071,94 @@ PRODUCTS2CATEGORIES = [
 ]
 
 CARTS = [
-    {"id": 1, "customized_color": "None", "count": 2, "owner_id": 2, "product_id": 1, "is_selected": True},
-    {"id": 2, "customized_color": "#078080", "count": 3, "owner_id": 2, "product_id": 3, "is_selected": False},
-    {"id": 3, "customized_color": "#f9bc60", "count": 1, "owner_id": 2, "product_id": 4, "is_selected": True},
-    {"id": 4, "customized_color": "#b12020", "count": 2, "owner_id": 2, "product_id": 7, "is_selected": True},
+    {"id": 1, "customized_color": "None", "count": 1, "owner_id": 1, "product_id": 1, "is_selected": True},
+    {"id": 2, "customized_color": "#078080", "count": 1, "owner_id": 1, "product_id": 319, "is_selected": False},
+    {"id": 3, "customized_color": "#f9bc60", "count": 1, "owner_id": 1, "product_id": 320, "is_selected": True},
+    {"id": 4, "customized_color": "#b12020", "count": 1, "owner_id": 1, "product_id": 321, "is_selected": True},
+    {"id": 5, "customized_color": "None", "count": 1, "owner_id": 2, "product_id": 2, "is_selected": True},
+    {"id": 6, "customized_color": "#078080", "count": 1, "owner_id": 2, "product_id": 319, "is_selected": False},
+    {"id": 7, "customized_color": "#f9bc60", "count": 1, "owner_id": 2, "product_id": 320, "is_selected": True},
+    {"id": 8, "customized_color": "#b12020", "count": 1, "owner_id": 2, "product_id": 321, "is_selected": True},
+    {"id": 9, "customized_color": "None", "count": 1, "owner_id": 4, "product_id": 4, "is_selected": True},
+    {"id": 10, "customized_color": "#078080", "count": 1, "owner_id": 4, "product_id": 319, "is_selected": False},
+    {"id": 11, "customized_color": "#f9bc60", "count": 1, "owner_id": 4, "product_id": 320, "is_selected": True},
+    {"id": 12, "customized_color": "#b12020", "count": 1, "owner_id": 4, "product_id": 321, "is_selected": True},
+    {"id": 13, "customized_color": "None", "count": 1, "owner_id": 5, "product_id": 5, "is_selected": True},
+    {"id": 14, "customized_color": "#078080", "count": 1, "owner_id": 5, "product_id": 319, "is_selected": False},
+    {"id": 15, "customized_color": "#f9bc60", "count": 1, "owner_id": 5, "product_id": 320, "is_selected": True},
+    {"id": 16, "customized_color": "#b12020", "count": 1, "owner_id": 5, "product_id": 321, "is_selected": True},
+    {"id": 17, "customized_color": "None", "count": 1, "owner_id": 6, "product_id": 6, "is_selected": True},
+    {"id": 18, "customized_color": "#078080", "count": 1, "owner_id": 6, "product_id": 319, "is_selected": False},
+    {"id": 19, "customized_color": "#f9bc60", "count": 1, "owner_id": 6, "product_id": 320, "is_selected": True},
+    {"id": 20, "customized_color": "#b12020", "count": 1, "owner_id": 6, "product_id": 321, "is_selected": True},
+    {"id": 21, "customized_color": "None", "count": 1, "owner_id": 7, "product_id": 7, "is_selected": True},
+    {"id": 22, "customized_color": "#078080", "count": 1, "owner_id": 7, "product_id": 319, "is_selected": False},
+    {"id": 23, "customized_color": "#f9bc60", "count": 1, "owner_id": 7, "product_id": 320, "is_selected": True},
+    {"id": 24, "customized_color": "#b12020", "count": 1, "owner_id": 7, "product_id": 321, "is_selected": True},
+    {"id": 25, "customized_color": "None", "count": 1, "owner_id": 8, "product_id": 8, "is_selected": True},
+    {"id": 26, "customized_color": "#078080", "count": 1, "owner_id": 8, "product_id": 319, "is_selected": False},
+    {"id": 27, "customized_color": "#f9bc60", "count": 1, "owner_id": 8, "product_id": 320, "is_selected": True},
+    {"id": 28, "customized_color": "#b12020", "count": 1, "owner_id": 8, "product_id": 321, "is_selected": True},
+    {"id": 29, "customized_color": "None", "count": 1, "owner_id": 9, "product_id": 9, "is_selected": True},
+    {"id": 30, "customized_color": "#078080", "count": 1, "owner_id": 9, "product_id": 319, "is_selected": False},
+    {"id": 31, "customized_color": "#f9bc60", "count": 1, "owner_id": 9, "product_id": 320, "is_selected": True},
+    {"id": 32, "customized_color": "#b12020", "count": 1, "owner_id": 9, "product_id": 321, "is_selected": True},
+    {"id": 33, "customized_color": "None", "count": 1, "owner_id": 10, "product_id": 10, "is_selected": True},
+    {"id": 34, "customized_color": "#078080", "count": 1, "owner_id": 10, "product_id": 319, "is_selected": False},
+    {"id": 35, "customized_color": "#f9bc60", "count": 1, "owner_id": 10, "product_id": 320, "is_selected": True},
+    {"id": 36, "customized_color": "#b12020", "count": 1, "owner_id": 10, "product_id": 321, "is_selected": True},
+    {"id": 37, "customized_color": "None", "count": 1, "owner_id": 11, "product_id": 11, "is_selected": True},
+    {"id": 38, "customized_color": "#078080", "count": 1, "owner_id": 11, "product_id": 319, "is_selected": False},
+    {"id": 39, "customized_color": "#f9bc60", "count": 1, "owner_id": 11, "product_id": 320, "is_selected": True},
+    {"id": 40, "customized_color": "#b12020", "count": 1, "owner_id": 11, "product_id": 321, "is_selected": True},
+    {"id": 41, "customized_color": "None", "count": 1, "owner_id": 12, "product_id": 12, "is_selected": True},
+    {"id": 42, "customized_color": "#078080", "count": 1, "owner_id": 12, "product_id": 319, "is_selected": False},
+    {"id": 43, "customized_color": "#f9bc60", "count": 1, "owner_id": 12, "product_id": 320, "is_selected": True},
+    {"id": 44, "customized_color": "#b12020", "count": 1, "owner_id": 12, "product_id": 321, "is_selected": True},
+    {"id": 45, "customized_color": "None", "count": 1, "owner_id": 13, "product_id": 13, "is_selected": True},
+    {"id": 46, "customized_color": "#078080", "count": 1, "owner_id": 13, "product_id": 319, "is_selected": False},
+    {"id": 47, "customized_color": "#f9bc60", "count": 1, "owner_id": 13, "product_id": 320, "is_selected": True},
+    {"id": 48, "customized_color": "#b12020", "count": 1, "owner_id": 13, "product_id": 321, "is_selected": True},
+    {"id": 49, "customized_color": "None", "count": 1, "owner_id": 14, "product_id": 14, "is_selected": True},
+    {"id": 50, "customized_color": "#078080", "count": 1, "owner_id": 14, "product_id": 319, "is_selected": False},
+    {"id": 51, "customized_color": "#f9bc60", "count": 1, "owner_id": 14, "product_id": 320, "is_selected": True},
+    {"id": 52, "customized_color": "#b12020", "count": 1, "owner_id": 14, "product_id": 321, "is_selected": True},
+    {"id": 53, "customized_color": "None", "count": 1, "owner_id": 15, "product_id": 15, "is_selected": True},
+    {"id": 54, "customized_color": "#078080", "count": 1, "owner_id": 15, "product_id": 319, "is_selected": False},
+    {"id": 55, "customized_color": "#f9bc60", "count": 1, "owner_id": 15, "product_id": 320, "is_selected": True},
+    {"id": 56, "customized_color": "#b12020", "count": 1, "owner_id": 15, "product_id": 321, "is_selected": True},
+    {"id": 57, "customized_color": "None", "count": 1, "owner_id": 16, "product_id": 16, "is_selected": True},
+    {"id": 58, "customized_color": "#078080", "count": 1, "owner_id": 16, "product_id": 319, "is_selected": False},
+    {"id": 59, "customized_color": "#f9bc60", "count": 1, "owner_id": 16, "product_id": 320, "is_selected": True},
+    {"id": 60, "customized_color": "#b12020", "count": 1, "owner_id": 16, "product_id": 321, "is_selected": True},
+    {"id": 61, "customized_color": "None", "count": 1, "owner_id": 17, "product_id": 17, "is_selected": True},
+    {"id": 62, "customized_color": "#078080", "count": 1, "owner_id": 17, "product_id": 319, "is_selected": False},
+    {"id": 63, "customized_color": "#f9bc60", "count": 1, "owner_id": 17, "product_id": 320, "is_selected": True},
+    {"id": 64, "customized_color": "#b12020", "count": 1, "owner_id": 17, "product_id": 321, "is_selected": True},
+    {"id": 65, "customized_color": "None", "count": 1, "owner_id": 18, "product_id": 18, "is_selected": True},
+    {"id": 66, "customized_color": "#078080", "count": 1, "owner_id": 18, "product_id": 319, "is_selected": False},
+    {"id": 67, "customized_color": "#f9bc60", "count": 1, "owner_id": 18, "product_id": 320, "is_selected": True},
+    {"id": 68, "customized_color": "#b12020", "count": 1, "owner_id": 18, "product_id": 321, "is_selected": True},
+    {"id": 69, "customized_color": "None", "count": 1, "owner_id": 19, "product_id": 19, "is_selected": True},
+    {"id": 70, "customized_color": "#078080", "count": 1, "owner_id": 19, "product_id": 319, "is_selected": False},
+    {"id": 71, "customized_color": "#f9bc60", "count": 1, "owner_id": 19, "product_id": 320, "is_selected": True},
+    {"id": 72, "customized_color": "#b12020", "count": 1, "owner_id": 19, "product_id": 321, "is_selected": True},
+    {"id": 73, "customized_color": "None", "count": 1, "owner_id": 20, "product_id": 20, "is_selected": True},
+    {"id": 74, "customized_color": "#078080", "count": 1, "owner_id": 20, "product_id": 319, "is_selected": False},
+    {"id": 75, "customized_color": "#f9bc60", "count": 1, "owner_id": 20, "product_id": 320, "is_selected": True},
+    {"id": 76, "customized_color": "#b12020", "count": 1, "owner_id": 20, "product_id": 321, "is_selected": True},
+    {"id": 77, "customized_color": "None", "count": 1, "owner_id": 21, "product_id": 21, "is_selected": True},
+    {"id": 78, "customized_color": "#078080", "count": 1, "owner_id": 21, "product_id": 319, "is_selected": False},
+    {"id": 79, "customized_color": "#f9bc60", "count": 1, "owner_id": 21, "product_id": 320, "is_selected": True},
+    {"id": 80, "customized_color": "#b12020", "count": 1, "owner_id": 21, "product_id": 321, "is_selected": True},
+    {"id": 81, "customized_color": "None", "count": 1, "owner_id": 22, "product_id": 22, "is_selected": True},
+    {"id": 82, "customized_color": "#078080", "count": 1, "owner_id": 22, "product_id": 319, "is_selected": False},
+    {"id": 83, "customized_color": "#f9bc60", "count": 1, "owner_id": 22, "product_id": 320, "is_selected": True},
+    {"id": 84, "customized_color": "#b12020", "count": 1, "owner_id": 22, "product_id": 321, "is_selected": True},
+    {"id": 85, "customized_color": "None", "count": 1, "owner_id": 23, "product_id": 23, "is_selected": True},
+    {"id": 86, "customized_color": "#078080", "count": 1, "owner_id": 23, "product_id": 319, "is_selected": False},
+    {"id": 87, "customized_color": "#f9bc60", "count": 1, "owner_id": 23, "product_id": 320, "is_selected": True},
+    {"id": 88, "customized_color": "#b12020", "count": 1, "owner_id": 23, "product_id": 321, "is_selected": True},
 ]
 
 PRODUCTIMAGEPATHS = [
@@ -3047,9 +3171,9 @@ BLOGCOMMENTS = [
 ]
 
 ORDERS = [
-    {"id": 1, "pick_up_time": '2023-05-01 13:00:00', "note": "Please make the car clean",
+    {"id": 1, "timestamp": '2023-05-01 13:00:00', "pick_up_time": '2023-05-01 13:00:00', "note": "Please make the car clean",
      "status": "Created", "price": 81000, "priority": 1, "buyer_id": 2},
-    {"id": 2, "pick_up_time": '2023-05-01 13:00:00', "note": "Please prepare the car on time",
+    {"id": 2, "timestamp": '2023-05-01 13:00:00', "pick_up_time": '2023-05-01 13:00:00', "note": "Please prepare the car on time",
      "status": "Waiting for Pick Up", "price": 108000, "priority": 0, "buyer_id": 2}
 ]
 
@@ -3062,31 +3186,16 @@ PRODUCTORDERS = [
 ]
 
 DRIVES = [
-    {"id": 1, "drive_time_start": '2023-05-01 13:00:00', "drive_time_end": '2023-05-01 14:00:00',
+    {"id": 1, "timestamp": '2023-05-01 13:00:00', "drive_time_start": '2023-05-01 13:00:00', "drive_time_end": '2023-05-01 14:00:00',
      "note": "Please make the car clean", "status": "Created", "priority": 1, "buyer_id": 2},
-    {"id": 2, "drive_time_start": '2023-05-01 13:00:00', "drive_time_end": '2023-05-01 14:00:00',
+    {"id": 2, "timestamp": '2023-05-01 13:00:00', "drive_time_start": '2023-05-01 13:00:00', "drive_time_end": '2023-05-01 14:00:00',
      "note": "Please prepare the car on time", "status": "Waiting for Pick Up", "priority": 0,
      "buyer_id": 2}
 ]
 
-PRODUCTDRIVES = [
-    {"id": 1, "count": 1, "product_id": 4, "drive_id": 1},
-    {"id": 2, "count": 2, "product_id": 7, "drive_id": 1},
-    {"id": 3, "count": 2, "product_id": 66, "drive_id": 2},
-    {"id": 4, "count": 1, "product_id": 39, "drive_id": 2},
-    {"id": 5, "count": 1, "product_id": 13, "drive_id": 2}
-]
-
 VIEWS = [
-    {"id": 1, "buyer_id": 2},
-    {"id": 2, "buyer_id": 2}
+    {"id": 1, "timestamp": '2023-05-01 13:00:00', "buyer_id": 2},
+    {"id": 2, "timestamp": '2023-05-01 13:00:00', "buyer_id": 2}
 ]
 
-PRODUCTVIEWS = [
-    {"id": 1, "product_id": 4, "view_id": 1},
-    {"id": 2, "product_id": 7, "view_id": 1},
-    {"id": 3, "product_id": 66, "view_id": 2},
-    {"id": 4, "product_id": 39, "view_id": 2},
-    {"id": 5, "product_id": 13, "view_id": 2}
-]
 

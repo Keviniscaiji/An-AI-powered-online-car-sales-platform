@@ -10,7 +10,7 @@ from sqlalchemy import desc, case
 import app
 from app import db, babel
 from app.models import Product, ProductImagePath, Cart, User, Category, Comment, Order, ProductOrder, Blog, BlogComment, \
-    BlogImagePath, Drive, ProductDrive
+    BlogImagePath, Drive
 from config import Config
 from werkzeug.utils import secure_filename
 from . import main
@@ -659,17 +659,6 @@ def single_product(p):
                     buyer_id=user.id
                 )
                 db.session.add(drive)
-                db.session.commit()
-                pd = ProductDrive(
-                    count=1,
-                    product_id=p,
-                    drive_id=drive.id
-                )
-                db.session.add(pd)
-                db.session.commit()
-                pd = ProductDrive.query.filter_by(product_id=p).filter_by(
-                    drive_id=drive.id).first()
-                drive.productDrives.append(pd)
                 db.session.commit()
             return redirect(url_for('main.single_product', p=p))
     else:
