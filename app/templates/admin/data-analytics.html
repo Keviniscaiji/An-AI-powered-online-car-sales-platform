@@ -173,8 +173,8 @@
                             {#chart.render();#}
                             var options = {
                                 series: [{
-                                    name: 'Visit User',
-                                    data: view_ls,
+                                    name: 'Order User',
+                                    data: order_ls,
                                 }],
                                 chart: {
                                     foreColor: 'rgba(255, 255, 255, 0.65)',
@@ -211,14 +211,13 @@
                                     categories: date_ls,
                                 },
                                 title: {
-                                    text: 'Visiting Amount Chart',
+                                    text: 'Order Amount Chart',
                                     align: 'left',
                                     style: {
                                         fontSize: "16px",
                                         color: '#fff'
                                     }
                                 },
-
                                 markers: {
                                     size: 4,
                                     colors: ["#000"],
@@ -231,7 +230,7 @@
                                 colors: ["#fff"],
                                 yaxis: {
                                     title: {
-                                        text: 'Visitor Amount',
+                                        text: 'Order Amount',
                                     },
                                 }
                             };
@@ -380,13 +379,13 @@
                         <script>
                             var options = {
                                 series: [{
-                                    name: 'Web Visits',
-                                    type: 'column',
-                                    data: view_ls,
-                                }, {
                                     name: 'Car Sales',
-                                    type: 'line',
+                                    type: 'column',
                                     data: order_ls,
+                                }, {
+                                    name: 'Web Visits',
+                                    type: 'line',
+                                    data: view_ls,
                                 }],
                                 chart: {
                                     foreColor: 'rgba(255, 255, 255, 0.65)',
@@ -429,12 +428,12 @@
                                 },
                                 yaxis: [{
                                     title: {
-                                        text: 'Web Visits',
+                                        text: 'Car Sales',
                                     },
                                 }, {
                                     opposite: true,
                                     title: {
-                                        text: 'Car Sales'
+                                        text: 'Web Visits'
                                     }
                                 }]
                             };
