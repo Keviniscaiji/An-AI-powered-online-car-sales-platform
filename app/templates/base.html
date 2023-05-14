@@ -259,86 +259,7 @@
 		<footer>
 		    <div class="footer-container">
 		        <!--Footer Top Area Start-->
-		        <div class="footer-top-area dark-blue-bg">
-		            <div class="container">
-		                <div class="row">
-		                    <div class="col-lg-3 col-md-6">
-		                        <!--Single Footer Widget Start-->
-		                        <div class="single-footer-widget mb-40">
-		                            <div class="footer-title">
-		                                <h3>{{ _('My Account') }}</h3>
-		                            </div>
-		                            <ul class="link-widget">
-		                                <li><a href="{{ url_for('main.about') }}">{{ _('About Us') }}</a></li>
-		                                <li><a href="#">{{ _('Team Member') }}</a></li>
-		                                <li><a href="#">{{ _('Career') }}</a></li>
-		                                <li><a href="#">{{ _('Specials') }}</a></li>
-		                                <li><a href="#">{{ _('Best sellers') }}</a></li>
-		                                <li><a href="#">{{ _('Our stores') }}</a></li>
-		                                <li><a href="{{ url_for('main.contact') }}">{{ _('Contact us') }}</a></li>
-		                            </ul>
-		                        </div>
-		                        <!--Single Footer Widget End-->
-		                    </div>
-		                    <div class="col-lg-3 col-md-6">
-		                        <!--Single Footer Widget Start-->
-		                        <div class="single-footer-widget mb-40">
-		                            <div class="footer-title">
-		                                <h3>{{ _('Information') }}</h3>
-		                            </div>
-		                            <ul class="link-widget">
-		                                <li><a href="{{ url_for('main.about') }}">{{ _('About Us') }}</a></li>
-		                                <li><a href="{{ url_for('main.contact') }}">{{ _('Contact us') }}</a></li>
-		                                <li><a href="#">{{ _('My orders') }}</a></li>
-		                                <li><a href="#">{{ _('Terms & Conditions') }}</a></li>
-		                                <li><a href="#">{{ _('Returns & Exchanges') }}</a></li>
-		                                <li><a href="#">{{ _('Shipping & Delivery') }}</a></li>
-		                                <li><a href="#">{{ _('Privacy Policy') }}</a></li>
-		                            </ul>
-		                        </div>
-		                        <!--Single Footer Widget End-->
-		                    </div>
-		                    <div class="col-lg-3 col-md-6">
-		                        <!--Single Footer Widget Start-->
-		                        <div class="single-footer-widget mb-40">
-		                            <div class="footer-title">
-		                                <h3>{{ _('Quick Links') }}</h3>
-		                            </div>
-		                            <ul class="link-widget">
-{#		                                <li><a href="{{ url_for('autoChat.index') }}">{{ _('Intelligent Chat Assitant') }}</a></li>#}
-		                                <li><a href="{{ url_for('car_customize.index') }}">{{ _('Car Customization') }}</a></li>
-		                                <li><a href="#">{{ _('Shipping') }}</a></li>
-		                                <li><a href="#">{{ _('Privacy Policy') }}</a></li>
-		                                <li><a href="#">{{ _('Help') }}</a></li>
-		                                <li><a href="#">{{ _('Products Return') }}</a></li>
-		                                <li><a href="{{ url_for('main.question') }}">{{ _('FAQS') }}</a></li>
-		                            </ul>
-		                        </div>
-		                        <!--Single Footer Widget End-->
-		                    </div>
-		                    <div class="col-lg-3 col-md-6">
-		                        <!--Single Footer Widget Start-->
-		                        <div class="single-footer-widget mb-40">
-		                            <div class="footer-title">
-		                                <h3>{{ _('Categories') }}</h3>
-		                            </div>
-		                            <ul class="link-widget">
-                                        {% for ca in catee %}
-		                                <li><a href="{{ url_for('main.shop', status=ca) }}">{{ ca }}</a></li>
-{#		                                <li><a href="#">{{ _('Piano') }}</a></li>#}
-{#		                                <li><a href="#">{{ _('Stings') }}</a></li>#}
-{#		                                <li><a href="#">{{ _('Saxophone') }}</a></li>#}
-{#		                                <li><a href="#">{{ _('Woods') }}</a></li>#}
-{#		                                <li><a href="#">{{ _('Brass') }}</a></li>#}
-{#		                                <li><a href="#">{{ _('Drums') }}</a></li>#}
-                                        {% endfor %}
-		                            </ul>
-		                        </div>
-		                        <!--Single Footer Widget End-->
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
+		        
 		        <!--Footer Top Area End-->
 		        <!--Footer Middle Area Start-->
 		        <div class="footer-middle-area dark-blue-bg">
@@ -402,11 +323,16 @@
 		                        <div class="footer-menu text-center">
 		                            <nav>
 		                                <ul>
-		                                    <li><a href="#">{{ _('Site Map') }}</a></li>
-		                                    <li><a href="#">{{ _('Search Terms') }}</a></li>
-		                                    <li><a href="#">{{ _('Advanced Search') }}</a></li>
-		                                    <li><a href="#">{{ _('Orders and Returns') }}</a></li>
-		                                    <li><a href="#">{{ _('Contact Us') }}</a></li>
+		                                    <li><a href="{{ url_for('main.shop', status='init') }}">{{ _('Advanced Search') }}</a></li>
+                                            {% if current_user.is_authenticated %}
+                                                <li><a href="{{ url_for('main.account', user_id=current_user.id ) }}">{{ _('Account') }}</a></li>
+                                                <li><a href="{{ url_for('car_customize.index') }}">{{ _('Customization') }}</a></li>
+                                                <li><a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a></li>
+                                            {% else %}
+                                                <li><a href="{{ url_for('auth.login') }}">{{ _('Account') }}</a></li>
+                                                <li><a href="{{ url_for('auth.login') }}">{{ _('Customization') }}</a></li>
+                                                <li><a href="{{ url_for('auth.login') }}">{{ _('Blog') }}</a></li>
+                                            {% endif %}
 		                                </ul>
 		                            </nav>
 		                        </div>
