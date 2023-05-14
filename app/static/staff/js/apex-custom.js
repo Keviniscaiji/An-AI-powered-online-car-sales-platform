@@ -1,83 +1,83 @@
 $(function () {
 	"use strict";
 	// chart 1
-	var options = {
-		series: [{
-			name: 'Visit User',
-			data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
-		}],
-		chart: {
-			foreColor: 'rgba(255, 255, 255, 0.65)',
-			height: 400,
-			type: 'line',
-			zoom: {
-				enabled: false
-			},
-			toolbar: {
-				show: true
-			},
-			dropShadow: {
-				enabled: true,
-				top: 3,
-				left: 14,
-				blur: 4,
-				opacity: 0.10,
-			}
-		},
-		stroke: {
-			width: 5,
-			curve: 'smooth'
-		},
-		grid: {
-			show: true,
-			borderColor: 'rgba(255, 255, 255, 0.12)',
-			strokeDashArray: 4,
-		},
-		tooltip: {
-			theme: 'dark',
-		},
-		xaxis: {
-			type: 'datetime',
-			categories: ['1/11/2022', '2/11/2022', '3/11/2022', '4/11/2022', '5/11/2022', '6/11/2022', '7/11/2022', '8/11/2022', '9/11/2022', '10/11/2022', '11/11/2022', '12/11/2022', '1/11/2023', '2/11/2023', '3/11/2023', '4/11/2023', '5/11/2023', '6/11/2023'],
-		},
-		title: {
-			text: 'Visiting Amount Chart',
-			align: 'left',
-			style: {
-				fontSize: "16px",
-				color: '#fff'
-			}
-		},
-		fill: {
-			type: 'gradient',
-			gradient: {
-				shade: 'light',
-				gradientToColors: ['#fff'],
-				shadeIntensity: 1,
-				type: 'horizontal',
-				opacityFrom: 1,
-				opacityTo: 1,
-				stops: [0, 100, 100, 100]
-			},
-		},
-		markers: {
-			size: 4,
-			colors: ["#000"],
-			strokeColors: "#fff",
-			strokeWidth: 2,
-			hover: {
-				size: 7,
-			}
-		},
-		colors: ["#fff"],
-		yaxis: {
-			title: {
-				text: 'Visitor Amount',
-			},
-		}
-	};
-	var chart = new ApexCharts(document.querySelector("#chart1"), options);
-	chart.render();
+	// var options = {
+	// 	series: [{
+	// 		name: 'Visit User',
+	// 		data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
+	// 	}],
+	// 	chart: {
+	// 		foreColor: 'rgba(255, 255, 255, 0.65)',
+	// 		height: 400,
+	// 		type: 'line',
+	// 		zoom: {
+	// 			enabled: false
+	// 		},
+	// 		toolbar: {
+	// 			show: true
+	// 		},
+	// 		dropShadow: {
+	// 			enabled: true,
+	// 			top: 3,
+	// 			left: 14,
+	// 			blur: 4,
+	// 			opacity: 0.10,
+	// 		}
+	// 	},
+	// 	stroke: {
+	// 		width: 5,
+	// 		curve: 'smooth'
+	// 	},
+	// 	grid: {
+	// 		show: true,
+	// 		borderColor: 'rgba(255, 255, 255, 0.12)',
+	// 		strokeDashArray: 4,
+	// 	},
+	// 	tooltip: {
+	// 		theme: 'dark',
+	// 	},
+	// 	xaxis: {
+	// 		type: 'datetime',
+	// 		categories: ['1/11/2022', '2/11/2022', '3/11/2022', '4/11/2022', '5/11/2022', '6/11/2022', '7/11/2022', '8/11/2022', '9/11/2022', '10/11/2022', '11/11/2022', '12/11/2022', '1/11/2023', '2/11/2023', '3/11/2023', '4/11/2023', '5/11/2023', '6/11/2023'],
+	// 	},
+	// 	title: {
+	// 		text: 'Visiting Amount Chart',
+	// 		align: 'left',
+	// 		style: {
+	// 			fontSize: "16px",
+	// 			color: '#fff'
+	// 		}
+	// 	},
+	// 	fill: {
+	// 		type: 'gradient',
+	// 		gradient: {
+	// 			shade: 'light',
+	// 			gradientToColors: ['#fff'],
+	// 			shadeIntensity: 1,
+	// 			type: 'horizontal',
+	// 			opacityFrom: 1,
+	// 			opacityTo: 1,
+	// 			stops: [0, 100, 100, 100]
+	// 		},
+	// 	},
+	// 	markers: {
+	// 		size: 4,
+	// 		colors: ["#000"],
+	// 		strokeColors: "#fff",
+	// 		strokeWidth: 2,
+	// 		hover: {
+	// 			size: 7,
+	// 		}
+	// 	},
+	// 	colors: ["#fff"],
+	// 	yaxis: {
+	// 		title: {
+	// 			text: 'Visitor Amount',
+	// 		},
+	// 	}
+	// };
+	// var chart = new ApexCharts(document.querySelector("#chart1"), options);
+	// chart.render();
 	// chart 2
 	var optionsLine = {
 		chart: {
@@ -610,68 +610,68 @@ $(function () {
 	var chart = new ApexCharts(document.querySelector("#chart8"), options);
 	chart.render();
 	// chart 9
-	var options = {
-		series: [{
-			name: 'Web Visits',
-			type: 'column',
-			data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
-		}, {
-			name: 'Car Sales',
-			type: 'line',
-			data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
-		}],
-		chart: {
-			foreColor: 'rgba(255, 255, 255, 0.65)',
-			height: 350,
-			type: 'line',
-			zoom: {
-				enabled: false
-			},
-			toolbar: {
-				show: true
-			},
-		},
-		stroke: {
-			width: [0, 4]
-		},
-		colors: ['rgba(255, 255, 255, 0.20)', "#fff"],
-		title: {
-			text: 'Sales and Visits'
-		},
-		dataLabels: {
-			enabled: true,
-			enabledOnSeries: [1]
-		},
-		grid: {
-			show: true,
-			borderColor: 'rgba(255, 255, 255, 0.12)',
-			strokeDashArray: 4,
-		},
-		tooltip: {
-			theme: 'dark',
-			y: {
-				formatter: function (val) {
-					return "" + val + ""
-				}
-			}
-		},
-		labels: ['01 Jan 2023', '02 Jan 2023', '03 Jan 2023', '04 Jan 2023', '05 Jan 2023', '06 Jan 2023', '07 Jan 2023', '08 Jan 2023', '09 Jan 2023', '10 Jan 2023', '11 Jan 2023', '12 Jan 2023'],
-		xaxis: {
-			type: 'datetime'
-		},
-		yaxis: [{
-			title: {
-				text: 'Web Visits',
-			},
-		}, {
-			opposite: true,
-			title: {
-				text: 'Car Sales'
-			}
-		}]
-	};
-	var chart = new ApexCharts(document.querySelector("#chart9"), options);
-	chart.render();
+	// var options = {
+	// 	series: [{
+	// 		name: 'Web Visits',
+	// 		type: 'column',
+	// 		data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+	// 	}, {
+	// 		name: 'Car Sales',
+	// 		type: 'line',
+	// 		data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+	// 	}],
+	// 	chart: {
+	// 		foreColor: 'rgba(255, 255, 255, 0.65)',
+	// 		height: 350,
+	// 		type: 'line',
+	// 		zoom: {
+	// 			enabled: false
+	// 		},
+	// 		toolbar: {
+	// 			show: true
+	// 		},
+	// 	},
+	// 	stroke: {
+	// 		width: [0, 4]
+	// 	},
+	// 	colors: ['rgba(255, 255, 255, 0.20)', "#fff"],
+	// 	title: {
+	// 		text: 'Sales and Visits'
+	// 	},
+	// 	dataLabels: {
+	// 		enabled: true,
+	// 		enabledOnSeries: [1]
+	// 	},
+	// 	grid: {
+	// 		show: true,
+	// 		borderColor: 'rgba(255, 255, 255, 0.12)',
+	// 		strokeDashArray: 4,
+	// 	},
+	// 	tooltip: {
+	// 		theme: 'dark',
+	// 		y: {
+	// 			formatter: function (val) {
+	// 				return "" + val + ""
+	// 			}
+	// 		}
+	// 	},
+	// 	labels: ['01 Jan 2023', '02 Jan 2023', '03 Jan 2023', '04 Jan 2023', '05 Jan 2023', '06 Jan 2023', '07 Jan 2023', '08 Jan 2023', '09 Jan 2023', '10 Jan 2023', '11 Jan 2023', '12 Jan 2023'],
+	// 	xaxis: {
+	// 		type: 'datetime'
+	// 	},
+	// 	yaxis: [{
+	// 		title: {
+	// 			text: 'Web Visits',
+	// 		},
+	// 	}, {
+	// 		opposite: true,
+	// 		title: {
+	// 			text: 'Car Sales'
+	// 		}
+	// 	}]
+	// };
+	// var chart = new ApexCharts(document.querySelector("#chart9"), options);
+	// chart.render();
 	// chart 10
 	var options = {
 		series: [{

@@ -118,40 +118,84 @@
                         <script>
                             var date_ls = '{{ dates|tojson|safe }}';
                             date_ls = JSON.parse(date_ls);
-                            var num_ls = '{{ nums|tojson|safe }}';
-                            num_ls = JSON.parse(num_ls);
+                            var order_ls = '{{ orders|tojson|safe }}';
+                            order_ls = JSON.parse(order_ls);
+                            {#var options = {#}
+                            {#    series: [{#}
+                            {#        name: 'Total Sales',#}
+                            {#        data: order_ls,#}
+                            {#    }],#}
+                            {#    chart: {#}
+                            {#        foreColor: 'rgba(255, 255, 255, 0.65)',#}
+                            {#        height: 400,#}
+                            {#        type: 'area',#}
+                            {#        zoom: {#}
+                            {#            enabled: false#}
+                            {#        },#}
+                            {#        toolbar: {#}
+                            {#            show: true#}
+                            {#        },#}
+                            {#    },#}
+                            {#    colors: ["#fff", '#bbe5ff'],#}
+                            {#    title: {#}
+                            {#        text: 'Sales Amount Chart',#}
+                            {#        align: 'left',#}
+                            {#        style: {#}
+                            {#            fontSize: "16px",#}
+                            {#            color: '#fff',#}
+                            {#        }#}
+                            {#    },#}
+                            {#    dataLabels: {#}
+                            {#        enabled: false#}
+                            {#    },#}
+                            {#    stroke: {#}
+                            {#        curve: 'smooth'#}
+                            {#    },#}
+                            {#    grid: {#}
+                            {#        show: true,#}
+                            {#        borderColor: 'rgba(255, 255, 255, 0.12)',#}
+                            {#        strokeDashArray: 4,#}
+                            {#    },#}
+                            {#    tooltip: {#}
+                            {#        theme: 'dark',#}
+                            {#    },#}
+                            {#    xaxis: {#}
+                            {#        type: 'datetime',#}
+                            {#        categories: date_ls,#}
+                            {#    },#}
+                            {#    tooltip: {#}
+                            {#        x: {#}
+                            {#            format: 'dd/MM/yy HH:mm'#}
+                            {#        },#}
+                            {#    },#}
+                            {#;#}
+                            {#var chart = new ApexCharts(document.querySelector("#chart4"), options);#}
+                            {#chart.render();#}
                             var options = {
                                 series: [{
-                                    name: 'Self-driving',
-                                    data: num_ls,
-                                }, {
-                                    name: 'Non-self-driving',
-                                    data: [11, 32, 45, 32, 34, 52, 41]
+                                    name: 'Visit User',
+                                    data: view_ls,
                                 }],
                                 chart: {
                                     foreColor: 'rgba(255, 255, 255, 0.65)',
                                     height: 400,
-                                    type: 'area',
+                                    type: 'line',
                                     zoom: {
                                         enabled: false
                                     },
                                     toolbar: {
                                         show: true
                                     },
-                                },
-                                colors: ["#fff", '#bbe5ff'],
-                                title: {
-                                    text: 'Sales Amount Chart',
-                                    align: 'left',
-                                    style: {
-                                        fontSize: "16px",
-                                        color: '#fff'
+                                    dropShadow: {
+                                        enabled: true,
+                                        top: 3,
+                                        left: 14,
+                                        blur: 4,
+                                        opacity: 0.10,
                                     }
                                 },
-                                dataLabels: {
-                                    enabled: false
-                                },
                                 stroke: {
+                                    width: 5,
                                     curve: 'smooth'
                                 },
                                 grid: {
@@ -164,13 +208,32 @@
                                 },
                                 xaxis: {
                                     type: 'datetime',
-                                    categories: date_ls;
+                                    categories: date_ls,
                                 },
-                                tooltip: {
-                                    x: {
-                                        format: 'dd/MM/yy HH:mm'
+                                title: {
+                                    text: 'Visiting Amount Chart',
+                                    align: 'left',
+                                    style: {
+                                        fontSize: "16px",
+                                        color: '#fff'
+                                    }
+                                },
+
+                                markers: {
+                                    size: 4,
+                                    colors: ["#000"],
+                                    strokeColors: "#fff",
+                                    strokeWidth: 2,
+                                    hover: {
+                                        size: 7,
+                                    }
+                                },
+                                colors: ["#fff"],
+                                yaxis: {
+                                    title: {
+                                        text: 'Visitor Amount',
                                     },
-                                },
+                                }
                             };
                             var chart = new ApexCharts(document.querySelector("#chart4"), options);
                             chart.render();
@@ -182,6 +245,89 @@
                         <div class="card-body">
                             <div id="chart1"></div>
                         </div>
+                        <script>
+                            var date_ls = '{{ dates|tojson|safe }}';
+                            date_ls = JSON.parse(date_ls);
+                            var view_ls = '{{ views|tojson|safe }}';
+                            view_ls = JSON.parse(view_ls);
+                            var options = {
+                                series: [{
+                                    name: 'Visit User',
+                                    data: view_ls,
+                                }],
+                                chart: {
+                                    foreColor: 'rgba(255, 255, 255, 0.65)',
+                                    height: 400,
+                                    type: 'line',
+                                    zoom: {
+                                        enabled: false
+                                    },
+                                    toolbar: {
+                                        show: true
+                                    },
+                                    dropShadow: {
+                                        enabled: true,
+                                        top: 3,
+                                        left: 14,
+                                        blur: 4,
+                                        opacity: 0.10,
+                                    }
+                                },
+                                stroke: {
+                                    width: 5,
+                                    curve: 'smooth'
+                                },
+                                grid: {
+                                    show: true,
+                                    borderColor: 'rgba(255, 255, 255, 0.12)',
+                                    strokeDashArray: 4,
+                                },
+                                tooltip: {
+                                    theme: 'dark',
+                                },
+                                xaxis: {
+                                    type: 'datetime',
+                                    categories: date_ls,
+                                },
+                                title: {
+                                    text: 'Visiting Amount Chart',
+                                    align: 'left',
+                                    style: {
+                                        fontSize: "16px",
+                                        color: '#fff'
+                                    }
+                                },
+                                fill: {
+                                    type: 'gradient',
+                                    gradient: {
+                                        shade: 'light',
+                                        gradientToColors: ['#fff'],
+                                        shadeIntensity: 1,
+                                        type: 'horizontal',
+                                        opacityFrom: 1,
+                                        opacityTo: 1,
+                                        stops: [0, 100, 100, 100]
+                                    },
+                                },
+                                markers: {
+                                    size: 4,
+                                    colors: ["#000"],
+                                    strokeColors: "#fff",
+                                    strokeWidth: 2,
+                                    hover: {
+                                        size: 7,
+                                    }
+                                },
+                                colors: ["#fff"],
+                                yaxis: {
+                                    title: {
+                                        text: 'Visitor Amount',
+                                    },
+                                }
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart1"), options);
+                            chart.render();
+                        </script>
                     </div>
 {#                    <h6 class="mb-0 text-uppercase">Multi-Line Chart</h6>#}
 {#                    <hr>#}
@@ -231,6 +377,70 @@
                         <div class="card-body">
                             <div id="chart9"></div>
                         </div>
+                        <script>
+                            var options = {
+                                series: [{
+                                    name: 'Web Visits',
+                                    type: 'column',
+                                    data: view_ls,
+                                }, {
+                                    name: 'Car Sales',
+                                    type: 'line',
+                                    data: order_ls,
+                                }],
+                                chart: {
+                                    foreColor: 'rgba(255, 255, 255, 0.65)',
+                                    height: 350,
+                                    type: 'line',
+                                    zoom: {
+                                        enabled: false
+                                    },
+                                    toolbar: {
+                                        show: true
+                                    },
+                                },
+                                stroke: {
+                                    width: [0, 4]
+                                },
+                                colors: ['rgba(255, 255, 255, 0.20)', "#fff"],
+                                title: {
+                                    text: 'Sales and Visits'
+                                },
+                                dataLabels: {
+                                    enabled: true,
+                                    enabledOnSeries: [1]
+                                },
+                                grid: {
+                                    show: true,
+                                    borderColor: 'rgba(255, 255, 255, 0.12)',
+                                    strokeDashArray: 4,
+                                },
+                                tooltip: {
+                                    theme: 'dark',
+                                    y: {
+                                        formatter: function (val) {
+                                            return "" + val + ""
+                                        }
+                                    }
+                                },
+                                labels: date_ls,
+                                xaxis: {
+                                    type: 'datetime'
+                                },
+                                yaxis: [{
+                                    title: {
+                                        text: 'Web Visits',
+                                    },
+                                }, {
+                                    opposite: true,
+                                    title: {
+                                        text: 'Car Sales'
+                                    }
+                                }]
+                            };
+                            var chart = new ApexCharts(document.querySelector("#chart9"), options);
+                            chart.render();
+                        </script>
                     </div>
 {#                    <h6 class="mb-0 text-uppercase">Radar Chart</h6>#}
 {#                    <hr>#}

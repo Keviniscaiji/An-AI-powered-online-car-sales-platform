@@ -11,7 +11,7 @@ from . import admin
 from .. import db, babel
 from config import Config
 from werkzeug.utils import secure_filename
-from ..models import Product, Category, User, ProductImagePath, Order, productCategories, ProductOrder
+from ..models import Product, Category, User, ProductImagePath, Order, productCategories, ProductOrder, View
 from flask_paginate import get_page_parameter, Pagination
 from pyecharts import options as opts
 from pyecharts.charts import Bar, Bar3D, Pie, Map, WordCloud, Line, Polar
@@ -283,24 +283,29 @@ def data_analytics():
         list_a.append(c.name)
         list_b.append(c.products.count())
 
-    ts = datetime.datetime.utcnow()
     cd = datetime.datetime.combine(datetime.date.today(), datetime.time.min)
     date_ls = []
-    data_ls = []
+    order_ls = []
+    view_ls = []
 
     for i in reversed(range(7)):
         dates = cd - datetime.timedelta(days=i)
         date_ls.append(dates)
 
     for tis in date_ls:
-        num = db.session.query(Order).filter(Order.timestamp >= tis).filter(Order.timestamp < datetime.timedelta(days=1)).count()
-        data_ls.append(num)
+        od = db.session.query(Order).filter(Order.timestamp >= tis).filter(
+            Order.timestamp < tis + datetime.timedelta(days=1)).count()
+        vi = db.session.query(View).filter(View.timestamp >= tis).filter(
+            View.timestamp < tis + datetime.timedelta(days=1)).count()
+        order_ls.append(od)
+        view_ls.append(vi)
     # ProductOrder
     return render_template('admin/data-analytics.html',
                            category_names=list_a,
                            category_product_counts=list_b,
                            dates=date_ls,
-                           nums=data_ls)
+                           orders=order_ls,
+                           views=view_ls)
 
 
 @admin.route('/bar_polar')
