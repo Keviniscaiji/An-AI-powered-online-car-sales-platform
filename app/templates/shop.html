@@ -742,8 +742,20 @@
                 }
             }
 
+            function check_is_img(file){
+                if (!/\.(jpg|jpeg|png|GIF|JPG|PNG)$/.test(file.name) ) { 
+                    return  false;     
+                }else{
+                    return true; 
+                }
+            }
+
             function upload_image(fileObj){
                 if (typeof (fileObj) == "undefined" || fileObj.size <= 0) {
+                    alert("Please Select Image");
+                    return;
+                }
+                if (!check_is_img(fileObj)) {
                     alert("Please Select Image");
                     return;
                 }
