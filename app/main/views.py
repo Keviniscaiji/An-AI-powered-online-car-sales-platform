@@ -614,12 +614,13 @@ def modify_avatar():
 @main.route('/single_product/<p>', methods=['POST', 'GET'])
 def single_product(p):
     if current_user.is_authenticated:
-        if int(p) in range(1, Product.query.filter_by(is_hidden=False).count() + 1):
-            p = p
+        if int(p) not in range(1, Product.query.count() + 1):
+            p = 1
+            return redirect(url_for('main.single_product', p=p))
         elif int(p) == 0:
             p = Product.query.filter_by(is_hidden=False).count()
         else:
-            p = 1
+            p = int(p)
         product_all = []
         product = Product.query.filter_by(id=p).first()
         comments = Comment.query.filter_by(product_id=p).all()
