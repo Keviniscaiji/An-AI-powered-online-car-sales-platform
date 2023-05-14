@@ -18,19 +18,6 @@
 {% include "foot_bar.html" %}#}
 
 
-<!-- <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.ico"> -->
-
-    <!--Google Login-->
-    <!-- <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="739725862362-e13n8p6osa8h0d1q0kv0hh7fs6050b72.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-</head>
-<body> -->
 {% extends 'base.html' %}
 {% block content %}
 <!--Breadcrumb Tow Start-->
@@ -86,12 +73,6 @@
                                 <div class="login-submit" style="margin: 20px 0 10px;">
                                     {{ form.submit(class='btn_2') }}
                                 </div>
-                                <div id="g_id_onload"
-                                     data-client_id="739725862362-gg17pcjelmcm10ull208cjgljnp2taau.apps.googleusercontent.com"
-                                     data-callback="onSignIn">
-                                </div>
-                                <div class="g_id_signin" data-type="standard" style="float: left"></div>
-{#                                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="float: left"></div>#}
                                 <div class="form-fild" align="right">
                                     <a href="{{ url_for('auth.password_reset_request') }}">{{ _('Forget password') }}?</a>
                                 </div>
@@ -106,26 +87,7 @@
 </div>
 
 <script>
-    function onSignIn(response) {
-        {#alert(response.credential);#}
 
-        // Useful data for your client-side scripts:
-        var token = response.credential;
-        $.post(
-            "{{ url_for('auth.login2') }}",
-            {token: token},
-            function (data) {
-                window.location.href = "{{ url_for('main.index') }}"
-            }
-        )
-    }
-
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          alert("[SIGNIN]:");
-        });
-    }
 </script>
 <!--Login Area End-->
 {% endblock %}
