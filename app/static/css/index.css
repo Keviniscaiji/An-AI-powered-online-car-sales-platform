@@ -4135,7 +4135,7 @@ nav#comments-navi {
 
 .catalog-share {
 	font-size: 14px;
-	color: rgba(0, 0, 0, .44);
+	color: rgb(190, 176, 129);
 	margin-bottom: 20px
 }
 
@@ -6272,4 +6272,8 @@ a,
 
 [data-tooltip][tabindex="0"][data-side="right"]::before {
 	transform: translate(-50%, 50%) rotate(135deg)
+}
+
+.blog-label {
+	color: #f3dba0;
 }
