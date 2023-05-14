@@ -150,61 +150,61 @@ $(function () {
 	}
 	var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 	chartLine.render();
-	// chart 4
-	var options = {
-		series: [{
-			name: 'Self-driving',
-			data: [31, 40, 28, 51, 42, 109, 100]
-		}, {
-			name: 'Non-self-driving',
-			data: [11, 32, 45, 32, 34, 52, 41]
-		}],
-		chart: {
-			foreColor: 'rgba(255, 255, 255, 0.65)',
-			height: 400,
-			type: 'area',
-			zoom: {
-				enabled: false
-			},
-			toolbar: {
-				show: true
-			},
-		},
-		colors: ["#fff", '#bbe5ff'],
-		title: {
-			text: 'Sales Amount Chart',
-			align: 'left',
-			style: {
-				fontSize: "16px",
-				color: '#fff'
-			}
-		},
-		dataLabels: {
-			enabled: false
-		},
-		stroke: {
-			curve: 'smooth'
-		},
-		grid: {
-			show: true,
-			borderColor: 'rgba(255, 255, 255, 0.12)',
-			strokeDashArray: 4,
-		},
-		tooltip: {
-			theme: 'dark',
-		},
-		xaxis: {
-			type: 'datetime',
-			categories: ["2022-09-19T00:00:00.000Z", "2022-09-19T01:30:00.000Z", "2022-09-19T02:30:00.000Z", "2022-09-19T03:30:00.000Z", "2022-09-19T04:30:00.000Z", "2022-09-19T05:30:00.000Z", "2022-09-19T06:30:00.000Z"]
-		},
-		tooltip: {
-			x: {
-				format: 'dd/MM/yy HH:mm'
-			},
-		},
-	};
-	var chart = new ApexCharts(document.querySelector("#chart4"), options);
-	chart.render();
+	// // chart 4
+	// var options = {
+	// 	series: [{
+	// 		name: 'Self-driving',
+	// 		data: [31, 40, 28, 51, 42, 109, 100]
+	// 	}, {
+	// 		name: 'Non-self-driving',
+	// 		data: [11, 32, 45, 32, 34, 52, 41]
+	// 	}],
+	// 	chart: {
+	// 		foreColor: 'rgba(255, 255, 255, 0.65)',
+	// 		height: 400,
+	// 		type: 'area',
+	// 		zoom: {
+	// 			enabled: false
+	// 		},
+	// 		toolbar: {
+	// 			show: true
+	// 		},
+	// 	},
+	// 	colors: ["#fff", '#bbe5ff'],
+	// 	title: {
+	// 		text: 'Sales Amount Chart',
+	// 		align: 'left',
+	// 		style: {
+	// 			fontSize: "16px",
+	// 			color: '#fff'
+	// 		}
+	// 	},
+	// 	dataLabels: {
+	// 		enabled: false
+	// 	},
+	// 	stroke: {
+	// 		curve: 'smooth'
+	// 	},
+	// 	grid: {
+	// 		show: true,
+	// 		borderColor: 'rgba(255, 255, 255, 0.12)',
+	// 		strokeDashArray: 4,
+	// 	},
+	// 	tooltip: {
+	// 		theme: 'dark',
+	// 	},
+	// 	xaxis: {
+	// 		type: 'datetime',
+	// 		categories: ["2022-09-19T00:00:00.000Z", "2022-09-19T01:30:00.000Z", "2022-09-19T02:30:00.000Z", "2022-09-19T03:30:00.000Z", "2022-09-19T04:30:00.000Z", "2022-09-19T05:30:00.000Z", "2022-09-19T06:30:00.000Z"]
+	// 	},
+	// 	tooltip: {
+	// 		x: {
+	// 			format: 'dd/MM/yy HH:mm'
+	// 		},
+	// 	},
+	// };
+	// var chart = new ApexCharts(document.querySelector("#chart4"), options);
+	// chart.render();
 	// chart 5
 	var options = {
 		chart: {

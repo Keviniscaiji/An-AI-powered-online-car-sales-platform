@@ -278,12 +278,24 @@ def data_analytics():
         list_a.append(c.name)
         list_b.append(c.products.count())
 
+    ts = datetime.datetime.utcnow()
+    cd = datetime.datetime.combine(datetime.date.today(), datetime.time.min)
+    date_ls = []
+    data_ls = []
 
+    for i in reversed(range(7)):
+        dates = cd - datetime.timedelta(days=i)
+        date_ls.append(dates)
 
+    for tis in date_ls:
+        num = db.session.query(Order).filter(Order.timestamp >= tis).filter(Order.timestamp < datetime.timedelta(days=1)).count()
+        data_ls.append(num)
     # ProductOrder
     return render_template('admin/data-analytics.html',
                            category_names=list_a,
-                           category_product_counts=list_b)
+                           category_product_counts=list_b,
+                           dates=date_ls,
+                           nums=data_ls)
 
 
 @admin.route('/bar_polar')
@@ -328,14 +340,14 @@ def bar_base_polar() -> Polar:
     # print(order_list)
     c = (
         Polar()
-            .add_schema(
+        .add_schema(
             radiusaxis_opts=opts.RadiusAxisOpts(data=name_list, splitline_opts=opts.SplitLineOpts(is_show=True),
                                                 type_="category"),
             angleaxis_opts=opts.AngleAxisOpts(is_clockwise=True, max_=10),
         )
-            .add("Order", order_list, type_="bar")
-            .set_global_opts(title_opts=opts.TitleOpts(title=""))
-            .set_series_opts(label_opts=opts.LabelOpts(is_show=True))
+        .add("Order", order_list, type_="bar")
+        .set_global_opts(title_opts=opts.TitleOpts(title=""))
+        .set_series_opts(label_opts=opts.LabelOpts(is_show=True))
         # .render("polar_radius.html")
     )
     return c
@@ -356,13 +368,13 @@ def bar_base_bar_line() -> Line:
 
     c = (
         Line()
-            .add_xaxis(time_line)
-            .add_yaxis("Order", coordinate, is_smooth=True)
-            .set_series_opts(
+        .add_xaxis(time_line)
+        .add_yaxis("Order", coordinate, is_smooth=True)
+        .set_series_opts(
             areastyle_opts=opts.AreaStyleOpts(opacity=0.5),
             label_opts=opts.LabelOpts(is_show=False),
         )
-            .set_global_opts(
+        .set_global_opts(
             title_opts=opts.TitleOpts(title=""),
             xaxis_opts=opts.AxisOpts(
                 axistick_opts=opts.AxisTickOpts(is_align_with_label=True),
@@ -383,17 +395,17 @@ def bar_base_bar_pie() -> Pie:
         list_b.append(c.products.count())
     c = (
         Pie()
-            .add(
+        .add(
             "",
             [list(z) for z in zip(list_a, list_b)],
             # [list(z) for z in zip(Faker.choose(), Faker.values())],
             radius=["40%", "75%"],
         )
-            .set_global_opts(
+        .set_global_opts(
             title_opts=opts.TitleOpts(title=""),
             legend_opts=opts.LegendOpts(orient="vertical", pos_top="15%", pos_left="2%"),
         )
-            .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {c}"))
+        .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {c}"))
     )
     return c
 
@@ -415,8 +427,8 @@ def bar_base_bar_map() -> WordCloud:
 
     c = (
         WordCloud()
-            .add(series_name="Popular Product", data_pair=data, word_size_range=[6, 66])
-            .set_global_opts(
+        .add(series_name="Popular Product", data_pair=data, word_size_range=[6, 66])
+        .set_global_opts(
             title_opts=opts.TitleOpts(
                 title="", title_textstyle_opts=opts.TextStyleOpts(font_size=23)
             ),

@@ -116,10 +116,14 @@
                             <div id="chart4"></div>
                         </div>
                         <script>
+                            var date_ls = '{{ dates|tojson|safe }}';
+                            date_ls = JSON.parse(date_ls);
+                            var num_ls = '{{ nums|tojson|safe }}';
+                            num_ls = JSON.parse(num_ls);
                             var options = {
                                 series: [{
                                     name: 'Self-driving',
-                                    data: [31, 40, 28, 51, 42, 109, 100]
+                                    data: num_ls,
                                 }, {
                                     name: 'Non-self-driving',
                                     data: [11, 32, 45, 32, 34, 52, 41]
@@ -160,7 +164,7 @@
                                 },
                                 xaxis: {
                                     type: 'datetime',
-                                    categories: ["2022-09-19T00:00:00.000Z", "2022-09-19T01:30:00.000Z", "2022-09-19T02:30:00.000Z", "2022-09-19T03:30:00.000Z", "2022-09-19T04:30:00.000Z", "2022-09-19T05:30:00.000Z", "2022-09-19T06:30:00.000Z"]
+                                    categories: date_ls;
                                 },
                                 tooltip: {
                                     x: {
