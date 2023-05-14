@@ -33,22 +33,6 @@ def category():
     return render_template('admin/car-category.html', categories=categories)
 
 
-# @admin.route('/pandemic', methods=['POST', 'GET'])
-# @login_required
-# def pandemic():
-#     pandemics = Pandemic.query.first()
-#     is_pandemic = pandemics.is_pandemic
-#     if request.method == "POST":
-#         pandemics.is_pandemic = not is_pandemic
-#         db.session.commit()
-#         return redirect(url_for('admin.pandemic'))
-#     if is_pandemic:
-#         status = _l("Close")
-#     else:
-#         status = _l("Open")
-#     return render_template('admin/pandemic.html', status=status, pandemic=pandemics)
-
-
 @admin.route('/product')
 @login_required
 def product():

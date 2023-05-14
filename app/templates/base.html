@@ -10,15 +10,11 @@
 	<meta name="robots" content="noindex, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Https -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
-    <!-- Live stream css -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_live.css') }}">
-{#    <link rel="stylesheet" href="../static/css/style_live.css">#}
-	<!-- Place favicon.png in the root directory -->
+
+	<!-- Place favicon.ico in the root directory -->
 	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
     <!--All Css Here-->
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_live.css') }}">
     <!-- Bootstrap CSS-->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 	<!-- Linearicon CSS-->
@@ -543,7 +539,7 @@
 
                 el.style.top = String((window.innerHeight-800)/2) + 'px';
                 el.style.left = String((window.innerWidth-480)/2) + 'px';
-            }        
+            }
         })
     </script>
 </body>

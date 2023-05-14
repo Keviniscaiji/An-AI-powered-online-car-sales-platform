@@ -202,13 +202,6 @@
 		                                </div>
 		                                <div class="rc-product-content">
 		                                    <h6><a href="{{ url_for('main.single_product', p=rec.id) }}">{{ rec.name }}</a></h6>
-{#		                                    <div class="rc-product-review">#}
-{#		                                        <i class="fa fa-star"></i>#}
-{#		                                        <i class="fa fa-star"></i>#}
-{#		                                        <i class="fa fa-star"></i>#}
-{#		                                        <i class="fa fa-star"></i>#}
-{#		                                        <i class="fa fa-star"></i>#}
-{#		                                    </div>#}
 		                                    <div class="price-box">
                                                 <span class="regular-price">${{ rec.price }}</span>
                                             </div>
@@ -228,21 +221,6 @@
 		                        </div>
 		                    </div>
 		                </div>
-		                <!--Banner Widget End-->
-		                <!--Product Tags Widget Start-->
-		                {#<div class="shop-sidebar">
-		                    <h4>Product Tags</h4>
-		                    <div class="product-tag">
-		                        <ul>
-		                            <li><a href="#">blouse</a></li>
-		                            <li><a href="#">clothes</a></li>
-		                            <li><a href="#">fashion</a></li>
-		                            <li><a href="#">handbag</a></li>
-		                            <li><a href="#">laptop</a></li>
-		                        </ul>
-		                    </div>
-		                </div>#}
-		                <!--Product Tags Widget End-->
 		            </div>
 		            <div class="col-lg-9 order-1 order-lg-2">
 		                <div class="shop-layout">
@@ -290,6 +268,7 @@
                                         <form action="#">
                                             <div class="form-input">
                                                 <input name="textsearch" id="textsearch" placeholder="" value="Text Search..." onblur="if(this.value===''){this.value='Text Search...'}" onfocus="if(this.value==='Text Search...'){this.value=''}" type="text">
+                                                <input type="text" style="display: none">
                                                 <button id=searchbutton type="button" class="header-search-btn"><i class="fa fa-search"></i></button>
                                             </div>
                                         </form>
@@ -349,13 +328,6 @@
                                                                 <img src="{{ url_for('static', filename=product.imagePaths[0].resized_image_path) }}" alt="">
                                                             </a>
                                                             <span class="onsale">{{ _('Sale') }}!</span>
-{#                                                            <div class="product-action">#}
-{#                                                                <ul>#}
-{#                                                                    <li><a href="#open-modal" data-toggle="modal" title="Quick view"><i class="fa fa-search"></i></a></li>#}
-{#                                                                    <li><a href="#" title="Whishlist"><i class="fa fa-heart-o"></i></a></li>#}
-{#                                                                    <li><a href="#" title="Compare"><i class="fa fa-refresh"></i></a></li>#}
-{#                                                                </ul>#}
-{#                                                            </div>#}
                                                         </div>
                                                         <div class="product-content">
                                                             <h2><a href="{{ url_for('main.single_product', p=product.id) }}">{{ product.name }}</a></h2>
@@ -394,13 +366,6 @@
 		                                            <div class="col-md-8">
 		                                                <div class="product-content shop-list">
 		                                                    <h2><a href="{{ url_for('main.single_product', p=product.id) }}">{{ product.name }}</a></h2>
-{#		                                                    <div class="product-reviews">#}
-{#                                                                <i class="fa fa-star"></i>#}
-{#                                                                <i class="fa fa-star"></i>#}
-{#                                                                <i class="fa fa-star"></i>#}
-{#                                                                <i class="fa fa-star"></i>#}
-{#                                                                <i class="fa fa-star-o"></i>#}
-{#                                                            </div>#}
                                                             <div class="product-description">
                                                                 <p>{{ product.description }}</p>
                                                             </div>

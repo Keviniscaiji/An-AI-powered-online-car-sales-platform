@@ -59,15 +59,15 @@ def insert_custproducts(cat_objs):
 
 def insert_product_orders():
     for item in PRODUCTORDERS:
-        productOrder = ProductOrder(count=item['count'], product_id=item['product_id'], order_id=item['order_id'])
+        productOrder = ProductOrder(customized_color=item['customized_color'], count=item['count'],
+                                    product_id=item['product_id'], order_id=item['order_id'])
         db.session.add(productOrder)
     db.session.commit()
 
 
 def insert_orders():
     for item in ORDERS:
-        timestamp = datetime.datetime.utcnow()
-        order = Order(timestamp=timestamp, pick_up_time=item['pick_up_time'], note=item['note'],
+        order = Order(timestamp=item['timestamp'], pick_up_time=item['pick_up_time'], note=item['note'],
                       status=item['status'], price=item['price'], priority=item['priority'], buyer_id=item['buyer_id'])
         db.session.add(order)
         db.session.commit()
@@ -78,25 +78,19 @@ def insert_orders():
         db.session.commit()
 
 
-def insert_product_drives():
-    for item in PRODUCTDRIVES:
-        productDrive = ProductDrive(count=item['count'], product_id=item['product_id'], drive_id=item['drive_id'])
-        db.session.add(productDrive)
-    db.session.commit()
-
-
 def insert_drives():
     for item in DRIVES:
-        timestamp = datetime.datetime.utcnow()
-        drive = Drive(timestamp=timestamp, drive_time_start=item['drive_time_start'],
+        drive = Drive(timestamp=item['timestamp'], drive_time_start=item['drive_time_start'],
                       drive_time_end=item['drive_time_end'], note=item['note'], status=item['status'],
                       priority=item['priority'], buyer_id=item['buyer_id'])
         db.session.add(drive)
         db.session.commit()
-        drive_aim = Drive.query.filter_by(buyer_id=item['buyer_id']).first()
-        productDrive_list = ProductDrive.query.filter_by(drive_id=drive_aim.id).all()
-        for pd in productDrive_list:
-            drive_aim.productDrives.append(pd)
+
+
+def insert_views():
+    for item in VIEWS:
+        view = View(timestamp=item['timestamp'], buyer_id=item['buyer_id'])
+        db.session.add(view)
         db.session.commit()
 
 
@@ -144,12 +138,6 @@ def insert_blog_comments():
     db.session.commit()
 
 
-# def insert_pandemic():
-#     pandemic = Pandemic(is_pandemic=False)
-#     db.session.add(pandemic)
-#     db.session.commit()
-
-
 def reset():
     # Drop and create
     db.drop_all()
@@ -182,9 +170,7 @@ def insert_all():
 
     insert_orders()
 
-    insert_product_drives()
-
     insert_drives()
 
-    # insert_pandemic()
+    insert_views()
 
