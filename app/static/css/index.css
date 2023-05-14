@@ -572,7 +572,7 @@ body {
 	font-family: PingFang SC, "Hiragino Sans GB", "Source Han Sans CN", Roboto, "Microsoft Yahei", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
-	color: rgba(2, 0, 0, .6);
+	color: rgb(182, 172, 138);
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -1270,14 +1270,14 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 #main {
-	background: #fff;
+	background: #0a1f3f;
 	position: relative;
 	z-index: 2
 }
 
 .container {
 	position: relative;
-	background: #fff;
+	background: #0a1f3f;
 	padding: 60px 0 20px
 }
 
@@ -2085,7 +2085,7 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 h1.post_title {
-	color: #918f90;
+	color: #f3dba0;
 	font-size: 25px;
 	font-weight: 700;
 	margin-bottom: 25px;
@@ -2115,22 +2115,22 @@ h1.post_title {
 
 #upTriangleColor {
 	display: block;
-	background: #fafafa
+	background: #0a1f3f
 }
 
 #upTriangleColor path {
-	fill: #fff;
-	stroke: #fff
+	fill: #0a1f3f;
+	stroke: #0a1f3f
 }
 
 #dwTriangleColor {
 	display: block;
-	background: #fff
+	background: #0a1f3f
 }
 
 #dwTriangleColor path {
-	fill: #fafafa;
-	stroke: #fff
+	fill: #0a1f3f;
+	stroke: #0a1f3f
 }
 
 .blog-card {
@@ -2838,7 +2838,7 @@ nav#comments-navi {
 	overflow: hidden;
 	width: 100%;
 	list-style: none;
-	background: #fafafa;
+	background: #0a1f3f;
 	padding: 40px 0;
 }
 
@@ -3044,9 +3044,9 @@ nav#comments-navi {
 	width: 29%;
 	margin: 0;
 	padding: 24px;
-	color: #535a63;
+	color: #e3ce88;
 	border-radius: 4px;
-	background-color: #eee
+	background-color: #051731
 }
 
 .author-info input {
@@ -3095,7 +3095,7 @@ nav#comments-navi {
 	float: left;
 	width: 79%;
 	height: 70px;
-	color: #535a63;
+	color: #e3ce88;
 	resize: vertical;
 }
 
@@ -3115,7 +3115,7 @@ nav#comments-navi {
 	padding: 0;
 	text-transform: uppercase;
 	color: #888;
-	background: #eee;
+	background: #f3dba0;
 	border-radius: 4px
 }
 
