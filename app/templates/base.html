@@ -243,7 +243,66 @@
 		<footer>
 		    <div class="footer-container">
 		        <!--Footer Top Area Start-->
-
+		        <div class="footer-top-area dark-blue-bg">
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-4 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-40">
+		                            <div class="footer-title">
+		                                <h3>{{ _('Account') }}</h3>
+		                            </div>
+		                            <ul class="link-widget">
+                                        {% if current_user.is_authenticated %}
+                                            <li><a href="{{ url_for('main.account', user_id=current_user.id ) }}">{{ _('My Account') }}</a></li>
+                                            <li><a href="{{ url_for('car_customize.index') }}">{{ _('My Orders') }}</a></li>
+                                            <li><a href="{{ url_for('main.wishlist') }}">{{ _('My WishList') }}</a></li>
+                                        {% else %}
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('My Account') }}</a></li>
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('My Orders') }}</a></li>
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('My WishList') }}</a></li>
+                                        {% endif %}
+		                            </ul>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                    <div class="col-lg-4 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-40">
+		                            <div class="footer-title">
+		                                <h3>{{ _('Quick Links') }}</h3>
+		                            </div>
+		                            <ul class="link-widget">
+                                        {% if current_user.is_authenticated %}
+                                            <li><a href="{{ url_for('car_customize.index') }}">{{ _('Customization') }}</a></li>
+                                            <li><a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a></li>
+                                        {% else %}
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('Customization') }}</a></li>
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('Blog') }}</a></li>
+                                        {% endif %}
+		                                <li><a href="{{ url_for('main.shop', status='init') }}">{{ _('Advanced Search') }}</a></li>
+		                                <li><a href="{{ url_for('main.about') }}">{{ _('About') }}</a></li>
+		                            </ul>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                    <div class="col-lg-4 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-40">
+		                            <div class="footer-title">
+		                                <h3>{{ _('Categories') }}</h3>
+		                            </div>
+		                            <ul class="link-widget">
+                                        {% for ca in catee %}
+		                                <li><a href="{{ url_for('main.shop', status=ca) }}">{{ ca }}</a></li>
+                                        {% endfor %}
+		                            </ul>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
 		        <!--Footer Top Area End-->
 		        <!--Footer Middle Area Start-->
 		        <div class="footer-middle-area dark-blue-bg">
@@ -481,214 +540,7 @@
                 el.style.top = String((window.innerHeight-800)/2) + 'px';
                 el.style.left = String((window.innerWidth-480)/2) + 'px';
             }
-            // create Agora client
-        //     var client = null;
-        //     var localTracks = {
-        //         videoTrack: null,
-        //         audioTrack: null
-        //     };
-        //     var remoteUsers = {};
-
-        //     // Agora client options
-        //     var options = {
-        //         appid: "",
-        //         channel: "",
-        //         uid: null,
-        //         token: "",
-        //         role: "audience", // host or audience
-        //         audienceLatency: 1
-        //     };
-
-        //     // global variable
-        //     var is_liveroom_opened = false;
-        //     var socket = null;
-        //     var user_name = "user";
-
-        //     $("#open_liveroom").on('click', async function(){
-        //         {% if not current_user.is_authenticated %}
-        //             window.location.href = "{{ url_for("auth.login") }}";
-        //         {% endif %}
-
-        //         if (is_liveroom_opened){
-        //             await leave();
-        //             document.getElementById('liveroom').style.visibility = "hidden";
-        //             is_liveroom_opened = false;
-
-        //             if (socket){
-        //                  socket.emit("leave", {room: "liveroom", user: user_name});
-        //             }
-        //         } else {
-        //             document.getElementById('liveroom').style.visibility = "visible";
-        //             is_liveroom_opened = true;
-
-        //             socket = io.connect(
-        //                 'https://' + document.domain + ':' + location.port + '/liveroom',
-        //                 {
-        //                       'reconnection': true,
-        //                       'reconnectionAttempts': 8,
-        //                       'reconnectionDelay': 1000}
-        //            );
-
-        //            // join comment channel
-        //            user_name = "{{ current_user.username }}";
-        //            socket.emit('join', {room: "liveroom", user: user_name, role: "customer"});
-
-        //            // receive message
-        //            socket.on('msg_response', function(data) {
-        //               var msg = data.msg;
-        //               if (msg !== '') {
-        //                 if (data.user === user_name) {
-        //                     $('#live_msg_edit').val("");
-        //                 }
-        //                 if (data.user === "Music Zone 2022") {
-        //                     var msg_html = `<li class="msg_li"><div class="msg_li_in">
-        //                                         <span class="msg_admin">${data.user}:</span>
-        //                                         <span class="msg_content">${data.msg}</span>
-        //                                     </div></li>`;
-        //                 } else {
-        //                     var msg_html = `<li class="msg_li"><div class="msg_li_in">
-        //                                         <span class="msg_user">${data.user}:</span>
-        //                                         <span class="msg_content">${data.msg}</span>
-        //                                     </div></li>`;
-        //                 }
-        //                 $('#live_msg_history').append(msg_html);
-        //                 scrollToBottom();
-        //               }
-        //            });
-
-        //            // token message
-        //            socket.on('token_response', async function (data) {
-        //                if (data.user === "{{ current_user.username }}") {
-        //                    options.token = data.token;
-        //                    options.uid = data.uid;
-        //                    options.appid = data.appid;
-        //                    options.channel = data.channel;
-        //                    client = AgoraRTC.createClient({mode: "live", codec: "vp8"});
-        //                    await join();
-        //                }
-        //            })
-
-        //            // request agora token
-        //            socket.emit('request_token', {user: user_name, role: "customer"});
-        //         }
-        //     });
-
-        //     $('#leave_live').on('click', async function () {
-        //         await leave();
-        //         document.getElementById('liveroom').style.visibility = "hidden";
-        //         is_liveroom_opened = false;
-
-        //         if (socket){
-        //              socket.emit("leave", {room: "liveroom", user: user_name});
-        //         }
-        //     })
-
-        //     $('#send_btn').on('click', function () {
-        //         var msg = $('#live_msg_edit').val();
-        //         // var msg_html = '<li class="msg_li"><div class="msg_user">' + user_name + ':</div><div class="msg_content">' + msg + '</div></li><br>';
-        //         // $('#live_msg_history').append(msg_html);
-        //         // scrollToBottom();
-        //         if (msg !== ""){
-        //             socket.emit('send', {room: "liveroom", msg: msg, user: user_name});
-        //         }
-        //     })
-
-        //     function scrollToBottom() {
-        //         $('.live_right_history').scrollTop($('.live_right_history')[0].scrollHeight);
-        //     }
-
-        //     async function join() {
-        //         // create Agora client
-
-        //         if (options.role === "audience") {
-        //             client.setClientRole(options.role, {level: options.audienceLatency});
-        //             // add event listener to play remote tracks when remote user publishs.
-        //             client.on("user-published", handleUserPublished);
-        //             client.on("user-unpublished", handleUserUnpublished);
-        //         }
-        //         else{
-        //             client.setClientRole(options.role);
-        //         }
-
-        //         // join the channel
-        //         options.uid = await client.join(options.appid, options.channel, options.token || null, options.uid || null)
-        //     }
-
-        //     async function leave() {
-        //         for (trackName in localTracks) {
-        //             var track = localTracks[trackName];
-        //             if (track) {
-        //                 track.stop();
-        //                 track.close();
-        //                 localTracks[trackName] = undefined;
-        //             }
-        //         }
-
-        //         // remove remote users and player views
-        //         remoteUsers = {};
-        //         $("#stream").html("");
-
-        //         // leave the channel
-        //         await client.leave();
-        //     }
-
-        //     async function subscribe(user, mediaType) {
-        //         const uid = user.uid;
-        //         // subscribe to a remote user
-        //         await client.subscribe(user, mediaType);
-        //         console.log("subscribe success");
-        //         if (mediaType === 'video') {
-        //             const player = $(`
-        //             <div id="player-wrapper-${uid}">
-        //                 <div id="player-${uid}" class="player"></div>
-        //             </div>
-        //             `);
-        //             $("#stream").append(player);
-        //             user.videoTrack.play(`player-${uid}`, {fit:"contain"});
-        //         }
-        //         if (mediaType === 'audio') {
-        //             user.audioTrack.play();
-        //         }
-        //     }
-
-        //     function handleUserPublished(user, mediaType) {
-        //         const id = user.uid;
-        //         remoteUsers[id] = user;
-        //         subscribe(user, mediaType);
-        //     }
-
-        //     function handleUserUnpublished(user, mediaType) {
-        //         if (mediaType === 'video') {
-        //             const id = user.uid;
-        //             delete remoteUsers[id];
-        //             $(`#player-wrapper-${id}`).remove();
-        //         }
-        //     }
-        
         })
-
-        // $(() => {
-        //     let el = document.getElementById("liveroom");
-        //     el.onmousedown = (e) => {
-        //         let disX = e.clientX - el.offsetLeft;
-        //         let disY = e.clientY - el.offsetTop;
-        //         document.onmousemove = function (e) {
-        //             let tX = e.clientX - disX;
-        //             let tY = e.clientY - disY;
-
-        //             if (tX >= 0 && tX <= window.innerWidth - el.offsetWidth) {
-        //             el.style.left = tX + 'px';
-        //             }
-        //             if (tY >= 0 && tY <= window.innerHeight - el.offsetHeight) {
-        //             el.style.top = tY + 'px';
-        //             }
-        //         };
-        //         document.onmouseup = function (e) {
-        //             document.onmousemove = null;
-        //             document.onmouseup = null;
-        //         };
-        //     }
-        // })
     </script>
 </body>
 </html>
