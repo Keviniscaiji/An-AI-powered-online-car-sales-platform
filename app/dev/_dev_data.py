@@ -3115,59 +3115,14 @@ PRODUCTIMAGEPATHS = [
 ]
 
 BLOGS = [
-    {"id": 11, "title": "Guest Book", "content": "None", "author_id": 3},
-    {"id": 1, "title": "Saxophone", "content": "This is a saxophone...", "author_id": 3},
-    {"id": 2, "title": "I Hate Drums", "content": "I hate playing drums when I was...", "author_id": 3},
-    {"id": 3, "title": "I Love Drums", "content": "I Love drums a lot. Back to...", "author_id": 3},
-    {"id": 4, "title": "You can post blog WITHOUT IMAGE", "content": "I just found image is not necessary for a blog...", "author_id": 3},
-    {"id": 5, "title": "Brass Is My Favorite", "content": "The sounds made by brasses are amazing...", "author_id": 3},
-    {"id": 6, "title": "Brass Sounds Awful", "content": "I would rather use woods instead of brasses...", "author_id": 3},
-    {"id": 7, "title": "I Love Piano", "content": "Piano probably is the best instrument...", "author_id": 3},
-    {"id": 8, "title": "Piano is TOO DIFFICULT", "content": "Piano probably is the most difficult instrument...", "author_id": 3},
-    {"id": 9, "title": "Cornet vs Trumpet | What's the difference?", "author_id": 3,
-     "content": "Before we look at the difference, let’s first cover the basic elements of their design that are identical. Firstly, and most obviously, they are both made of the same material, Brass, have 3 valves and the sound is produced on both by ‘buzzing’ your lips. The tubing is also of an identical length (4 1/2 ft approx without valves depressed), although it is wound much tighter on a Cornet giving the initial appearance that it is shorter. As they are both the same length they therefore also play at the same pitch which is Bb on standard models."},
-    {"id": 10, "title": "Briefly Noted: Alice Coote Schubertiade", "author_id": 3,
-     "content": "At the end of March here in Washington, Alice Coote was the best part of the National Symphony Orchestra's performance of Mahler's Second Symphony, led by Michael Tilson Thomas. The British mezzo-soprano recorded this selection of twenty-one Schubert songs, back in December of 2017, in All Saints’ Church, East Finchley, in London. The program is a mixture of rather simple strophic songs and more complex pieces, some relative rarities alongside some of the most often heard songs in performances with new ideas to recommend them."}
 ]
 
 BLOGIMAGEPATHS = [
-    {"id": 1, "image_path": "../../static/img/blog/81v9wttUWbL._SX425_.jpg", "blog_id": 10},
-    {"id": 2, "image_path": "../../static/img/blog/trumpet-facts_88be0d82-b6a7-4ffb-ace0-01c85aa3a7c7_600x.jpeg", "blog_id": 9},
-    {"id": 3, "image_path": "../../static/img/blog/trumpet-bands.jpeg", "blog_id": 9},
-    {"id": 4, "image_path": "../../static/img/blog/ptrumpet-learn.jpeg", "blog_id": 9},
-    {"id": 5, "image_path": "../../static/img/blog/cornet-younger-people.jpeg", "blog_id": 9},
-    {"id": 6, "image_path": "../../static/storage/products/1059132022041196gp_product_s6x_2578a85a25d71f69c7dadf5cd592dd84.jpg", "blog_id": 7},
-    {"id": 11, "image_path": "../../static/storage/products/1059132022041196gp_product_s6x_2578a85a25d71f69c7dadf5cd592dd84.jpg", "blog_id": 8},
-    {"id": 12, "image_path": "../../static/storage/products/64357834534654357___-1.jpg", "blog_id": 3},
-    {"id": 13, "image_path": "../../static/storage/products/4687326536537_thumb_011.jpg", "blog_id": 3},
-    {"id": 14, "image_path": "../../static/storage/products/64723463876536573_thumb_0021.png", "blog_id": 3},
-    {"id": 15, "image_path": "../../static/storage/products/743534867537_thumb_11.jpg", "blog_id": 3},
-    {"id": 16, "image_path": "../../static/storage/products/12790846347956_thumb_a2.jpg", "blog_id": 2},
-    {"id": 17, "image_path": "../../static/storage/products/35467324587_Hybrid_Maple_540x540_735x735_9a1491d206e417dabe25ffb9a7256e44.jpg", "blog_id": 2},
-    {"id": 18, "image_path": "../../static/storage/products/347638754576357_2.jpg", "blog_id": 2},
-    {"id": 19, "image_path": "../../static/storage/products/462374658237_thumb_EEC3B1474CC2FF84F87750513DCFE138.jpg", "blog_id": 2},
-    {"id": 20, "image_path": "../../static/storage/products/463287567354_540x540_396x396_88f34b4b488bd561277141e6457f8ce5.jpg", "blog_id": 2},
-    {"id": 21, "image_path": "../../static/storage/products/64357834534654357__.jpg", "blog_id": 5},
-    {"id": 22, "image_path": "../../static/storage/products/64357834534654357__(1).jpg", "blog_id": 5},
-    {"id": 23, "image_path": "../../static/storage/products/64357834534654357____(1).jpg", "blog_id": 5},
-    {"id": 24, "image_path": "../../static/storage/products/64357834534654357____(2).jpg", "blog_id": 5},
-    {"id": 25, "image_path": "../../static/storage/products/64357834534654357______(1).jpg", "blog_id": 5},
-    {"id": 26, "image_path": "../../static/storage/products/64357834534654357cus.jpg", "blog_id": 6},
-    {"id": 27, "image_path": "../../static/storage/products/64357834534654357cus(1).jpg", "blog_id": 6},
-    {"id": 28, "image_path": "../../static/storage/products/a3f7b6565ee7.jpg", "blog_id": 6},
-    {"id": 29, "image_path": "../../static/storage/products/ee91d6d94ef9.jpg", "blog_id": 6},
-    {"id": 30, "image_path": "../../static/storage/products/fd1f5e44dcd5.jpg", "blog_id": 1}
+
 ]
 
 BLOGCOMMENTS = [
-    {"id": 1, "body": "Hello", "blog_id": 1, "author_id": 3},
-    {"id": 2, "body": "That's great", "blog_id": 2, "author_id": 3},
-    {"id": 3, "body": "Awesome", "blog_id": 3, "author_id": 3},
-    {"id": 4, "body": "Good", "blog_id": 4, "author_id": 3},
-    {"id": 5, "body": "Ohhh, no", "blog_id": 5, "author_id": 3},
-    {"id": 6, "body": "OK", "blog_id": 6, "author_id": 3},
-    {"id": 7, "body": "Yeah", "blog_id": 7, "author_id": 3},
-    {"id": 8, "body": "lol", "blog_id": 8, "author_id": 3}
+
 ]
 
 ORDERS = [
