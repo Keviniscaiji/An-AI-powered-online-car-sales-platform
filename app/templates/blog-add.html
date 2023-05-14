@@ -73,33 +73,33 @@
 						<div class="catalog-share">{{ _('Maximum 5 images, all images are below text') }}</div>
 						<form action="{{ url_for('main.add_blog') }}" method="post" onsubmit="return validateForm()" enctype="multipart/form-data" role="form">
                             <div class="form-group">
-                                <label for="title">{{ _('Title') }}:</label>
+                                <label for="title" class="blog-label">{{ _('Title') }}:</label>
                                 <input name="title" id="title" class="form-control" onkeyup="checkTitle()" placeholder='Enter title here'>
                                 <span id="title_hint" style="color: red"></span>
                             </div>
                             <div class="form-group">
-                                <label for="description">{{ _('Description') }}:</label>
+                                <label for="description" class="blog-label">{{ _('Description') }}:</label>
                                 <textarea rows="3" cols="80" name="description" id="description" onkeyup="checkDescription()" class="form-control" placeholder='Enter description here'></textarea>
                                 <span id="des_hint" style="color: red"></span>
                             </div>
                             <div class="form-group">
-                                <label for="">{{ _('Image') }}1:</label>
+                                <label for="" class="blog-label">{{ _('Image') }}1:</label>
                                 <input type="file" name="image1" id="image1">
                             </div>
                             <div class="form-group">
-                                <label for="">{{ _('Image') }}2:</label>
+                                <label for="" class="blog-label">{{ _('Image') }}2:</label>
                                 <input type="file" name="image2" id="image2">
                             </div>
                             <div class="form-group">
-                                <label for="">{{ _('Image') }}3:</label>
+                                <label for="" class="blog-label">{{ _('Image') }}3:</label>
                                 <input type="file" name="image3" id="image3">
                             </div>
                             <div class="form-group">
-                                <label for="">{{ _('Image') }}4:</label>
+                                <label for="" class="blog-label">{{ _('Image') }}4:</label>
                                 <input type="file" name="image4" id="image4">
                             </div>
                             <div class="form-group">
-                                <label for="">{{ _('Image') }}5:</label>
+                                <label for="" class="blog-label">{{ _('Image') }}5:</label>
                                 <input type="file" name="image5" id="image5">
                             </div>
 

@@ -2,7 +2,7 @@ import datetime
 import json
 import random
 import os
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, session
 from flask_login import login_required
 from pyecharts.faker import Faker
 from sqlalchemy import desc
@@ -110,13 +110,13 @@ def modify_product(product_id):
         else:
             sort_dict[s.name] = 0
     if request.method == 'POST':
-        product_aim.key = request.form.get('key')
+        # product_aim.key = request.form.get('key')
         product_aim.brand = request.form.get('brand')
         product_aim.model = request.form.get('model')
         product_aim.year = request.form.get('year')
         product_aim.price = request.form.get('price')
-        product_aim.discount = request.form.get('discount')
-        product_aim.inventory = request.form.get('inventory')
+        # product_aim.discount = request.form.get('discount')
+        # product_aim.inventory = request.form.get('inventory')
         product_aim.description = request.form.get('description')
         product_aim.name = product_aim.brand + " " + product_aim.model
         category_box = request.form.getlist('cb')
@@ -166,6 +166,11 @@ def add_category():
 def add_product():
     if request.method == 'POST':
         key = request.form.get('key')
+        # check key is used
+        res = db.session.query(Product).filter(Product.key == key).all()
+        if len(res) > 0:
+            flash("Key has been used!")
+            return redirect(url_for('admin.product'))
         brand = request.form.get('brand')
         model = request.form.get('model')
         year = request.form.get('year')
