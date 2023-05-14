@@ -5526,14 +5526,14 @@ input.checkbox {
 	font-size: 30px;
 	font-weight: 900;
 	line-height: 40px;
-    color: #444;
+    color: #f5dc8f;
 	text-align: center;
 	text-transform: uppercase;
 	margin-bottom: 40px;
 }
 .about-us-content > p {
 	font-size: 15px;
-	color: #222;
+	color: #e3ce88;
 	line-height: 25px;
     text-align: justify;
 }
@@ -5542,7 +5542,7 @@ a.about-btn {
 	font-size: 16px;
 	line-height: 40px;
 	text-transform: capitalize;
-	border: 1px solid #222;
+	border: 1px solid #f3dba0;
 	height: 40px;
 	padding: 0 25px;
 	font-weight: 500;
@@ -5613,7 +5613,7 @@ a.about-btn:hover{
   transition: all 0.4s ease 1s;
 }
 .skill-area .progress-bar {
-  background: #7b7b7b none repeat scroll 0 0;
+  background: #d2b87a none repeat scroll 0 0;
   border-radius: 3px;
   margin-left: 2px;
   position: relative;
@@ -5624,7 +5624,7 @@ a.about-btn:hover{
 .skrill-here > h2 {
 	font-size: 30px;
 	font-weight: 900;
-	color: #444444;
+	color: #f5dc8f;
 	line-height: 40px;
 	font-family: 'Raleway', sans-serif;
 }
@@ -5644,7 +5644,7 @@ a.about-btn:hover{
 }
 .skill-area .progress span {
   background: #3e3e3e none repeat scroll 0 0;
-  border: 3px solid #a0a0a0;
+  border: 3px solid #f5dc8f;
   border-radius: 50%;
   color: #fff;
   font-size: 11px;
