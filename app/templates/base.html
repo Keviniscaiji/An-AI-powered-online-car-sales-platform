@@ -15,7 +15,7 @@
     <!-- Live stream css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style_live.css') }}">
 {#    <link rel="stylesheet" href="../static/css/style_live.css">#}
-	<!-- Place favicon.ico in the root directory -->
+	<!-- Place favicon.png in the root directory -->
 	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
     <!--All Css Here-->
     
@@ -55,20 +55,8 @@
     <!-- datedropper -->
     <script src="{{ url_for('static', filename='js/datedropper-javascript.js') }}"></script>
 
-    <!--Google Login-->
-{#    <meta name="google-signin-scope" content="profile email">#}
-{#    <meta name="google-signin-client_id" content="739725862362-ulv61obr6dqhfl4l5ponl5g6vrpf1r8e.apps.googleusercontent.com">#}
-{#    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>#}
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <script>
-        function onLoad() {
-          gapi.load('auth2', function() {
-            gapi.auth2.init();
-          });
-        }
-
-        function googleSignOut() {
+        function signOut() {
             window.location.href = "{{ url_for('auth.logout') }}";
         }
     </script>
@@ -187,7 +175,7 @@
 {#                                                        <li><a href="{{ url_for('main.about') }}">{{ _('About Us') }}</a></li>#}
 {#                                                        <li><a href="{{ url_for('main.contact') }}">{{ _('Contact Us') }}</a></li>#}
                                                         {% if current_user.is_authenticated %}
-                                                            <li><a style="cursor: pointer" onclick="googleSignOut()">{{ _('Log Out') }}</a></li>
+                                                            <li><a style="cursor: pointer" onclick="signOut()">{{ _('Log Out') }}</a></li>
                                                         {% else %}
                                                             <li><a style="cursor: pointer" href="{{ url_for('auth.login') }}">{{ _('Log In') }}</a></li>
                                                         {% endif %}

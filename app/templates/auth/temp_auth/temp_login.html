@@ -33,12 +33,7 @@
                                 <div class="login-submit" style="margin: 20px 0 10px;">
                                     {{ form.submit(class='btn_2') }}
                                 </div>
-                                <div id="g_id_onload"
-                                     data-client_id="739725862362-gg17pcjelmcm10ull208cjgljnp2taau.apps.googleusercontent.com"
-                                     data-callback="onSignIn">
-                                </div>
-                                <div class="g_id_signin" data-type="standard" style="float: left"></div>
-{#                                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="float: left"></div>#}
+            
                                 <div class="form-fild" align="right">
                                     <a href="{{ url_for('auth.password_reset_request') }}">{{ _('Forget password') }}?</a>
                                 </div>
@@ -53,38 +48,4 @@
 </div>
 
 <script>
-    {#function onSignIn(googleUser) {#}
-    {#    // Useful data for your client-side scripts:#}
-    {#    var profile = googleUser.getBasicProfile();#}
-    {#    var id_token = googleUser.getAuthResponse().id_token;#}
-    {#    // alert("[SIGNIN]: Email: " + profile.getEmail() + "\n" + "[SIGNIN]: Name: " + profile.getName());#}
-    {#    $.post(#}
-    {#        "{{ url_for('auth.login2') }}",#}
-    {#        {name: profile.getName(), token: id_token},#}
-    {#        function (data) {#}
-    {#            window.location.href = "{{ url_for('main.index') }}"#}
-    {#        }#}
-    {#    )#}
-    {# }#}
-
-    function onSignIn(response) {
-        {#alert(response.credential);#}
-
-        // Useful data for your client-side scripts:
-        var token = response.credential;
-        $.post(
-            "{{ url_for('auth.login2') }}",
-            {token: token},
-            function (data) {
-                window.location.href = "{{ url_for('main.index') }}"
-            }
-        )
-    }
-
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          alert("[SIGNIN]:");
-        });
-    }
 </script>
