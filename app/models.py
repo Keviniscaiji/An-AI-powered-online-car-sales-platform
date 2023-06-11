@@ -5,9 +5,7 @@ from datetime import datetime
 from sqlalchemy_serializer import Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 # from itsdangerous.jws import TimedJSONWebSignatureSerializer as Serializer
-from . import db
-from config import Config
-import os
+from . import db, login_manager
 
 
 class Initialization:
@@ -41,6 +39,7 @@ productCategories = db.Table('productCategories',
 class ProductOrder(db.Model):
     __tablename__ = 'productOrders'
     id = db.Column(db.Integer, primary_key=True)
+    customized_color = db.Column(db.String(16))
     count = db.Column(db.Integer, default=1)  # the number or this product in the order
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
@@ -52,6 +51,7 @@ class Cart(db.Model):
     __tablename__ = 'carts'
     id = db.Column(db.Integer, primary_key=True)
     count = db.Column(db.Integer, default=1)  # the number of this product in the cart
+    customized_color = db.Column(db.String(16))
     is_selected = db.Column(db.Boolean, index=True)
     # foreign keys:
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -61,12 +61,15 @@ class Cart(db.Model):
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False, index=True)
+    key = db.Column(db.String(32), nullable=False, index=True)
+    name = db.Column(db.String(128), nullable=False, index=True)
+    brand = db.Column(db.String(64))
+    model = db.Column(db.String(64))
+    year = db.Column(db.Integer, nullable=False)
+    max_speed = db.Column(db.Integer, nullable=False)
+    oil_consumption = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, default=1000.0)
     description = db.Column(db.String(256))
-    weight = db.Column(db.Float, default=50.0)
-    price = db.Column(db.Float, default=1000)
-    discount = db.Column(db.Float, default=1.0)
-    inventory = db.Column(db.Integer, default=1000)
     is_hidden = db.Column(db.Boolean, default=False)
     # relationship:
     imagePaths = db.relationship('ProductImagePath', backref='product', lazy='dynamic')
@@ -83,6 +86,7 @@ class ProductImagePath(db.Model):
     __tablename__ = 'productImagePaths'
     id = db.Column(db.Integer, primary_key=True)
     image_path = db.Column(db.String(512), index=True)
+    resized_image_path = db.Column(db.String(512))
     # foreign keys:
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
 
@@ -100,26 +104,43 @@ class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    pick_up_time = db.Column(db.DateTime)
     note = db.Column(db.String(128), index=True, nullable=True)
     # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
-    status = db.Column(db.String(16), default='Created', index=True)
-    # ship_way. Respectively, 0/1 represents delivery/ pick-up
-    ship_way = db.Column(db.String(16), index=True)
+    status = db.Column(db.String(32), default='Created', index=True)
     price = db.Column(db.Float, index=True)
-    name = db.Column(db.String(32), index=True)
-    gender = db.Column(db.Integer)
-    phone_number = db.Column(db.Integer)
-    # Address comprises country + city + street + detail
-    country = db.Column(db.String(32))
-    city = db.Column(db.String(32))
-    street = db.Column(db.String(64))
-    detail = db.Column(db.String(32))
     priority = db.Column(db.Integer, default=0, index=True)
     # foreign keys:
     buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     # relationship:
     buyer = db.relationship('User', back_populates='orders', lazy='joined')
     productOrders = db.relationship('ProductOrder', backref='order', lazy='dynamic')
+
+
+class Drive(db.Model):
+    __tablename__ = 'drives'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    drive_time_start = db.Column(db.DateTime)
+    drive_time_end = db.Column(db.DateTime)
+    note = db.Column(db.String(128), index=True, nullable=True)
+    # order status. Respectively, 0/1/2/3 represents created/delivering/accomplished/cancelled
+    status = db.Column(db.String(32), default='Created', index=True)
+    priority = db.Column(db.Integer, default=0, index=True)
+    # foreign keys:
+    buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # relationship:
+    buyer = db.relationship('User', back_populates='drives', lazy='joined')
+
+
+class View(db.Model):
+    __tablename__ = 'views'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    # foreign keys:
+    buyer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # relationship:
+    buyer = db.relationship('User', back_populates='views', lazy='joined')
 
 
 class Comment(db.Model):
@@ -135,21 +156,6 @@ class Comment(db.Model):
     product = db.relationship('Product', back_populates='comments', lazy='joined')
 
 
-class DeliveryInfo(db.Model):
-    __tablename__ = 'deliveryInfos'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32), nullable=False, index=True)
-    gender = db.Column(db.Integer, nullable=False)
-    phone_number = db.Column(db.Integer, nullable=False)
-    # Address comprises country + city + street + detail
-    country = db.Column(db.String(32), nullable=False)
-    city = db.Column(db.String(32), nullable=False)
-    street = db.Column(db.String(32), nullable=False)
-    detail = db.Column(db.String(32), nullable=False)
-    # foreign keys:
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -163,8 +169,9 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     # relationship:
     carts = db.relationship('Cart', backref='owner', lazy='dynamic')
-    deliveryInfos = db.relationship('DeliveryInfo', backref='owner', lazy='dynamic')
     orders = db.relationship('Order', back_populates='buyer', lazy='dynamic')
+    drives = db.relationship('Drive', back_populates='buyer', lazy='dynamic')
+    views = db.relationship('View', back_populates='buyer', lazy='dynamic')
     comments = db.relationship('Comment', back_populates='author', lazy='dynamic')
     blogs = db.relationship('Blog', backref='author', lazy='dynamic')
     blogComments = db.relationship('BlogComment', backref='author', lazy='dynamic')
@@ -267,12 +274,6 @@ class BlogImagePath(db.Model):
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
 
 
-class Pandemic(db.Model):
-    __tablename__ = 'pandemics'
-    id = db.Column(db.Integer, primary_key=True)
-    is_pandemic = db.Column(db.Boolean, default=False, index=True)
-
-
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id))
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))

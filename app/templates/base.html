@@ -1,0 +1,547 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>{{ _('Auto Wheel') }}</title>
+	<meta name="description" content="">
+	<meta name="robots" content="noindex, follow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<!-- Place favicon.ico in the root directory -->
+	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <!--All Css Here-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_live.css') }}">
+    <!-- Bootstrap CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<!-- Linearicon CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/linearicons.min.css') }}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+
+	<!-- Animate CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+	<!-- Owl Carousel CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}">
+	<!-- Slick CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/slick.css') }}">
+	<!-- Meanmenu CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/meanmenu.min.css') }}">
+	<!-- Easyzoom CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/easyzoom.css') }}">
+	<!-- Venobox CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/venobox.css') }}">
+	<!-- Jquery Ui CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+	<!-- Nice Select CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css') }}">
+	<!-- Style CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<!-- Responsive CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+	<!-- Modernizr Js -->
+    {#select date and time#}
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/timedropper.css') }}" rel="stylesheet" type="text/css">
+	<script src="{{ url_for('static', filename='js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- datedropper -->
+    <script src="{{ url_for('static', filename='js/datedropper-javascript.js') }}"></script>
+
+    <script>
+        function signOut() {
+            window.location.href = "{{ url_for('auth.logout') }}";
+        }
+    </script>
+</head>
+<body>
+	<div class="wrapper" style="background: #0a1f3f">
+		<!--Header Area Start-->
+		<header>
+		    <div class="header-container">
+                <!-- The header of index-3 will cause overlapping in other pages, thus applying the head class of shop
+		        <div class="header-area header-absolute header-sticky pt-30 pb-30">
+                    <div class="container-fluid pl-50 pr-50">   -->
+                <div class="header-area header-sticky pt-30 pb-30" style="background: linear-gradient(to bottom, #020e1e, #041126)">
+{#                <div class="header-area header-sticky pt-30 pb-30" style="background: linear-gradient(to bottom, #c9c0bd, #eeeae5)">#}
+                    <div class="container">
+                        <div class="row">
+                            <!--Header Logo Start-->
+                            <div class="col-lg-3 col-md-3">
+                                <div class="logo-area" style="width: auto">
+                                    <!--a href="index.html"-->
+                                    <a href="{{ url_for('main.index') }}">
+                                        <img src="{{ url_for('static', filename="storage/LOGO_Car.png") }}" alt="" style="width: 60px; height: auto">
+                                    </a>
+                                </div>
+                            </div>
+                            <!--Header Logo End-->
+
+
+                            <!--Header Menu And Mini Cart Start-->
+                            <div class="col-lg-9 col-md-9 text-lg-right">
+                                <!--Main Menu Area Start-->
+                                <div class="header-menu">
+                                    <nav>
+                                        <ul class="main-menu">
+                                            <li><a href="{{ url_for('main.index') }}">{{ _('Home') }}</a></li>
+                                            <li><a href="{{ url_for('main.shop', status="init") }}">{{ _('Shop') }}</a></li>
+                                            <li><a href="{{ url_for('car_customize.index') }}">{{ _('Customization') }}</a></li>
+                                            <li><a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!--Main Menu Area End-->
+                                <!--Header Option Start-->
+                                <div class="header-option">
+                                    <div class="mini-cart-search">
+                                        <div class="mini-cart">
+                                            {% if current_user.is_authenticated %}
+                                                <a href="{{ url_for('main.wishlist') }}">
+                                                    <span class="cart-icon">
+                                                       <span class="cart-quantity" id="mini_cart_count">{{ ncart }}</span>
+                                                    </span>
+                                                    <span class="cart-title">{{ _('Wish List') }} <br><strong id="mini_cart_price">${{ mcp.product_price }}</strong></span>
+                                                </a>
+                                                <!--Cart Dropdown Start-->
+                                                <div class="cart-dropdown" style="display: none">
+                                                    <ul id="mini_cart_list">
+                                                        {% for cart_item in mcd %}
+                                                            <li class="single-cart-item">
+                                                                  <div class="cart-img">
+                                                                      <a href="{{ url_for('main.single_product', p=cart_item.product_id) }}"><img src="{{ url_for('static', filename=cart_item.product_img) }}" alt="" style="width: 80px; height: 80px"></a>
+                                                                  </div>
+                                                                  <div class="cart-content">
+                                                                      <h5 class="product-name"><a href="{{ url_for('main.single_product', p=cart_item.product_id) }}">{{ cart_item.product_name }}</a></h5>
+                                                                      <span class="cart-price">{{ cart_item.product_num }} × ${{ cart_item.product_price }}</span>
+                                                                  </div>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <p class="cart-subtotal"><strong>{{ _('Subtotal') }}:</strong><span class="float-right" id="mini_cart_subtotal">${{ mcp.product_price }}</span></p>
+                                                    <p class="cart-btn">
+                                                        <!--Update required!!!-->
+                                                        <a href="{{ url_for('main.wishlist') }}">{{ _('View all') }}</a>
+                                                    </p>
+                                                </div>
+                                            {% else %}
+                                                <a>
+                                                    <span class="cart-icon"></span>
+                                                    <span class="cart-title">{{ _('Wish List') }} <br><strong>$--</strong></span>
+                                                </a>
+                                            {% endif %}
+                                           <!--Cart Dropdown End-->
+                                        </div>
+                                        <div class="header-search">
+                                            <div class="search-box">
+                                                <a href="#"><i class="fa fa-search"></i></a>
+                                                <div class="search-dropdown">
+                                                    <form action="#">
+                                                        <input name="search" id="content" placeholder="" value="Search product..." onblur="if(this.value===''){this.value='Search product...'}" onfocus="if(this.value==='Search product...'){this.value=''}" type="text">
+                                                        <input type="text" style="display: none">
+                                                        <button id="searchinput" type="button"><i class="fa fa-search"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="currency">
+                                            <div class="currency-box">
+                                                <a href="#"><i class="fa fa-th"></i></a>
+                                                <div class="currency-dropdown">
+                                                    <ul class="menu-top-menu">
+                                                        <li>
+                                                        {% if current_user.is_authenticated %}
+                                                            <a href="{{ url_for('main.account', user_id=current_user.id ) }}">
+                                                                <img src="{{ url_for('static', filename=current_user.avatar_path) }}" style="width: 30px; height: 30px; border-radius: 100%"  alt=""/>
+                                                                {{ _('Profile') }}
+                                                            </a>
+                                                        {% else %}
+                                                            <a href="{{ url_for('auth.login') }}">
+                                                                <img src="{{ url_for('static', filename="storage/avatars/non-login.png") }}" style="width: 30px; height: 30px; border-radius: 100%"  alt=""/>
+                                                                {{ _('Profile') }}
+                                                            </a>
+                                                        {% endif %}
+                                                        </li>
+                                                        <li><a href="{{ url_for('main.wishlist') }}">{{ _('Wish List') }}</a></li>
+{#                                                        <li><a href="{{ url_for('main.portfolio') }}">{{ _('Portfolio') }}</a></li>#}
+                                                        <li><a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a></li>
+                                                        <li><a href="{{ url_for('main.about') }}">{{ _('About Us') }}</a></li>
+{#                                                        <li><a href="{{ url_for('main.contact') }}">{{ _('Contact Us') }}</a></li>#}
+                                                        {% if current_user.is_authenticated %}
+                                                            <li><a style="cursor: pointer" onclick="signOut()">{{ _('Log Out') }}</a></li>
+                                                        {% else %}
+                                                            <li><a style="cursor: pointer" href="{{ url_for('auth.login') }}">{{ _('Log In') }}</a></li>
+                                                        {% endif %}
+                                                    </ul>
+{#                                                    <div class="switcher">#}
+{#                                                        <div class="language">#}
+{#                                                            <span class="switcher-title">{{ _('Language') }}: </span>#}
+{#                                                            <div class="switcher-menu">#}
+{#                                                                <ul id="selected-language">#}
+{#                                                                    {% if session['language'] %}#}
+{#                                                                    <li><a href="#">{{ session['language'] }}</a>#}
+{#                                                                        <ul class="switcher-dropdown">#}
+{#                                                                            <li><a href="#" id="alternative-language">{{ session['alternative_language'] }}</a></li>#}
+{#                                                                        </ul>#}
+{#                                                                    </li>#}
+{#                                                                    {% else %}#}
+{#                                                                    <li><a href="#">English</a>#}
+{#                                                                        <ul class="switcher-dropdown">#}
+{#                                                                            <li><a href="#" id="alternative-language">Chinese</a></li>#}
+{#                                                                        </ul>#}
+{#                                                                    </li>#}
+{#                                                                    {% endif %}#}
+{#                                                                </ul>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--Header Option End-->
+                            </div>
+                            <!--Header Menu And Mini Cart End-->
+                        </div>
+                        <div class="row">
+                            <div class="col-12"> 
+                                <!--Mobile Menu Area Start-->
+                                <div class="mobile-menu d-lg-none"></div>
+                                <!--Mobile Menu Area End-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="flash_messages">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in get_flashed_messages() %}
+                                    <div class="alert alert-warning">
+                                        <button type="button" class="close" data-dismiss="alert" style="margin-bottom: 0">&times;</button>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+		    </div>
+		</header>
+
+        <main style="background-color: #0a1f3f">
+            {% block content %}
+                <!-- main content -->
+            {% endblock %}
+        </main>
+
+        <!--Footer Area Start-->
+		<footer>
+		    <div class="footer-container">
+		        <!--Footer Top Area Start-->
+		        <div class="footer-top-area dark-blue-bg">
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-4 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-40">
+		                            <div class="footer-title">
+		                                <h3>{{ _('Account') }}</h3>
+		                            </div>
+		                            <ul class="link-widget">
+                                        {% if current_user.is_authenticated %}
+                                            <li><a href="{{ url_for('main.account', user_id=current_user.id ) }}">{{ _('My Account') }}</a></li>
+                                            <li><a href="{{ url_for('car_customize.index') }}">{{ _('My Orders') }}</a></li>
+                                            <li><a href="{{ url_for('main.wishlist') }}">{{ _('My WishList') }}</a></li>
+                                        {% else %}
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('My Account') }}</a></li>
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('My Orders') }}</a></li>
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('My WishList') }}</a></li>
+                                        {% endif %}
+		                            </ul>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                    <div class="col-lg-4 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-40">
+		                            <div class="footer-title">
+		                                <h3>{{ _('Quick Links') }}</h3>
+		                            </div>
+		                            <ul class="link-widget">
+                                        {% if current_user.is_authenticated %}
+                                            <li><a href="{{ url_for('car_customize.index') }}">{{ _('Customization') }}</a></li>
+                                            <li><a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a></li>
+                                        {% else %}
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('Customization') }}</a></li>
+                                            <li><a href="{{ url_for('auth.login') }}">{{ _('Blog') }}</a></li>
+                                        {% endif %}
+		                                <li><a href="{{ url_for('main.shop', status='init') }}">{{ _('Advanced Search') }}</a></li>
+		                                <li><a href="{{ url_for('main.about') }}">{{ _('About') }}</a></li>
+		                            </ul>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                    <div class="col-lg-4 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-40">
+		                            <div class="footer-title">
+		                                <h3>{{ _('Categories') }}</h3>
+		                            </div>
+		                            <ul class="link-widget">
+                                        {% for ca in catee %}
+		                                <li><a href="{{ url_for('main.shop', status=ca) }}">{{ ca }}</a></li>
+                                        {% endfor %}
+		                            </ul>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <!--Footer Top Area End-->
+		        <!--Footer Middle Area Start-->
+		        <div class="footer-middle-area dark-blue-bg">
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-3 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-30">
+		                            <div class="footer-logo">
+		                                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename="storage/LOGO_Car.png") }}" alt="" style="width: 80px; height: auto"></a>
+		                            </div>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                    <div class="col-lg-3 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-30">
+		                            <div class="footer-info">
+		                                <div class="icon">
+		                                    <i class="fa fa-home"></i>
+		                                </div>
+		                                <p>{{ _('Address : 100 Pingleyuan, Chaoyang District, Beijing 100124, China.') }}</p>
+		                            </div>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                    <div class="col-lg-3 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-30">
+		                            <div class="footer-info">
+		                                <div class="icon">
+		                                    <i class="fa fa-envelope-open-o"></i>
+		                                </div>
+		                                <p>{{ _('Email') }}: <br>hewei.wang@ucdconnect.ie</p>
+		                            </div>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                    <div class="col-lg-3 col-md-6">
+		                        <!--Single Footer Widget Start-->
+		                        <div class="single-footer-widget mb-30">
+		                            <div class="footer-info">
+		                                <div class="icon">
+		                                    <i class="fa fa-mobile"></i>
+		                                </div>
+		                                <p>{{ _('Phone') }}: <br>(+86) 88488848</p>
+		                            </div>
+		                        </div>
+		                        <!--Single Footer Widget End-->
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <!--Footer Middle Area End-->
+		        <!--Footer Bottom Area Start-->
+		        <div class="footer-bottom-area dark-blue-bg pt-50 pb-50">
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-md-12">
+		                        <!--Footer Menu Start-->
+		                        <div class="footer-menu text-center">
+		                            <nav>
+		                                <ul>
+		                                    <li><a href="{{ url_for('main.shop', status='init') }}">{{ _('Advanced Search') }}</a></li>
+                                            {% if current_user.is_authenticated %}
+                                                <li><a href="{{ url_for('main.account', user_id=current_user.id ) }}">{{ _('Account') }}</a></li>
+                                                <li><a href="{{ url_for('car_customize.index') }}">{{ _('Customization') }}</a></li>
+                                                <li><a href="{{ url_for('main.blog') }}">{{ _('Blog') }}</a></li>
+                                            {% else %}
+                                                <li><a href="{{ url_for('auth.login') }}">{{ _('Account') }}</a></li>
+                                                <li><a href="{{ url_for('auth.login') }}">{{ _('Customization') }}</a></li>
+                                                <li><a href="{{ url_for('auth.login') }}">{{ _('Blog') }}</a></li>
+                                            {% endif %}
+		                                </ul>
+		                            </nav>
+		                        </div>
+		                        <!--Footer Menu End-->
+		                        <!--Footer Copyright Start-->
+		                        <div class="footer-copyright">
+		                            <p>{{ _('Copyright') }} © <a href="#">MetaPluser</a> {{ _('All Rights Reserved') }}</p>
+		                        </div>
+		                        <!--Footer Copyright End-->
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <!--Footer Bottom Area End-->
+		    </div>
+		</footer>
+		<!--Footer Area End-->
+	</div>
+    <form action="{{ url_for('main.shop', status="search") }}" method="post" name="selectForm">
+        <input type="hidden" id="searchcontent" name="searchcontent" value="">
+        <button type="submit" id="basepass" class="btn btn-info" style="display: none">pass</button>
+    </form>
+
+    <!--Loading Figure Start-->
+    <div class="loader-wrapper">
+      <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <!--Loading Figure End-->
+
+    <!--Fixed Component Start-->
+    <!-- <img alt="agora-logo" src="../static/icon/agora-logo.png" style="width: 50px; height: 50px; position: fixed; bottom: 100px; right: 25px; cursor: pointer" id="open_liveroom"> -->
+    <!--Fixed Component End-->
+
+    <!--Movable Component Start-->
+    <!-- <div class="live_container" id="liveroom">
+        <div class="live_left">
+{#            <div class="live_left_top"></div>#}
+            <div class="live_left_stream" id="stream">
+
+            </div>
+{#            <div class="live_left_bottom"></div>#}
+        </div>
+        <div class="live_right" id="live_right">
+            <div class="live_right_top" id="live_right_top">
+                <img alt="head" src="{{ current_user.avatar_path }}" class="live_right_top_img">
+                <span class="live_right_top_name">{{ current_user.username }}</span>
+                <i class="fa fa-sign-out online" style="float: right; margin-top: 15px; margin-right: 10px; cursor: pointer" id="leave_live"></i>
+            </div>
+            <div class="live_right_history" id="live_right_history">
+              <ul class="live_right_message_edit_ul" id="live_msg_history">
+
+              </ul>
+            </div>
+            <div class="live_right_message_edit clearfix" id="live_right_message_edit">
+              <textarea class="message_edit" placeholder ="Type your message" rows="1" id="live_msg_edit"></textarea>
+
+              <button class="send_btn" id="send_btn">Send</button>
+            </div>
+        </div>
+    </div> -->
+    <!--Movable Component End-->
+
+    <!--All Js Here-->
+    
+	<!--Jquery 1.12.4-->
+	<script src="{{ url_for('static', filename='js/vendor/jquery-1.12.4.min.js') }}"></script>
+	<!--Popper-->
+	<script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+	<!--Bootstrap-->
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<!--Imagesloaded-->
+	<script src="{{ url_for('static', filename='js/imagesloaded.pkgd.min.js') }}"></script>
+	<!--Isotope-->
+	<script src="{{ url_for('static', filename='js/isotope.pkgd.min.js') }}"></script>
+	<!--Waypoints-->
+	<script src="{{ url_for('static', filename='js/waypoints.min.js') }}"></script>
+	<!--Counterup-->
+	<script src="{{ url_for('static', filename='js/jquery.counterup.min.js') }}"></script>
+	<!--Carousel-->
+	<script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+	<!--Slick-->
+	<script src="{{ url_for('static', filename='js/slick.min.js') }}"></script>
+	<!--Meanmenu-->
+	<script src="{{ url_for('static', filename='js/jquery.meanmenu.min.js') }}"></script>
+	<!--Easyzoom-->
+	<script src="{{ url_for('static', filename='js/easyzoom.min.js') }}"></script>
+	<!--Nice Select-->
+	<script src="{{ url_for('static', filename='js/jquery.nice-select.min.js') }}"></script>
+	<!--ScrollUp-->
+	<script src="{{ url_for('static', filename='js/jquery.scrollUp.min.js') }}"></script>
+	<!--Wow-->
+	<script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+	<!--Venobox-->
+	<script src="{{ url_for('static', filename='js/venobox.min.js') }}"></script>
+	<!--Jquery Ui-->
+	<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+	<!--Countdown-->
+	<script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
+	<!--Plugins-->
+	<script src="{{ url_for('static', filename='js/plugins.js') }}"></script>
+	<!--Main Js-->
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!--Live stream Js-->
+    <!-- <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/3.1.2/socket.io.js"></script> -->
+
+    <script>
+        $(document).ready(function(){
+            $('#searchinput').on('click', function (){
+                const search = $('#content').val();
+                $('#searchcontent').val(search);
+                $('#basepass').click();
+            });
+        });
+
+        // loading animation between pages
+        $(window).on("load",function(){
+          $(".loader-wrapper").fadeOut("fast");
+        });
+
+        let ss = setTimeout(function(){
+            clearTimeout(ss);
+            $(".loader-wrapper").fadeOut("fast");
+        },1500); // if the site fails to load in 1.5s, the loading animation will end still.
+
+        // language selection
+        $("#alternative-language").on('click', function (){
+
+            let language = $(this).text();
+            $.post("{{ url_for('main.change_language') }}", {'language': language },function () {
+                location.reload(true);
+            });
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var is_adapted = false;
+
+            // adaptation
+            if (window.innerWidth < 750 && !is_adapted) {
+                let el = document.getElementById("liveroom");
+                el.style.width = '480px';
+                el.style.height = '800px';
+                let live_right = document.getElementById("live_right");
+                live_right.style.float = "none";
+                live_right.style.width = "480px";
+                let live_right_top = document.getElementById("live_right_top");
+                live_right_top.style.width = "480px";
+                let live_right_history = document.getElementById("live_right_history");
+                live_right_history.style.width = "480px";
+                let live_right_message_edit = document.getElementById("live_right_message_edit")
+                live_right_message_edit.style.width = "480px";
+
+                let alpha_h = window.innerHeight / 800;
+                let alpha_w = window.innerWidth / 480;
+                let alpha = alpha_h > alpha_w ? alpha_w:alpha_h;
+                el.style.transform = "scale("+alpha.toString()+")";
+                is_adapted = true;
+
+                el.style.top = String((window.innerHeight-800)/2) + 'px';
+                el.style.left = String((window.innerWidth-480)/2) + 'px';
+            }
+        })
+    </script>
+</body>
+</html>
