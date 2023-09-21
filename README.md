@@ -2,20 +2,14 @@
 
 ## 1. Introduction
 
-An online car booking website with python and flask
+An online car booking website with Python and Flask
 
+The introduction video: <https://drive.google.com/file/d/1lc_HZlFw9Evu-V7lwglxTWKUbJ2KGnkt/view?pli=1>
 ## 2. Development Usage
 
-### 2.1 Basic Usage
-
-```
-# run server
-bash run.sh
-
--> avaliable on https://comp3030j.ucd.ie:5007
 ```
 
-### 2.2 Database Tools
+### 2.1 Database Tools
 
 We provide `predifined data` under app/dev/_dev_data.py for development and testing
 ```
@@ -29,7 +23,7 @@ $ python dev_tools.py -reset -insert -a
 ...
 ```
 
-### 2.3 MultiLanguage Support
+### 2.2 MultiLanguage Support
 We provide English and Chinese support for our website by using `python_bible` replacing all the English terms.
 
 To build a new language support:
@@ -59,5 +53,8 @@ $ pybabel update -i messages.pot -d app/translations
 
 # 4. compile message.po
 $ pybabel compile -d app/translations
+
+
 ```
+
 
