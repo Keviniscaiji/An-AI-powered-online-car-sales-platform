@@ -1,0 +1,210 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../static/img/favicon.png">
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+<!--Breadcrumb Tow Start-->
+<div class="breadcrumb-tow mb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-title">
+                    <h1>{{ _('Checkout') }}</h1>
+                </div>
+                <div class="breadcrumb-content breadcrumb-content-tow">
+                    <ul>
+                        <li><a href="{{ url_for('main.index') }}">{{ _('Home') }}</a></li>
+                        <li class="active">{{ _('Checkout') }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Breadcrumb Tow End-->
+<!--Checkout Area Strat-->
+<div class="checkout-area mb-80">
+    <div class="container">
+        {#<div class="row">
+            <div class="col-12">
+                <div class="coupon-accordion">
+                    <!--Accordion Start-->
+                    <h3>{{ _('Have a coupon') }}? <span id="showcoupon">{{ _('Click here to enter your code') }}</span></h3>
+                    <div id="checkout_coupon" class="coupon-checkout-content">
+                        <div class="coupon-info">
+                            <form action="#">
+                                <p class="checkout-coupon">
+                                    <input placeholder="Coupon code" type="text">
+                                    <input value="Apply Coupon" type="submit">
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                    <!--Accordion End-->
+                </div>
+            </div>
+        </div>#}
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="your-order">
+                    <h3>{{ _('Your') }} {{ _('order') }}</h3>
+                    <div class="your-order-table table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="cart-product-name">{{ _('Car') }}</th>
+                                    <th class="cart-product-total">{{ _('Total') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for c in cart %}
+                                <tr class="cart_item">
+                                    <td class="cart-product-name"><a href="{{ url_for('main.single_product', p=c.product_id) }}">{{ c.product.name }}</a>
+                                        <strong class="product-quantity"> × {{ c.count }}</strong></td>
+                                  <td class="cart-product-total"><span class="amount">${{ c.product.price*c.count }}</span></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+{#                                <tr class="cart-subtotal">#}
+{#                                    <th>{{ _('Shipping') }}</th>#}
+{#                                    <td><span class="amount" id="ship_cost">${{ weight_pay }}</span></td>#}
+{#                                </tr>#}
+                                <tr class="order-total">
+                                    <th>{{ _('Order Total') }}</th>
+                                    <td><strong><span class="amount" id="total_cost">${{ product_pay }}</span></strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-12">
+{#                <form action="{{ url_for('main.place_order', buyer_id=current_user.id, pp=product_pay) }}" method="post" name="checkoutForm" onsubmit="return placeValidate()">#}
+{#                    <div class="checkbox-form">#}
+{#                        <h3>{{ _('Pick Up Info') }}</h3>#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-12">#}
+{#                                <div class="checkout-form-list">#}
+{#                                    <label>{{ _('Start Time Selection') }}</label>#}
+{#                                    <input name="start_time" placeholder="" type="text" value="" id="pick_st">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-md-12">#}
+{#                                <div class="checkout-form-list">#}
+{#                                    <label>{{ _('End Time Selection') }}</label>#}
+{#                                    <input name="end_time" placeholder="" type="text" value="" id="pick_et">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="order-notes col-md-12">#}
+{#                                <div class="checkout-form-list">#}
+{#                                    <label>{{ _('Order Notes') }}</label>#}
+{#                                    <textarea name="note" id="checkout-mess" cols="30" rows="10" placeholder="{{ _('Please mention what you care about.') }}"></textarea>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            {% for c in cart %}#}
+{#                                <input type="hidden" name="product" value={{ c.product_id }}>#}
+{#                            {% endfor %}#}
+{#                            {% for c in cart %}#}
+{#                                <input type="hidden" name="count" value={{ c.count }}>#}
+{#                            {% endfor %}#}
+{#                            <div class="order-button-payment col-md-12">#}
+{#                                <input type="submit" value= "{{ _('Place Order') }}" style="text-align: center">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </form>#}
+                <form action="{{ url_for('main.place_order', buyer_id=current_user.id, pp=product_pay) }}" method="post" name="checkoutForm" onsubmit="return placeValidate()">
+                    <!--Date and Time Selection JS-->
+                    <div class="checkbox-form">
+                        <h3>{{ _('Pick Up Info') }}</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label for="datetime">{{ _('Select Date') }}</label>
+                                    <input type="date" id="datetime" name="start_date" placeholder="Date">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label for="alarm">{{ _('Select Time') }}</label>
+                                    <input type="text" id="alarm" name="start_time" placeholder="Time">
+                                </div>
+                            </div>
+                            <div class="order-notes col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>{{ _('Order Notes') }}</label>
+                                    <textarea name="note" id="checkout-mess" cols="30" rows="10" placeholder="{{ _('Please mention what you care about.') }}"></textarea>
+                                </div>
+                            </div>
+                            {% for c in cart %}
+                                <input type="hidden" name="product" value={{ c.product_id }}>
+                            {% endfor %}
+                            {% for c in cart %}
+                                <input type="hidden" name="count" value={{ c.count }}>
+                            {% endfor %}
+                            <div class="order-button-payment col-md-12">
+                                <input type="submit" value= "{{ _('Place Order') }}" style="text-align: center">
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                    new dateDropper({
+                        selector: 'input[type="date"]'
+                    });
+                    </script>
+                    <script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+                    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+                    <script src="../static/js/timedropper.js"></script>
+                    <script>$( "#alarm" ).timeDropper();</script>
+                    <script type="text/javascript">
+
+                      var _gaq = _gaq || [];
+                      _gaq.push(['_setAccount', 'UA-36251023-1']);
+                      _gaq.push(['_setDomainName', 'jqueryscript.net']);
+                      _gaq.push(['_trackPageview']);
+
+                      (function() {
+                        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                      })();
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Checkout Area End-->
+
+<script>
+    placeValidate = function () {
+        if (!checkoutForm.delivery.value) {
+            alert('Please choose at least one delivery way');
+            return false;
+        }
+        return true;
+    }
+    get_id = function (id) {
+        {#document.getElementById("ship_cost").innerText = "$" + {{ weight_pay }};#}
+        document.getElementById("total_cost").innerText = "$" + {{ product_pay }};
+        let value = 'Address ' + id;
+        return $("#delivery_content").val(value);
+    }
+
+    free_ship = function () {
+        document.getElementById("ship_cost").innerText = "$0.0";
+        document.getElementById("total_cost").innerText = "$" + {{ product_pay }};
+        let value = 'PICK UP';
+        return $("#delivery_content").val(value);
+    }
+</script>
+{% endblock %}
+</body>
+</html>

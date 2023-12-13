@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</script>
+
+{% block content %}
+    <style>
+        /* CSS 样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f1369;
+            font-family: sans-serif;
+        }
+
+        .chatContainer {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: black;
+            box-shadow: 0px 0px 10px #0f1369;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            color: black;
+        }
+
+        .chat-box {
+            width: 100%;
+            height: 300px;
+            overflow-y: scroll;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #000000;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: black;
+        }
+
+        .chat-item {
+            margin-bottom: 10px;
+            padding: 5px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px #999;
+            color: black;
+        }
+    </style>
+    <script>
+        const inputField = document.getElementById('user_input');
+        inputField.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // 防止默认行为，例如表单提交
+                send_message();
+            }
+        });
+
+
+        // JavaScript 代码
+        function send_message() {
+            var input_elem = document.getElementById("user_input");
+            var message = input_elem.value;
+            var chat_box = document.getElementById("chat_box");
+            var chat_item = document.createElement("divBlack");
+            chat_item.className = "chat-item";
+            chat_item.innerHTML = "<strong>I：</strong>" + message;
+            chat_box.appendChild(chat_item);
+            input_elem.value = "";
+            chat_box.scrollTop = chat_box.scrollHeight;
+
+            $.post('/chat', {
+                'message': message
+            }).done(function (response) {
+                let data = response['text']
+                var chat_item = document.createElement("div");
+                chat_item.className = "chat-item";
+                chat_item.innerHTML = "<strong>Robot：</strong>" + data;
+                chat_box.appendChild(chat_item);
+                chat_box.scrollTop = chat_box.scrollHeight;
+            })
+
+            {##}
+            {#fetch("/chat", {#}
+            {#    method: "POST",#}
+            {#    body: JSON.stringify({message: message}),#}
+            {#    text: message#}
+            {#// })#}
+            {#    .then((response) => response.text())#}
+            {#    .then((data) => {#}
+            {#        var chat_item = document.createElement("div");#}
+            {#        chat_item.className = "chat-item";#}
+            {#        chat_item.innerHTML = "<strong>Robot：</strong>" + data;#}
+            {#        chat_box.appendChild(chat_item);#}
+            {#        chat_box.scrollTop = chat_box.scrollHeight;#}
+            {#    });#}
+        };
+    </script>
+
+    <body>
+
+    {##}
+    {#<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../static/images/bg_5.webp');"#}
+    {#         data-stellar-background-ratio="0.5">#}
+    {#    <div class="overlay"></div>#}
+    {#    <div class="container">#}
+    {#        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">#}
+    {#            <div class="col-md-9 ftco-animate pb-5">#}
+    {#                          	<p class="breadcrumbs"><span class="mr-2"><a href="{{ url_for('main.index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Services <i class="ion-ios-arrow-forward"></i></span></p>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#</section>#}
+
+
+    <body>
+
+    <div class="chatContainer">
+        <h1>Intelligent Chat Assistant</h1>
+        <div class="chat-box" id="chat_box"></div>
+        <form id="chat_form">
+            <input type="text" name="text" id="user_input" style="color: white">
+            <input
+                    type="button"
+                    value="Send Message"
+                    onclick="send_message()"
+                    style="background-color: #4caf50; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;"
+            />
+        </form>
+    </div>
+    </body>
+
+{% endblock %}
+</body>
+{##}
+{#{% include "foot_bar.html" %}#}
