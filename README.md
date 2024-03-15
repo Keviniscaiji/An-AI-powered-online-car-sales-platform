@@ -13,8 +13,6 @@ An online car booking website with python and flask
 ```
 # run server
 bash run.sh
-
--> avaliable on https://comp3030j.ucd.ie:5007
 ```
 
 ### 2.2 Database Tools
